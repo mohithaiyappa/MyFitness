@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
@@ -16,8 +17,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myfitness.R;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class MonthSchedule extends Fragment {
 
@@ -61,6 +66,15 @@ public class MonthSchedule extends Fragment {
         mCalendarAdapter = new CalendarAdapter(this.getActivity());
         calendarGridView.setAdapter(mCalendarAdapter);
         titleText.setText(mCalendarAdapter.getTitle());
+        calendarGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Date selectedDate = (Date) mCalendarAdapter.getItem(position);
+                if(mCalendarAdapter.getmDateManager().isCurrentMonth(selectedDate)) {
+                    Toast.makeText(getContext(), selectedDate.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
 

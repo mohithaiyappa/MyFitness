@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.myfitness.MonthFragment;
 import com.example.myfitness.MonthSchedule;
 import com.example.myfitness.R;
 import com.example.myfitness.VideoList;
@@ -36,7 +37,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new MonthSchedule();
+                //fragment = new MonthSchedule();
+                fragment = new MonthFragment();
                 break;
             case 1:
                 fragment = new WeekSchedule();

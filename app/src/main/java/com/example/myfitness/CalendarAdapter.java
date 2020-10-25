@@ -88,13 +88,13 @@ public class CalendarAdapter extends BaseAdapter {
         }
         holder.dateText.setTextColor(colorId);
 
-        holder.dateText.setOnClickListener(new View.OnClickListener() {
+        /*holder.dateText.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 
             }
-        });
+        });*/
 
         /*holder.dateText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @SuppressLint("NewApi") public void onItemClick(AdapterView<?> parent, View v,
@@ -111,7 +111,7 @@ public class CalendarAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return dateArray.get(position);
     }
 
     //表示月を取得 display the current month
@@ -132,5 +132,9 @@ public class CalendarAdapter extends BaseAdapter {
         mDateManager.prevMonth();
         dateArray = mDateManager.getDays();
         this.notifyDataSetChanged();
+    }
+
+    public DateManager getmDateManager() {
+        return mDateManager;
     }
 }
