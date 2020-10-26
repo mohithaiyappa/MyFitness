@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.lifecycle.Observer;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,10 +28,12 @@ public class CalendarAdapter extends BaseAdapter {
     private Context mContext;
     private DateManager mDateManager;
     private LayoutInflater mLayoutInflater;
+    private List<Event> monthEvents = new ArrayList<>();
 
     //カスタムセルを拡張したらここでWigetを定義
     private static class ViewHolder {
         public TextView dateText;
+        public TextView eventText;
     }
 
     public CalendarAdapter(Context context){
@@ -51,6 +55,7 @@ public class CalendarAdapter extends BaseAdapter {
             convertView = mLayoutInflater.inflate(R.layout.calendar_cell, null);
             holder = new ViewHolder();
             holder.dateText = convertView.findViewById(R.id.dateText);
+            holder.eventText = convertView.findViewById(R.id.eventsText);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder)convertView.getTag();
@@ -65,6 +70,7 @@ public class CalendarAdapter extends BaseAdapter {
         //日付のみ表示させる
         final SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.US);
         holder.dateText.setText(dateFormat.format(dateArray.get(position)));
+        holder.eventText.setText(getThisDaysEvents(dateArray.get(position)));
 
         //当月以外のセルをグレーアウト
         if (mDateManager.isCurrentMonth(dateArray.get(position))){
@@ -123,6 +129,8 @@ public class CalendarAdapter extends BaseAdapter {
     //翌月表示 display the next month
     public void nextMonth(){
         mDateManager.nextMonth();
+        //todo make api request for next month data
+        //EventRepo.getInstance().loadEvents();
         dateArray = mDateManager.getDays();
         this.notifyDataSetChanged();
     }
@@ -130,11 +138,37 @@ public class CalendarAdapter extends BaseAdapter {
     //前月表示 display the previous month
     public void prevMonth(){
         mDateManager.prevMonth();
+        //todo make api request for next month data
+        //EventRepo.getInstance().loadEvents();
         dateArray = mDateManager.getDays();
         this.notifyDataSetChanged();
     }
 
-    public DateManager getmDateManager() {
+    public DateManager getDateManager() {
         return mDateManager;
+    }
+
+    //todo: run this only if the month events list is not empty
+    private String getThisDaysEvents(Date date) {
+        String eventText = "";
+        if (monthEvents.isEmpty()) return eventText;
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        String dateString = dateFormat.format(date);
+        for ( Event event : monthEvents){
+            if (event.getEventDate().equals(dateString)){
+                eventText = eventText +event.getStartTime()+" "+event.getVideoTitle()+"\n";
+            }
+        }
+        return eventText;
+    }
+
+    public void updateList(List<Event> events){
+        //todo uncomment this when loading different months data
+        //if(monthEvents.isEmpty()&&events.isEmpty()) return;
+
+        monthEvents = events;
+        dateArray = mDateManager.getDays();
+        notifyDataSetChanged();
     }
 }
