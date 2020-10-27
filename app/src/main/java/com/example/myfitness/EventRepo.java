@@ -36,22 +36,25 @@ public class EventRepo {
         return eventRepoInstance;
     }
 
-    //todo remove this later
+    /*//todo remove this later
     public static void loadEvents(Callback callback){
         RetrofitEvent.getEventApi().getEvents().enqueue(callback);
-    }
+    }*/
 
     //use this to get events
-    public void loadEvents(){
-        RetrofitEvent.getEventApi().getEvents().enqueue(new Callback<List<Event>>(){
+    public void loadEvents(String year,String month){
+        RetrofitEvent.getEventApi().getEvents(year,month,"a").enqueue(new Callback<List<Event>>(){
 
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
-                if (!response.isSuccessful()){
+                if ((!response.isSuccessful())||response.body()==null){
                     eventsLiveData.setValue(Collections.emptyList());
                     return;
                 }
                 eventsLiveData.setValue(response.body());
+                for (Event event: response.body()) {
+                    Log.d("MyFitness229", "onResponse: "+event.toString());
+                }
             }
 
             @Override
@@ -72,6 +75,16 @@ public class EventRepo {
         }
         dayEventsLiveData.setValue(dayEventList);
         selectedDate.setValue(date);
+    }
+
+    public String currentYear(){
+        Calendar cal = Calendar.getInstance();
+        return Integer.toString(cal.get(Calendar.YEAR));
+    }
+
+    public String currentMonth(){
+        Calendar cal = Calendar.getInstance();
+        return Integer.toString(cal.get(Calendar.MONTH)+1);
     }
 
     public LiveData<Date> getSelectedDate(){

@@ -16,7 +16,8 @@ public class MonthFragment extends Fragment {
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        EventRepo.getInstance().loadEvents();
+        EventRepo.getInstance().loadEvents(EventRepo.getInstance().currentYear(),
+                EventRepo.getInstance().currentMonth());
         return inflater.inflate(R.layout.tab_month, container, false);
     }
 

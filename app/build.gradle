@@ -46,4 +46,7 @@ dependencies {
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata:2.2.0"
 
+    //week-view
+    implementation 'com.github.alamkanak:android-week-view:1.2.6'
+
 }

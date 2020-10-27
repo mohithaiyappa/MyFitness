@@ -73,4 +73,11 @@ public class DateManager {
     public void prevMonth(){
         mCalendar.add(Calendar.MONTH, -1);
     }
+
+    public String getYear(){
+        return Integer.toString(mCalendar.get(Calendar.YEAR));
+    }
+    public String getMonth(){
+        return Integer.toString(mCalendar.get(Calendar.MONTH)+1);
+    }
 }

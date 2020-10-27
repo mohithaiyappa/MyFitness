@@ -130,7 +130,7 @@ public class CalendarAdapter extends BaseAdapter {
     public void nextMonth(){
         mDateManager.nextMonth();
         //todo make api request for next month data
-        //EventRepo.getInstance().loadEvents();
+        EventRepo.getInstance().loadEvents(mDateManager.getYear(),mDateManager.getMonth());
         dateArray = mDateManager.getDays();
         this.notifyDataSetChanged();
     }
@@ -139,7 +139,7 @@ public class CalendarAdapter extends BaseAdapter {
     public void prevMonth(){
         mDateManager.prevMonth();
         //todo make api request for next month data
-        //EventRepo.getInstance().loadEvents();
+        EventRepo.getInstance().loadEvents(mDateManager.getYear(),mDateManager.getMonth());
         dateArray = mDateManager.getDays();
         this.notifyDataSetChanged();
     }
@@ -157,7 +157,12 @@ public class CalendarAdapter extends BaseAdapter {
         String dateString = dateFormat.format(date);
         for ( Event event : monthEvents){
             if (event.getEventDate().equals(dateString)){
-                eventText = eventText +event.getStartTime()+" "+event.getVideoTitle()+"\n";
+                int lastIndex= event.getStartTime().lastIndexOf(":");
+                eventText = eventText
+                        + event.getStartTime().substring(0, lastIndex)
+                        + " "
+                        + event.getVideoTitle().substring(0, 4)
+                        + "...\n";
             }
         }
         return eventText;
