@@ -1,5 +1,6 @@
 package com.example.myfitness;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,8 @@ import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
@@ -26,6 +29,7 @@ public class DayFragment extends Fragment {
     private DayEventListAdapter dayEventListAdapter;
     private ListView listView;
     private TextView dayFragmentHeadingText;
+    private FloatingActionButton fabButton;
 
 
     public DayFragment() {
@@ -47,6 +51,7 @@ public class DayFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         listView = view.findViewById(R.id.dayEventsListView);
         dayFragmentHeadingText = view.findViewById(R.id.dayFragmentHeading);
+        fabButton = view.findViewById(R.id.fab);
         dayEventListAdapter = new DayEventListAdapter(this.getActivity());
         listView.setAdapter(dayEventListAdapter);
         EventRepo.getInstance().getDayEventsLiveData().observe(this, new Observer<List<Event>>() {
@@ -59,6 +64,13 @@ public class DayFragment extends Fragment {
             @Override
             public void onChanged(Date date) {
                 loadDayFragmentHeadingText(date);
+            }
+        });
+        fabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),CreateEventActivity.class);
+                startActivity(intent);
             }
         });
     }

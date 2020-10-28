@@ -38,11 +38,11 @@
         android:background="@color/whiteColor">
 
         <TextView
-            android:id="@+id/titleText"
+            android:id="@+id/titleTextWeek"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="2018.2"
+            android:text="2020.10"
             android:textSize="20sp" />
 
         <Button
@@ -258,7 +258,7 @@
             android:background="@color/whiteColor"
             app:columnGap="8dp"
             app:dayBackgroundColor="#05000000"
-            app:eventTextColor="@android:color/white"
+            app:eventTextColor="@android:color/black"
             app:firstDayOfWeek="monday"
             app:headerColumnBackground="#ffffffff"
             app:headerColumnPadding="8dp"
@@ -274,7 +274,11 @@
             app:textSize="12sp"
             app:todayBackgroundColor="#10000000"
             app:showNowLine="true"
-            app:nowLineColor="@color/colorAccent"/>
+            app:nowLineColor="@color/colorAccent"
+            app:eventCornerRadius="4dp"
+            app:overlappingEventGap="4dp"
+            app:eventPadding="4dp"
+            app:eventTextSize="13sp"/>
     </LinearLayout>
 
 </LinearLayout>

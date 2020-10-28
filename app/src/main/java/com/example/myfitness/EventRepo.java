@@ -5,6 +5,8 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.alamkanak.weekview.WeekViewEvent;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,9 +25,16 @@ public class EventRepo {
     private static final MutableLiveData<List<Event>> eventsLiveData = new MutableLiveData<>();
     private static final MutableLiveData<List<Event>> dayEventsLiveData = new MutableLiveData<>();
     private static MutableLiveData<Date> selectedDate = new MutableLiveData<>();
+    public MutableLiveData<List<Event>> allEventsLiveData = new MutableLiveData<>();
+    public List<Event> allEvents = new ArrayList<>();
+    public List<WeekViewEvent> allWeekViewEvents = new ArrayList<>();
+    public MutableLiveData<List<WeekViewEvent>> allWeekViewEventsLiveData = new MutableLiveData<>();
 
     //private constructor
-    private EventRepo(){ }
+    private EventRepo(){
+        allEventsLiveData.setValue(allEvents);
+        allWeekViewEventsLiveData.setValue(allWeekViewEvents);
+    }
 
     //Singleton pattern
     public static EventRepo getInstance(){
@@ -42,7 +51,7 @@ public class EventRepo {
     }*/
 
     //use this to get events
-    public void loadEvents(String year,String month){
+    public void loadEvents(int year,int month){
         RetrofitEvent.getEventApi().getEvents(year,month,"a").enqueue(new Callback<List<Event>>(){
 
             @Override
@@ -63,6 +72,32 @@ public class EventRepo {
             }
         });
     }
+    public void loadWeekViewEvents(int year,int month){
+        RetrofitEvent.getEventApi().getEvents(year,month,"a").enqueue(new Callback<List<Event>>(){
+
+            @Override
+            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+                if ((!response.isSuccessful())||response.body()==null){
+                    //todo handle unsuccessful or null case
+                    return;
+                }
+                //todo add data
+                for(Event event : response.body()){
+                    if(!allEvents.contains(event)){
+                        allEvents.add(event);
+                    }
+                }
+                Log.d("MyFitness229", "all Event size: "+allEvents.size());
+                Log.d("MyFitness229", "Response body size: "+response.body().size());
+                allEventsLiveData.setValue(allEvents);
+            }
+
+            @Override
+            public void onFailure(Call<List<Event>> call, Throwable t) {
+                //todo handle failure
+            }
+        });
+    }
 
     public void loadDayEvents(Date date){
         List<Event> dayEventList  = new ArrayList<>();
@@ -77,14 +112,59 @@ public class EventRepo {
         selectedDate.setValue(date);
     }
 
-    public String currentYear(){
+    public int currentYear(){
         Calendar cal = Calendar.getInstance();
-        return Integer.toString(cal.get(Calendar.YEAR));
+        return cal.get(Calendar.YEAR);
     }
 
-    public String currentMonth(){
+    public int currentMonth(){
         Calendar cal = Calendar.getInstance();
-        return Integer.toString(cal.get(Calendar.MONTH)+1);
+        return cal.get(Calendar.MONTH)+1;
+    }
+
+    public List<WeekViewEvent> getAllWeekViewEvents() {
+        return allWeekViewEvents;
+    }
+
+    public void updateWeekViewEvents(/*WeekSchedule.Notifier notifier*/){
+        if (allWeekViewEvents.size()!=allEvents.size()) {
+            List<WeekViewEvent> list = WeekEventConverter.getInstance().convert(allEvents);
+            //notifier.onUpdateFinished();
+            for (WeekViewEvent event : list) {
+                if (!allWeekViewEvents.contains(event)) {
+                    allWeekViewEvents.add(event);
+                }
+            }
+            allWeekViewEventsLiveData.setValue(allWeekViewEvents);
+        }
+    }
+
+    public List<WeekViewEvent> getMatchedEvents(int year,int month){
+        Log.d("MyFitness2298", "getAllWeekViewEvents: "+allWeekViewEvents.size());
+        List<WeekViewEvent> matchedEvents = new ArrayList<>();
+        for (WeekViewEvent event : allWeekViewEvents) {
+            if (eventMatches(event, year, month)) {
+                matchedEvents.add(event);
+            }
+        }
+        for (WeekViewEvent e: matchedEvents) {
+            Log.d("MyFitness2298", "getMatchedEvents: "+e.getId());
+        }
+        Log.d("MyFitness2298", "getMatchedEvents size: "+matchedEvents.size());
+        return matchedEvents;
+    }
+
+    private boolean eventMatches(WeekViewEvent event, int year, int month) {
+        return (event.getStartTime().get(Calendar.YEAR) == year && event.getStartTime().get(Calendar.MONTH) == month - 1)
+                || (event.getEndTime().get(Calendar.YEAR) == year && event.getEndTime().get(Calendar.MONTH) == month - 1);
+    }
+
+    public void printEvents(){
+        for(WeekViewEvent event : allWeekViewEvents){
+            Log.d("MyFitness22987", "all week view events \n\t"
+                    +event.getName()+" \n\t"
+                    +event.getId()+" \n\t");
+        }
     }
 
     public LiveData<Date> getSelectedDate(){

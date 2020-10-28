@@ -1,5 +1,7 @@
 package com.example.myfitness;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Event {
@@ -14,6 +16,8 @@ public class Event {
     private String startTime;
     @SerializedName("date")
     private String eventDate;
+    @SerializedName("e_id")
+    private int e_id;
 
     //Getters
     public String getVideoTitle() {
@@ -36,6 +40,10 @@ public class Event {
         return eventDate;
     }
 
+    public int getE_id() {
+        return e_id;
+    }
+
     //Setters
     public void setVideoTitle(String videoTitle) {
         this.videoTitle = videoTitle;
@@ -55,5 +63,19 @@ public class Event {
 
     public void setEventDate(String eventDate) {
         this.eventDate = eventDate;
+    }
+
+    public void setE_id(int e_id) {
+        this.e_id = e_id;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if(obj == null) return false;
+        if(obj instanceof Event){
+            Event e =(Event) obj;
+            return e.e_id==this.e_id;
+        }
+        return super.equals(obj);
     }
 }

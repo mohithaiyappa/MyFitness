@@ -1,77 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5DEB3"
-    tools:context=".DayFragment"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
     <LinearLayout
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/dayFragmentHeading"
+        android:layout_height="match_parent"
+        android:background="#F5DEB3"
+        android:orientation="vertical"
+        tools:context=".DayFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/dayFragmentHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/whiteColor"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/blackColor" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/whiteColor"
-            android:text=""
-            android:textAlignment="center"
-            android:textColor="@color/blackColor"/>
+            android:layout_marginVertical="1dp"
+            android:background="@color/grayColor"
+            android:orientation="horizontal"
+            android:padding="1dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="1dp"
+                android:layout_weight="1"
+                android:background="@color/whiteColor"
+                android:text="開始時刻"
+                android:textAlignment="center"
+                android:textColor="@color/blackColor" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="1dp"
+                android:layout_weight="2"
+                android:background="@color/whiteColor"
+                android:text="タイトル"
+                android:textAlignment="center"
+                android:textColor="@color/blackColor" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:background="@color/whiteColor"
+                android:text="ＩＲ名"
+                android:textAlignment="center"
+                android:textColor="@color/blackColor" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:background="@color/whiteColor"
+                android:text="⻑さ"
+                android:textAlignment="center"
+                android:textColor="@color/blackColor" />
+
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/dayEventsListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginVertical="1dp"
-        android:padding="1dp"
-        android:background="@color/grayColor">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="1dp"
-            android:textAlignment="center"
-            android:text="開始時刻"
-            android:background="@color/whiteColor"
-            android:textColor="@color/blackColor"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="1dp"
-            android:layout_weight="2"
-            android:background="@color/whiteColor"
-            android:text="タイトル"
-            android:textColor="@color/blackColor"
-            android:textAlignment="center"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginRight="1dp"
-            android:textAlignment="center"
-            android:text="ＩＲ名"
-            android:textColor="@color/blackColor"
-            android:background="@color/whiteColor"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginRight="1dp"
-            android:textAlignment="center"
-            android:text="⻑さ"
-            android:textColor="@color/blackColor"
-            android:background="@color/whiteColor"/>
-
-
-
-    </LinearLayout>
-    <ListView
-        android:id="@+id/dayEventsListView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-</LinearLayout>
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

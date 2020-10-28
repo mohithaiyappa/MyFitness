@@ -74,10 +74,10 @@ public class DateManager {
         mCalendar.add(Calendar.MONTH, -1);
     }
 
-    public String getYear(){
-        return Integer.toString(mCalendar.get(Calendar.YEAR));
+    public int getYear(){
+        return mCalendar.get(Calendar.YEAR);
     }
-    public String getMonth(){
-        return Integer.toString(mCalendar.get(Calendar.MONTH)+1);
+    public int getMonth(){
+        return mCalendar.get(Calendar.MONTH)+1;
     }
 }
