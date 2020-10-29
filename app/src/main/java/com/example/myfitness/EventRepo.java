@@ -46,11 +46,6 @@ public class EventRepo {
         return eventRepoInstance;
     }
 
-    /*//todo remove this later
-    public static void loadEvents(Callback callback){
-        RetrofitEvent.getEventApi().getEvents().enqueue(callback);
-    }*/
-
     //use this to get events
     public void loadEvents(int year, int month) {
         RetrofitEvent.getEventApi().getEvents(year, month, "a").enqueue(new Callback<List<Event>>() {
@@ -87,15 +82,7 @@ public class EventRepo {
                     //todo handle unsuccessful or null case
                     return;
                 }
-                //todo add data
-                /*for(Event event : response.body()){
-                    if(!allEvents.contains(event)){
-                        allEvents.add(event);
-                    }
-                }
-                Log.d("MyFitness229", "all Event size: "+allEvents.size());
-                Log.d("MyFitness229", "Response body size: "+response.body().size());
-                allEventsLiveData.setValue(allEvents);*/
+
                 new Thread() {
                     @Override
                     public void run() {
@@ -175,14 +162,6 @@ public class EventRepo {
     private boolean eventMatches(WeekViewEvent event, int year, int month) {
         return (event.getStartTime().get(Calendar.YEAR) == year && event.getStartTime().get(Calendar.MONTH) == month - 1)
                 || (event.getEndTime().get(Calendar.YEAR) == year && event.getEndTime().get(Calendar.MONTH) == month - 1);
-    }
-
-    public void printEvents() {
-        for (WeekViewEvent event : allWeekViewEvents) {
-            Log.d("MyFitness22987", "all week view events \n\t"
-                    + event.getName() + " \n\t"
-                    + event.getId() + " \n\t");
-        }
     }
 
     private Comparator<Event> getComparator() {
