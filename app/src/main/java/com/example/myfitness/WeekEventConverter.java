@@ -53,9 +53,9 @@ public class WeekEventConverter {
         Date date2 = timeFormat.parse(videoTime);
 
         long sum;
-        if (date2.getTime() < TIME_30_MINUTE)
+        /*if (date2.getTime() < TIME_30_MINUTE)
             sum =date1.getTime() + TIME_30_MINUTE;
-        else  sum = date1.getTime() + date2.getTime();
+        else*/  sum = date1.getTime() + date2.getTime();
 
         String date3 = timeFormat.format(new Date(sum));
         return date3;

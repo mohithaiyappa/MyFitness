@@ -266,7 +266,7 @@
             app:headerRowBackgroundColor="#ffefefef"
             app:headerRowPadding="12dp"
             app:horizontalFlingEnabled="true"
-            app:hourHeight="60dp"
+            app:hourHeight="240dp"
             app:hourSeparatorColor="@color/blackColor"
             app:hourSeparatorHeight="1dp"
             app:noOfVisibleDays="7"
@@ -275,9 +275,6 @@
             app:todayBackgroundColor="#10000000"
             app:showNowLine="true"
             app:nowLineColor="@color/colorAccent"
-            app:eventCornerRadius="4dp"
-            app:overlappingEventGap="4dp"
-            app:eventPadding="4dp"
             app:eventTextSize="13sp"/>
     </LinearLayout>
 
