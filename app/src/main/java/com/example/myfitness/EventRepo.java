@@ -26,6 +26,7 @@ public class EventRepo {
     private static final MutableLiveData<List<Event>> eventsLiveData = new MutableLiveData<>();
     private static final MutableLiveData<List<Event>> dayEventsLiveData = new MutableLiveData<>();
     private static MutableLiveData<Date> selectedDate = new MutableLiveData<>();
+    public static String userName;
     public MutableLiveData<List<Event>> allEventsLiveData = new MutableLiveData<>();
     public List<Event> allEvents = new ArrayList<>();
     public List<WeekViewEvent> allWeekViewEvents = new ArrayList<>();
@@ -48,7 +49,8 @@ public class EventRepo {
 
     //use this to get events
     public void loadEvents(int year, int month) {
-        RetrofitEvent.getEventApi().getEvents(year, month, "a").enqueue(new Callback<List<Event>>() {
+        //if(userName == null|| userName.trim().isEmpty()) userName = "a";
+        RetrofitEvent.getEventApi().getEvents(year, month, userName).enqueue(new Callback<List<Event>>() {
 
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
@@ -74,7 +76,8 @@ public class EventRepo {
     }
 
     public void loadWeekViewEvents(int year, int month) {
-        RetrofitEvent.getEventApi().getEvents(year, month, "a").enqueue(new Callback<List<Event>>() {
+        //if(userName == null|| userName.trim().isEmpty()) userName = "a";
+        RetrofitEvent.getEventApi().getEvents(year, month, userName).enqueue(new Callback<List<Event>>() {
 
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {

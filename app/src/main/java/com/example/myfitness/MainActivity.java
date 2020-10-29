@@ -183,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this,TabActivity.class);
                 intent.putExtra("user_id",etEmail.getText().toString());
+                EventRepo.userName = etEmail.getText().toString().trim();
                 startActivity(intent);
                 MainActivity.this.finish();
 
