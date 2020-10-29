@@ -275,7 +275,8 @@
             app:todayBackgroundColor="#10000000"
             app:showNowLine="true"
             app:nowLineColor="@color/colorAccent"
-            app:eventTextSize="13sp"/>
+            app:eventTextSize="13sp"
+            app:eventPadding="10dp"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -36,10 +36,11 @@ public class WeekEventConverter {
     }
 
     public WeekViewEvent getWeekEventConverter(Event event) throws ParseException{
+        String endTimeStr = getEndTime(event.getStartTime(),event.getVideoTime());
         return new WeekViewEvent(event.getE_id(),
-                    event.getVideoTitle(),
+                    getFormattedEventString(event,endTimeStr),
                     getCalendar(event.getEventDate(), event.getStartTime()),
-                    getCalendar(event.getEventDate(),getEndTime(event.getStartTime(),event.getVideoTime())));
+                    getCalendar(event.getEventDate(),endTimeStr));
     }
 
     private String getEndTime(String startTime, String videoTime) throws ParseException {
@@ -62,5 +63,15 @@ public class WeekEventConverter {
         Calendar cal = Calendar.getInstance();
         if(date!=null) cal.setTime(date);
         return cal;
+    }
+
+    public String getFormattedEventString(Event event,String endTimeString){
+        return event.getVideoTitle()
+                +"\n"
+                +event.getStartTime()
+                +" ~ "
+                +endTimeString
+                +"\n"
+                +event.getIrName();
     }
 }
