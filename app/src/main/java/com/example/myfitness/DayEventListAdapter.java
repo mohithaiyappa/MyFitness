@@ -1,12 +1,15 @@
 package com.example.myfitness;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -67,6 +70,8 @@ public class DayEventListAdapter extends BaseAdapter {
             holder.lvTitle = convertView.findViewById(R.id.lv_title);
             holder.lvIrName = convertView.findViewById(R.id.lv_irName);
             holder.lvVideoLength = convertView.findViewById(R.id.lv_videoLength);
+            holder.lvEditButton = convertView.findViewById(R.id.lvEditButton);
+            holder.lvDeleteButton = convertView.findViewById(R.id.lvDeleteButton);
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder)convertView.getTag();
@@ -76,6 +81,22 @@ public class DayEventListAdapter extends BaseAdapter {
         holder.lvTitle.setText(holder.event.getVideoTitle());
         holder.lvIrName.setText(holder.event.getIrName());
         holder.lvVideoLength.setText(holder.event.getVideoTime());
+        holder.lvEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Event event = (Event) getItem(position);
+                Intent intent = new Intent(context,CreateEventActivity.class);
+                // todo add data to send to create or edit activity
+                context.startActivity(intent);
+            }
+        });
+        holder.lvDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"Delete Clicked", Toast.LENGTH_SHORT).show();
+                // todo make network Request to delete the event
+            }
+        });
         return convertView;
     }
 
@@ -90,6 +111,7 @@ public class DayEventListAdapter extends BaseAdapter {
         public TextView lvTitle;
         public TextView lvIrName;
         public TextView lvVideoLength;
+        public ImageButton lvEditButton,lvDeleteButton;
         public Event event;
     }
 }

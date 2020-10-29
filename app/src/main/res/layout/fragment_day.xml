@@ -75,7 +75,19 @@
                 android:text="⻑さ"
                 android:textAlignment="center"
                 android:textColor="@color/blackColor" />
-
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="1dp"
+                android:layout_weight="0.5"
+                android:background="@color/whiteColor"
+                android:visibility="visible"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="1dp"
+                android:layout_weight="0.5"
+                android:background="@color/whiteColor"/>
 
         </LinearLayout>
 
