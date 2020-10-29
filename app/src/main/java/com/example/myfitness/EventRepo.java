@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -31,14 +32,14 @@ public class EventRepo {
     public MutableLiveData<List<WeekViewEvent>> allWeekViewEventsLiveData = new MutableLiveData<>();
 
     //private constructor
-    private EventRepo(){
+    private EventRepo() {
         allEventsLiveData.setValue(allEvents);
         allWeekViewEventsLiveData.setValue(allWeekViewEvents);
     }
 
     //Singleton pattern
-    public static EventRepo getInstance(){
-        if(eventRepoInstance == null) {
+    public static EventRepo getInstance() {
+        if (eventRepoInstance == null) {
             eventRepoInstance = new EventRepo();
             selectedDate.setValue(Calendar.getInstance(Locale.US).getTime());
         }
@@ -51,19 +52,23 @@ public class EventRepo {
     }*/
 
     //use this to get events
-    public void loadEvents(int year,int month){
-        RetrofitEvent.getEventApi().getEvents(year,month,"a").enqueue(new Callback<List<Event>>(){
+    public void loadEvents(int year, int month) {
+        RetrofitEvent.getEventApi().getEvents(year, month, "a").enqueue(new Callback<List<Event>>() {
 
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
-                if ((!response.isSuccessful())||response.body()==null){
+                if ((!response.isSuccessful()) || response.body() == null) {
                     eventsLiveData.setValue(Collections.emptyList());
                     return;
                 }
-                eventsLiveData.setValue(response.body());
-                for (Event event: response.body()) {
-                    Log.d("MyFitness229", "onResponse: "+event.toString());
-                }
+                new Thread() {
+                    @Override
+                    public void run() {
+                        Collections.sort(response.body(), getComparator());
+                        eventsLiveData.postValue(response.body());
+                        Log.d("MyFitness229789", "posting value: ");
+                    }
+                }.start();
             }
 
             @Override
@@ -72,24 +77,37 @@ public class EventRepo {
             }
         });
     }
-    public void loadWeekViewEvents(int year,int month){
-        RetrofitEvent.getEventApi().getEvents(year,month,"a").enqueue(new Callback<List<Event>>(){
+
+    public void loadWeekViewEvents(int year, int month) {
+        RetrofitEvent.getEventApi().getEvents(year, month, "a").enqueue(new Callback<List<Event>>() {
 
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
-                if ((!response.isSuccessful())||response.body()==null){
+                if ((!response.isSuccessful()) || response.body() == null) {
                     //todo handle unsuccessful or null case
                     return;
                 }
                 //todo add data
-                for(Event event : response.body()){
+                /*for(Event event : response.body()){
                     if(!allEvents.contains(event)){
                         allEvents.add(event);
                     }
                 }
                 Log.d("MyFitness229", "all Event size: "+allEvents.size());
                 Log.d("MyFitness229", "Response body size: "+response.body().size());
-                allEventsLiveData.setValue(allEvents);
+                allEventsLiveData.setValue(allEvents);*/
+                new Thread() {
+                    @Override
+                    public void run() {
+                        for (Event event : response.body()) {
+                            if (!allEvents.contains(event)) {
+                                allEvents.add(event);
+                            }
+                        }
+                        allEventsLiveData.postValue(allEvents);
+                        Log.d("MyFitness229789", "posting value: ");
+                    }
+                }.start();
             }
 
             @Override
@@ -99,12 +117,12 @@ public class EventRepo {
         });
     }
 
-    public void loadDayEvents(Date date){
-        List<Event> dayEventList  = new ArrayList<>();
+    public void loadDayEvents(Date date) {
+        List<Event> dayEventList = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         String dateString = dateFormat.format(date);
-        for ( Event event : getEventsList()){
-            if (event.getEventDate().equals(dateString)){
+        for (Event event : getEventsList()) {
+            if (event.getEventDate().equals(dateString)) {
                 dayEventList.add(event);
             }
         }
@@ -112,22 +130,22 @@ public class EventRepo {
         selectedDate.setValue(date);
     }
 
-    public int currentYear(){
+    public int currentYear() {
         Calendar cal = Calendar.getInstance();
         return cal.get(Calendar.YEAR);
     }
 
-    public int currentMonth(){
+    public int currentMonth() {
         Calendar cal = Calendar.getInstance();
-        return cal.get(Calendar.MONTH)+1;
+        return cal.get(Calendar.MONTH) + 1;
     }
 
     public List<WeekViewEvent> getAllWeekViewEvents() {
         return allWeekViewEvents;
     }
 
-    public void updateWeekViewEvents(/*WeekSchedule.Notifier notifier*/){
-        if (allWeekViewEvents.size()!=allEvents.size()) {
+    public void updateWeekViewEvents(/*WeekSchedule.Notifier notifier*/) {
+        if (allWeekViewEvents.size() != allEvents.size()) {
             List<WeekViewEvent> list = WeekEventConverter.getInstance().convert(allEvents);
             //notifier.onUpdateFinished();
             for (WeekViewEvent event : list) {
@@ -139,18 +157,18 @@ public class EventRepo {
         }
     }
 
-    public List<WeekViewEvent> getMatchedEvents(int year,int month){
-        Log.d("MyFitness2298", "getAllWeekViewEvents: "+allWeekViewEvents.size());
+    public List<WeekViewEvent> getMatchedEvents(int year, int month) {
+        Log.d("MyFitness2298", "getAllWeekViewEvents: " + allWeekViewEvents.size());
         List<WeekViewEvent> matchedEvents = new ArrayList<>();
         for (WeekViewEvent event : allWeekViewEvents) {
             if (eventMatches(event, year, month)) {
                 matchedEvents.add(event);
             }
         }
-        for (WeekViewEvent e: matchedEvents) {
-            Log.d("MyFitness2298", "getMatchedEvents: "+e.getId());
+        for (WeekViewEvent e : matchedEvents) {
+            Log.d("MyFitness2298", "getMatchedEvents: " + e.getId());
         }
-        Log.d("MyFitness2298", "getMatchedEvents size: "+matchedEvents.size());
+        Log.d("MyFitness2298", "getMatchedEvents size: " + matchedEvents.size());
         return matchedEvents;
     }
 
@@ -159,15 +177,24 @@ public class EventRepo {
                 || (event.getEndTime().get(Calendar.YEAR) == year && event.getEndTime().get(Calendar.MONTH) == month - 1);
     }
 
-    public void printEvents(){
-        for(WeekViewEvent event : allWeekViewEvents){
+    public void printEvents() {
+        for (WeekViewEvent event : allWeekViewEvents) {
             Log.d("MyFitness22987", "all week view events \n\t"
-                    +event.getName()+" \n\t"
-                    +event.getId()+" \n\t");
+                    + event.getName() + " \n\t"
+                    + event.getId() + " \n\t");
         }
     }
 
-    public LiveData<Date> getSelectedDate(){
+    private Comparator<Event> getComparator() {
+        return new Comparator<Event>() {
+            @Override
+            public int compare(Event e1, Event e2) {
+                return e1.getStartTime().compareTo(e2.getStartTime());
+            }
+        };
+    }
+
+    public LiveData<Date> getSelectedDate() {
         return selectedDate;
     }
 

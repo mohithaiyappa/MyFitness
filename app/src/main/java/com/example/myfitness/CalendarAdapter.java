@@ -155,16 +155,21 @@ public class CalendarAdapter extends BaseAdapter {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         String dateString = dateFormat.format(date);
+        int counter = 0;
         for ( Event event : monthEvents){
             if (event.getEventDate().equals(dateString)){
-                int lastIndex= event.getStartTime().lastIndexOf(":");
-                eventText = eventText
-                        + event.getStartTime().substring(0, lastIndex)
-                        + " "
-                        + event.getVideoTitle().substring(0, 4)
-                        + "...\n";
+                counter++;
+                if (counter<3) {
+                    int lastIndex = event.getStartTime().lastIndexOf(":");
+                    eventText = eventText
+                            + event.getStartTime().substring(0, lastIndex)
+                            + " "
+                            + event.getVideoTitle().substring(0, 4)
+                            + "...\n";
+                }
             }
         }
+        if(counter>2) return eventText+(counter-2)+" more event";
         return eventText;
     }
 
