@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int READ_TIMEOUT=15000;
     private EditText etEmail;
     private EditText etPassword;
+    private TextView forgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
         // Get Reference to variables
         etEmail = (EditText) findViewById(R.id.email);
         etPassword = (EditText) findViewById(R.id.password);
+        forgotPassword = (TextView) findViewById(R.id.forgot_password);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"Forgot Password",Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 
