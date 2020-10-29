@@ -1,7 +1,5 @@
 package com.example.myfitness;
 
-import android.util.Log;
-
 import com.alamkanak.weekview.WeekViewEvent;
 
 import java.text.ParseException;
@@ -15,9 +13,8 @@ import java.util.TimeZone;
 public class WeekEventConverter {
 
     private static WeekEventConverter instance;
-    private static final long TIME_30_MINUTE = 1800000;
 
-    private void WeekEventConverter(){ }
+    private  WeekEventConverter(){ }
 
     public static WeekEventConverter getInstance(){
         if(instance == null) {
@@ -53,9 +50,7 @@ public class WeekEventConverter {
         Date date2 = timeFormat.parse(videoTime);
 
         long sum;
-        /*if (date2.getTime() < TIME_30_MINUTE)
-            sum =date1.getTime() + TIME_30_MINUTE;
-        else*/  sum = date1.getTime() + date2.getTime();
+        sum = date1.getTime() + date2.getTime();
 
         String date3 = timeFormat.format(new Date(sum));
         return date3;
@@ -63,7 +58,6 @@ public class WeekEventConverter {
 
     public Calendar getCalendar(String stringDate, String stringTime) throws ParseException {
         SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        //SimpleDateFormat timeFormat=new SimpleDateFormat("HH:mm:ss");
         Date date = dateFormat.parse(stringDate.trim()+" "+stringTime.trim());
         Calendar cal = Calendar.getInstance();
         if(date!=null) cal.setTime(date);
