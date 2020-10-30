@@ -171,11 +171,8 @@ public class WeekSchedule extends Fragment {
 
             @Override
             public String interpretTime(int hour) {
-                if(hour > 12){
-                    hour = hour-12;
-                    return (hour)+ " PM   ";
-                }
-                return (hour)+ " AM   ";
+
+                return (hour)+ "    ";
             }
         });
 

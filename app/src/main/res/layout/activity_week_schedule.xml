@@ -271,7 +271,7 @@
             app:hourSeparatorHeight="1dp"
             app:noOfVisibleDays="7"
             app:showDistinctWeekendColor="true"
-            app:textSize="12sp"
+            app:textSize="16sp"
             app:todayBackgroundColor="#10000000"
             app:showNowLine="true"
             app:nowLineColor="@color/colorAccent"
