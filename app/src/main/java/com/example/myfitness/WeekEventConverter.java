@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class WeekEventConverter {
 
@@ -17,14 +18,16 @@ public class WeekEventConverter {
     private  WeekEventConverter(){ }
 
     public static WeekEventConverter getInstance(){
-        if(instance == null) {
+        //todo testing concurrence issue so provide new instance always
+        /*if(instance == null) {
             instance = new WeekEventConverter();
         }
-        return instance;
+        return instance;*/
+        return new WeekEventConverter();
     }
 
     public List<WeekViewEvent> convert(List<Event> events){
-        List<WeekViewEvent> weekEvents = new ArrayList<>();
+        List<WeekViewEvent> weekEvents = new CopyOnWriteArrayList<>();
         for (Event event: events) {
             try {
                 weekEvents.add(getWeekEventConverter(event));
