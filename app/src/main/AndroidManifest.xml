@@ -16,7 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CreateEventActivity"></activity>
+        <activity android:name=".VideoViewActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".CreateEventActivity"
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".search_result"
             android:screenOrientation="landscape" />
