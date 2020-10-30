@@ -276,7 +276,9 @@
             app:showNowLine="true"
             app:nowLineColor="@color/colorAccent"
             app:eventTextSize="13sp"
-            app:eventPadding="10dp"/>
+            app:eventPadding="10dp"
+            app:minHourHeight="30dp"
+            app:maxHourHeight="960dp"/>
     </LinearLayout>
 
 </LinearLayout>
