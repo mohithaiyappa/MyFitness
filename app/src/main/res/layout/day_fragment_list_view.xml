@@ -58,7 +58,8 @@
         android:layout_marginRight="1dp"
         android:layout_weight="0.5"
         android:src="@drawable/ic_edit"
-        android:background="@color/whiteColor"/>
+        android:background="@color/whiteColor"
+        android:foreground="?attr/selectableItemBackgroundBorderless"/>
     <ImageButton
         android:id="@+id/lvDeleteButton"
         android:layout_width="0dp"
@@ -66,7 +67,8 @@
         android:layout_marginRight="1dp"
         android:layout_weight="0.5"
         android:src="@drawable/ic_delete"
-        android:background="@color/whiteColor"/>
+        android:background="@color/whiteColor"
+        android:foreground="?attr/selectableItemBackgroundBorderless"/>
 
 
 
