@@ -3,14 +3,12 @@ package com.example.myfitness;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.RectF;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +22,8 @@ import com.alamkanak.weekview.WeekViewEvent;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -52,10 +48,10 @@ public class WeekSchedule extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setCalendar();
-        mWeekView = (WeekView) view.findViewById(R.id.weekView);
-        prevButton = (Button) view.findViewById(R.id.prevButton);
-        nextButton = (Button) view.findViewById(R.id.nextButton);
-        titleText = (TextView) view.findViewById(R.id.titleTextWeek);
+        mWeekView   = view.findViewById(R.id.weekView);
+        prevButton  = view.findViewById(R.id.prevButton);
+        nextButton  = view.findViewById(R.id.nextButton);
+        titleText   = view.findViewById(R.id.titleTextWeek);
         mWeekView.setDefaultEventColor(Color.parseColor("#F5DEB3"));
         setListeners();
     }
@@ -103,7 +99,8 @@ public class WeekSchedule extends Fragment {
         mWeekView.setOnEventClickListener(new WeekView.EventClickListener() {
             @Override
             public void onEventClick(WeekViewEvent event, RectF eventRect) {
-
+                Intent createEventActivityIntent = new Intent(getContext(),CreateEventActivity.class);
+                startActivity(createEventActivityIntent);
             }
         });
 
@@ -157,7 +154,7 @@ public class WeekSchedule extends Fragment {
 
 
     public Calendar getCalendar(String stringDate,String stringTime) throws ParseException {
-        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.US);
         Date date = dateFormat.parse(stringDate.trim()+" "+stringTime.trim());
         Calendar cal = Calendar.getInstance();
         if(date!=null) cal.setTime(date);
@@ -165,9 +162,8 @@ public class WeekSchedule extends Fragment {
     }
 
     private String getDay(Date date) {
-        String dateString = "";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
-        dateString = dateFormat.format(date) + "\n";
+        String dateString = dateFormat.format(date) + "\n";
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         int str =cal.get(Calendar.DAY_OF_WEEK);
