@@ -95,6 +95,10 @@ public class DayEventListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Toast.makeText(context,"Delete Clicked", Toast.LENGTH_SHORT).show();
                 // todo make network Request to delete the event
+                Event  event = (Event) getItem(position);
+                EventRepo.getInstance().deleteEvent(event.getE_id(),event);
+                dayEvents.remove(position);
+                notifyDataSetChanged();
             }
         });
         return convertView;

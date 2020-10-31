@@ -120,6 +120,27 @@ public class EventRepo {
         selectedDate.setValue(date);
     }
 
+    public void deleteEvent(int e_id,Event event){
+        RetrofitEvent.getEventApi().deleteEvent(userName,e_id).enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) { }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                Log.d("MyFitness", "onFailure: could not delete item "+t);
+            }
+
+        });
+        try {
+            List<Event> newAllEvents = eventsLiveData.getValue();
+            newAllEvents.remove(event);
+            eventsLiveData.postValue(newAllEvents);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+    }
+
     public int currentYear() {
         Calendar cal = Calendar.getInstance();
         return cal.get(Calendar.YEAR);

@@ -21,6 +21,6 @@ public interface EventApi {
                                 @Query("day") String dayOfMonth);
 
     @DELETE("del.php")
-    void deleteEvent(@Query("user_id") String userId,
-                     @Query("e_id") String e_id);
+    Call<Object> deleteEvent(@Query("user_id") String userId,
+                     @Query("e_id") int e_id);
 }
