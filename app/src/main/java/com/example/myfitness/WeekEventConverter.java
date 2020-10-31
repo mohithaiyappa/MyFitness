@@ -31,7 +31,7 @@ public class WeekEventConverter {
         for (Event event: events) {
             try {
                 weekEvents.add(getWeekEventConverter(event));
-            } catch (ParseException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
