@@ -17,14 +17,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:hint="UserName">
+        android:hint="UserName"
+        app:hintAnimationEnabled="true"
+        app:hintTextColor="@color/grayColor">
 
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="25"
-            android:hint="Email"
             android:drawableStart="@drawable/ic_person"
             android:enabled="true"
             android:drawablePadding="7dp"
@@ -43,7 +44,9 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         app:passwordToggleEnabled="true"
-        android:hint="Password">
+        android:hint="Password"
+        app:hintAnimationEnabled="true"
+        app:hintTextColor="@color/grayColor">
 
         <EditText
             android:id="@+id/password"
@@ -52,7 +55,6 @@
             android:ems="25"
             android:drawableStart="@drawable/ic_lock"
             android:drawablePadding="7dp"
-            android:hint="Password"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
