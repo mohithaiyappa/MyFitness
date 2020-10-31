@@ -28,8 +28,7 @@
             android:drawableStart="@drawable/ic_person"
             android:enabled="true"
             android:drawablePadding="7dp"
-            android:inputType="textEmailAddress"
-            android:text="a" />
+            android:inputType="textEmailAddress"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -54,8 +53,7 @@
             android:drawableStart="@drawable/ic_lock"
             android:drawablePadding="7dp"
             android:hint="Password"
-            android:inputType="textPassword"
-            android:text="a" />
+            android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

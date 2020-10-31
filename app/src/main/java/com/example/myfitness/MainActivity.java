@@ -1,6 +1,7 @@
 package com.example.myfitness;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -180,6 +182,9 @@ public class MainActivity extends AppCompatActivity {
                 /* Here launching another activity when login successful. If you persist login state
                 use sharedPreferences of Android. and logout button to clear sharedPreferences.
                  */
+                Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
+                closeKeyboard();
+
 
                 Intent intent = new Intent(MainActivity.this,TabActivity.class);
                 intent.putExtra("user_id",etEmail.getText().toString());
@@ -199,5 +204,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    private void closeKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        }
     }
 }
