@@ -20,7 +20,6 @@ import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -64,7 +63,7 @@ public class WeekSchedule extends Fragment {
         setHeadingDate();
     }
 
-    public void setCalendar(){
+    private void setCalendar(){
         mCalendar.set(Calendar.HOUR_OF_DAY, 0); // ! clear would not reset the hour of day !
         mCalendar.clear(Calendar.MINUTE);
         mCalendar.clear(Calendar.SECOND);
@@ -74,7 +73,7 @@ public class WeekSchedule extends Fragment {
         mCalendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
     }
 
-    public void setListeners(){
+    private void setListeners(){
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,7 +168,7 @@ public class WeekSchedule extends Fragment {
         return dateString;
     }
 
-    public void setHeadingDate(){
+    private void setHeadingDate(){
         Date d = mCalendar.getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM", Locale.US);
         titleText.setText(dateFormat.format(d));
