@@ -35,12 +35,8 @@ public class WeekSchedule extends Fragment {
     private final String TAG ="MyFitness229";
     private WeekView mWeekView;
     private Button prevButton,nextButton;
-    private Date date = new Date();
-    private Calendar mCalendar = Calendar.getInstance();
+    private final Calendar mCalendar = Calendar.getInstance();
     private TextView titleText;
-
-    private MutableLiveData<List<WeekViewEvent>> weekEventsLiveData = new MutableLiveData<>();
-    private int counter =0;
 
 
     @Nullable
@@ -49,23 +45,17 @@ public class WeekSchedule extends Fragment {
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: ");
-        List<WeekViewEvent> events = new ArrayList<>();
-        weekEventsLiveData.setValue(events);
         return inflater.inflate(R.layout.activity_week_schedule,container,false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d(TAG, "onViewCreated: ");
         setCalendar();
         mWeekView = (WeekView) view.findViewById(R.id.weekView);
         prevButton = (Button) view.findViewById(R.id.prevButton);
         nextButton = (Button) view.findViewById(R.id.nextButton);
         titleText = (TextView) view.findViewById(R.id.titleTextWeek);
-        mWeekView.canScrollHorizontally(-1);
-        mWeekView.canScrollHorizontally(1);
         mWeekView.setDefaultEventColor(Color.parseColor("#F5DEB3"));
         setListeners();
     }
@@ -73,16 +63,9 @@ public class WeekSchedule extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: ");
         mWeekView.goToDate(mCalendar);
         mWeekView.goToHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
         setHeadingDate();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d(TAG, "onStart: ");
     }
 
     public void setCalendar(){
@@ -99,9 +82,7 @@ public class WeekSchedule extends Fragment {
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: ");
                 mCalendar.add(Calendar.WEEK_OF_YEAR, -1);
-                //titleText.setText(mCalendar.get(Calendar.WEEK_OF_YEAR));
                 mWeekView.goToDate(mCalendar);
                 mWeekView.setFirstDayOfWeek(Calendar.MONDAY);
                 setHeadingDate();
@@ -112,7 +93,6 @@ public class WeekSchedule extends Fragment {
             @Override
             public void onClick(View v) {
                 mCalendar.add(Calendar.WEEK_OF_YEAR, 1);
-               // titleText.setText(mCalendar.get(Calendar.WEEK_OF_YEAR));
                 mWeekView.goToDate(mCalendar);
                 mWeekView.setFirstDayOfWeek(Calendar.MONDAY);
                 setHeadingDate();
@@ -127,28 +107,11 @@ public class WeekSchedule extends Fragment {
             }
         });
 
-        // The week view has infinite scrolling horizontally. We have to provide the events of a
-        // month every time the month changes on the week view.
-        /*Runnable runnable = new Runnable(){
-
-            @Override
-            public void run() {
-                mWeekView.setMonthChangeListener(new MonthLoader.MonthChangeListener() {
-                    @Override
-                    public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-                        return getEvents(newYear,newMonth);
-                    }
-                });
-
-            }
-        };
-        new Thread(runnable);*/
         mWeekView.setMonthChangeListener(new MonthLoader.MonthChangeListener() {
             @Override
             public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
                 EventRepo.getInstance().loadWeekViewEvents(newYear, newMonth);
                 return EventRepo.getInstance().getMatchedEvents(newYear,newMonth);
-                //return getEvents(newYear,newMonth);
             }
         });
 
@@ -162,7 +125,6 @@ public class WeekSchedule extends Fragment {
 
         mWeekView.setXScrollingSpeed(0f);
 
-        //todo complete date time interceptor
         mWeekView.setDateTimeInterpreter(new DateTimeInterpreter() {
             @Override
             public String interpretDate(Calendar date) {
@@ -171,7 +133,6 @@ public class WeekSchedule extends Fragment {
 
             @Override
             public String interpretTime(int hour) {
-
                 return (hour)+ "    ";
             }
         });
@@ -182,15 +143,12 @@ public class WeekSchedule extends Fragment {
             @Override
             public void onChanged(List<Event> events) {
                 EventRepo.getInstance().updateWeekViewEvents();
-                Log.d("MyFitness2298", "getAllWeekViewEvents: "+EventRepo.getInstance().allWeekViewEvents.size());
-                Log.d("MyFitness2298", "observing all events live data. size of event list"+events.size());
             }
         });
 
         EventRepo.getInstance().allWeekViewEventsLiveData.observe(this, new Observer<List<WeekViewEvent>>() {
             @Override
             public void onChanged(List<WeekViewEvent> weekViewEvents) {
-                Log.d("MyFitness2298", "getAllWeekViewEvents: "+EventRepo.getInstance().allWeekViewEvents.size());
                 mWeekView.notifyDatasetChanged();
             }
         });
@@ -200,7 +158,6 @@ public class WeekSchedule extends Fragment {
 
     public Calendar getCalendar(String stringDate,String stringTime) throws ParseException {
         SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        //SimpleDateFormat timeFormat=new SimpleDateFormat("HH:mm:ss");
         Date date = dateFormat.parse(stringDate.trim()+" "+stringTime.trim());
         Calendar cal = Calendar.getInstance();
         if(date!=null) cal.setTime(date);
@@ -232,7 +189,4 @@ public class WeekSchedule extends Fragment {
         titleText.setText(dateFormat.format(d));
     }
 
-    interface Notifier{
-        public void onUpdateFinished();
-    }
 }
