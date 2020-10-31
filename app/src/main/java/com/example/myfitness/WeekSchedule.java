@@ -28,11 +28,11 @@ import java.util.List;
 import java.util.Locale;
 
 public class WeekSchedule extends Fragment {
-    private final String TAG ="MyFitness229";
-    private WeekView mWeekView;
-    private Button prevButton,nextButton;
-    private final Calendar mCalendar = Calendar.getInstance();
-    private TextView titleText;
+    private final String    TAG ="MyFitness229";
+    private final Calendar  mCalendar = Calendar.getInstance();
+    private WeekView    mWeekView;
+    private Button      prevButton, nextButton;
+    private TextView    titleText;
 
 
     @Nullable
@@ -149,16 +149,6 @@ public class WeekSchedule extends Fragment {
                 mWeekView.notifyDatasetChanged();
             }
         });
-    }
-
-
-
-    public Calendar getCalendar(String stringDate,String stringTime) throws ParseException {
-        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.US);
-        Date date = dateFormat.parse(stringDate.trim()+" "+stringTime.trim());
-        Calendar cal = Calendar.getInstance();
-        if(date!=null) cal.setTime(date);
-        return cal;
     }
 
     private String getDay(Date date) {
