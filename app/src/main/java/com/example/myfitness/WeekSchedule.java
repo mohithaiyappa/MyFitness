@@ -125,7 +125,7 @@ public class WeekSchedule extends Fragment {
         mWeekView.setDateTimeInterpreter(new DateTimeInterpreter() {
             @Override
             public String interpretDate(Calendar date) {
-                return getDay(date.getTime());
+                return getFormattedDayText(date.getTime());
             }
 
             @Override
@@ -151,7 +151,7 @@ public class WeekSchedule extends Fragment {
         });
     }
 
-    private String getDay(Date date) {
+    private String getFormattedDayText(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
         String dateString = dateFormat.format(date) + "\n";
         Calendar cal = Calendar.getInstance();
