@@ -28,12 +28,16 @@ public class WeekEventConverter {
 
     public List<WeekViewEvent> convert(List<Event> events){
         List<WeekViewEvent> weekEvents = new CopyOnWriteArrayList<>();
-        for (Event event: events) {
-            try {
-                weekEvents.add(getWeekEventConverter(event));
-            } catch (Exception e) {
-                e.printStackTrace();
+        try {
+            for (Event event : events) {
+                try {
+                    weekEvents.add(getWeekEventConverter(event));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return weekEvents;
     }
@@ -56,8 +60,7 @@ public class WeekEventConverter {
         long sum;
         sum = date1.getTime() + date2.getTime();
 
-        String date3 = timeFormat.format(new Date(sum));
-        return date3;
+        return timeFormat.format(new Date(sum));
     }
 
     public Calendar getCalendar(String stringDate, String stringTime) throws ParseException {

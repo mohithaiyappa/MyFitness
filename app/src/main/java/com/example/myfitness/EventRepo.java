@@ -134,16 +134,19 @@ public class EventRepo {
         return allWeekViewEvents;
     }
 
-    public void updateWeekViewEvents(/*WeekSchedule.Notifier notifier*/) {
+    public void updateWeekViewEvents() {
         if (allWeekViewEvents.size() != allEvents.size()) {
-            List<WeekViewEvent> list = WeekEventConverter.getInstance().convert(allEvents);
-            //notifier.onUpdateFinished();
-            for (WeekViewEvent event : list) {
-                if (!allWeekViewEvents.contains(event)) {
-                    allWeekViewEvents.add(event);
+            try {
+                List<WeekViewEvent> list = WeekEventConverter.getInstance().convert(allEvents);
+                for (WeekViewEvent event : list) {
+                    if (!allWeekViewEvents.contains(event)) {
+                        allWeekViewEvents.add(event);
+                    }
                 }
+                allWeekViewEventsLiveData.postValue(allWeekViewEvents);
+            }catch (Exception e){
+                e.printStackTrace();
             }
-            allWeekViewEventsLiveData.setValue(allWeekViewEvents);
         }
     }
 
