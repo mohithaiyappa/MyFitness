@@ -2,7 +2,6 @@ package com.example.myfitness;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,34 +10,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class DayEventListAdapter extends BaseAdapter {
     private Context context;
-    public final static String TAG = "MyFitness229";
-    //private static List<Event> eventList = new ArrayList<>();
-    /*public static SelectedDate currentDate = new SelectedDate() {
-        @Override
-        public void updateDate(Date date) {
-            List<Event> dayEventList  = new ArrayList<>();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-            String dateString = dateFormat.format(date);
-            for ( Event event : MonthSchedule.events){
-                if (event.getEventDate().equals(dateString)){
-                    dayEventList.add(event);
-                }
-            }
-            eventList = dayEventList;
-            updateList();
-
-        }
-    };*/
-
     private List<Event> dayEvents = new ArrayList<>();
 
     public DayEventListAdapter(Context ctx){
@@ -87,6 +63,7 @@ public class DayEventListAdapter extends BaseAdapter {
                 Event event = (Event) getItem(position);
                 Intent intent = new Intent(context,CreateEventActivity.class);
                 // todo add data to send to create or edit activity
+
                 context.startActivity(intent);
             }
         });
@@ -94,7 +71,6 @@ public class DayEventListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context,"Delete Clicked", Toast.LENGTH_SHORT).show();
-                // todo make network Request to delete the event
                 Event  event = (Event) getItem(position);
                 EventRepo.getInstance().deleteEvent(event.getE_id(),event);
                 dayEvents.remove(position);
@@ -105,7 +81,6 @@ public class DayEventListAdapter extends BaseAdapter {
     }
 
     public void updateList(List<Event> events){
-        //eventList = list;
         dayEvents = events;
         notifyDataSetChanged();
     }
