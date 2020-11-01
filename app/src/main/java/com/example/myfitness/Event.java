@@ -18,6 +18,12 @@ public class Event {
     private String eventDate;
     @SerializedName("e_id")
     private int e_id;
+    @SerializedName("video_id")
+    private int videoId;
+    @SerializedName("video_url")
+    private String videoUrl;
+    @SerializedName("local_path")
+    private String localPath;
 
     //Getters
     public String getVideoTitle() {
@@ -44,6 +50,18 @@ public class Event {
         return e_id;
     }
 
+    public int getVideoId() {
+        return videoId;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public String getLocalPath() {
+        return localPath;
+    }
+
     //Setters
     public void setVideoTitle(String videoTitle) {
         this.videoTitle = videoTitle;
@@ -67,6 +85,18 @@ public class Event {
 
     public void setE_id(int e_id) {
         this.e_id = e_id;
+    }
+
+    public void setVideoId(int videoId) {
+        this.videoId = videoId;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
+    public void setLocalPath(String localPath) {
+        this.localPath = localPath;
     }
 
     @Override
