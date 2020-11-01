@@ -127,7 +127,7 @@ public class CalendarAdapter extends BaseAdapter {
         return mDateManager;
     }
 
-    //todo: run this only if the month events list is not empty
+    //checks for day events to add to calendar grid view
     private String getThisDaysEvents(Date date) {
         String eventText = "";
         if (monthEvents.isEmpty()) return eventText;
