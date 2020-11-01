@@ -11,8 +11,10 @@ import android.widget.Toast;
 import java.util.List;
 
 public class EventBroadcastReceiver extends BroadcastReceiver {
+
     @Override
     public void onReceive(Context context, Intent intent) {
+
         if(isAppInForeground(context) ){
             String eventJsonString = intent.getStringExtra("event");
 
