@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.MediaController;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.google.gson.Gson;
@@ -20,18 +19,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.TimeZone;
 
 public class VideoViewActivity extends AppCompatActivity {
     private Event event;
     private VideoView videoView;
     private int counter =0;
+    private List<String> urlArray = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_view);
+        videoView  = (VideoView)findViewById(R.id.videoView);
         ActionBar actionBar =getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
@@ -45,14 +45,20 @@ public class VideoViewActivity extends AppCompatActivity {
         }
         if(event !=null){
             playVideo();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        if (event != null) {
             finishActivityAfterEventTime();
         }
+        super.onResume();
     }
 
     private void playVideo() {
         Log.d("MyFitness123456", "playing video "+event);
 
-        List<String> urlArray = new ArrayList<>();
         String URL_1 = "https://ovp-vod.smartstream.ne.jp/hoankikaku/output/vod/ca5862191b9c4e12b16e36395c6248b8/78e3a5c478d84d24b27eabd6c4d96eb9/manifest.mp4";
         String URL_2 ="https://ovp-vod.smartstream.ne.jp/hoankikaku/output/vod/c6d28fa266bf458a85250432637c2ae8/aaa28206f8f84d12b494df39a7aaced9/9xNzN3ZzE6QTqra_YBMSWoxOEDdhm4EE.mp4";
         String URL_3 = "https://ovp-vod.smartstream.ne.jp/hoankikaku/output/vod/ca5862191b9c4e12b16e36395c6248b8/78e3a5c478d84d24b27eabd6c4d96eb9/manifest.mp4";
@@ -63,16 +69,22 @@ public class VideoViewActivity extends AppCompatActivity {
         urlArray.add(URL_4);
 
 
-        videoView  = (VideoView)findViewById(R.id.videoView);
+
         videoView.setMediaController(new MediaController(this));
         videoView.requestFocus();
         videoView.setVideoURI(Uri.parse(urlArray.get(counter++)));
-        videoView.start();
+        //videoView.start();
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 playVideoInLoop(urlArray.get(counter++));
                 if(counter > urlArray.size()-1) counter=0;
+            }
+        });
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.start();
             }
         });
 
@@ -93,6 +105,7 @@ public class VideoViewActivity extends AppCompatActivity {
             long runTime = endTime-Calendar.getInstance().getTimeInMillis();
             handler.postDelayed(new Runnable() {
                 public void run() {
+                    videoView.pause();
                     Log.d("MyFitness123456", "run: "+runTime);
                     finish();
                 }

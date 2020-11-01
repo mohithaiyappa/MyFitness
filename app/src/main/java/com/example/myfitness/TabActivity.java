@@ -50,10 +50,10 @@ public class TabActivity extends AppCompatActivity {
     private void setupEventsAlarm() {
         Event e = new Event();
         e.setE_id(1);
-        e.setEventDate("2020-10-30");
+        e.setEventDate("2020-11-01");
         e.setIrName("藤本成紀");
-        e.setStartTime("22:07:00");
-        e.setVideoTime("00:02:06");
+        e.setStartTime("17:09:00");
+        e.setVideoTime("00:01:06");
         e.setVideoTitle("シニア体操⑤脚を痛めない歩き方");
 
         try {
