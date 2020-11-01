@@ -48,9 +48,8 @@ public class EventRepo {
         return eventRepoInstance;
     }
 
-    //use this to get events
+    //this loads events for month view
     public void loadEvents(int year, int month) {
-        //if(userName == null|| userName.trim().isEmpty()) userName = "a";
         RetrofitEvent.getEventApi().getEvents(year, month, userName).enqueue(new Callback<List<Event>>() {
 
             @Override
@@ -76,8 +75,8 @@ public class EventRepo {
         });
     }
 
+    //this loads events for the week view
     public void loadWeekViewEvents(int year, int month) {
-        //if(userName == null|| userName.trim().isEmpty()) userName = "a";
         RetrofitEvent.getEventApi().getEvents(year, month, userName).enqueue(new Callback<List<Event>>() {
 
             @Override
@@ -108,6 +107,7 @@ public class EventRepo {
         });
     }
 
+    //loads events for day for the auto play events
     public void loadAlarmEvents(){
         Calendar cal = Calendar.getInstance();
         RetrofitEvent.getEventApi().getDayEvents(cal.get(Calendar.YEAR),
@@ -133,6 +133,7 @@ public class EventRepo {
         });
     }
 
+    //loads events for the selected day in day fragment
     public void loadDayEvents(Date date) {
         List<Event> dayEventList = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
@@ -181,6 +182,7 @@ public class EventRepo {
         return allWeekViewEvents;
     }
 
+    //observer asks for updating the WeekViewEvents when AllEvents changes
     public void updateWeekViewEvents() {
         if (allWeekViewEvents.size() != allEvents.size()) {
             try {
@@ -205,10 +207,6 @@ public class EventRepo {
                 matchedEvents.add(event);
             }
         }
-        for (WeekViewEvent e : matchedEvents) {
-            Log.d("MyFitness2298", "getMatchedEvents: " + e.getId());
-        }
-        Log.d("MyFitness2298", "getMatchedEvents size: " + matchedEvents.size());
         return matchedEvents;
     }
 
