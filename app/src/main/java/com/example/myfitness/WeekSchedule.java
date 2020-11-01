@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class WeekSchedule extends Fragment {
-    private final String    TAG ="MyFitness229";
     private final Calendar  mCalendar = Calendar.getInstance();
     private WeekView    mWeekView;
     private Button      prevButton, nextButton;
@@ -74,6 +73,16 @@ public class WeekSchedule extends Fragment {
     }
 
     private void setListeners(){
+
+        setButtonClickListeners();
+
+        setWeekViewListeners();
+
+        setLiveDataObservers();
+    }
+
+    private void setButtonClickListeners(){
+
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +102,9 @@ public class WeekSchedule extends Fragment {
                 setHeadingDate();
             }
         });
+    }
+
+    private void setWeekViewListeners(){
 
         // Set an action when any event is clicked.
         mWeekView.setOnEventClickListener(new WeekView.EventClickListener() {
@@ -134,6 +146,9 @@ public class WeekSchedule extends Fragment {
         });
 
         mWeekView.setHeaderRowBackgroundColor(Color.parseColor("#ffffff"));
+    }
+
+    private void setLiveDataObservers(){
 
         EventRepo.getInstance().allEventsLiveData.observe(this, new Observer<List<Event>>() {
             @Override
@@ -157,13 +172,13 @@ public class WeekSchedule extends Fragment {
         cal.setTime(date);
         int str =cal.get(Calendar.DAY_OF_WEEK);
         switch (str){
-            case Calendar.SUNDAY : dateString= dateString+ "\n(日)"; break;
-            case Calendar.MONDAY : dateString= dateString+ "\n(月)";break;
-            case Calendar.TUESDAY : dateString= dateString+ "\n(火)";break;
-            case Calendar.WEDNESDAY : dateString= dateString+ "\n(水)";break;
-            case Calendar.THURSDAY : dateString= dateString+ "\n(木)";break;
-            case Calendar.FRIDAY : dateString= dateString+ "\n(⾦)";break;
-            case Calendar.SATURDAY : dateString= dateString+ "\n(土)";break;
+            case Calendar.SUNDAY    : dateString= dateString+ "\n(日)";  break;
+            case Calendar.MONDAY    : dateString= dateString+ "\n(月)";  break;
+            case Calendar.TUESDAY   : dateString= dateString+ "\n(火)";  break;
+            case Calendar.WEDNESDAY : dateString= dateString+ "\n(水)";  break;
+            case Calendar.THURSDAY  : dateString= dateString+ "\n(木)";  break;
+            case Calendar.FRIDAY    : dateString= dateString+ "\n(⾦)";  break;
+            case Calendar.SATURDAY  : dateString= dateString+ "\n(土)";  break;
         }
         return dateString;
     }
