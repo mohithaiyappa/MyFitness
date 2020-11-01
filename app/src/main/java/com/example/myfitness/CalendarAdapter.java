@@ -30,10 +30,10 @@ public class CalendarAdapter extends BaseAdapter {
     }
 
     public CalendarAdapter(Context context){
-        mContext = context;
+        mContext    = context;
         mLayoutInflater = LayoutInflater.from(mContext);
-        mDateManager = new DateManager();
-        dateArray = mDateManager.getDays();
+        mDateManager    = new DateManager();
+        dateArray   = mDateManager.getDays();
     }
 
     @Override
