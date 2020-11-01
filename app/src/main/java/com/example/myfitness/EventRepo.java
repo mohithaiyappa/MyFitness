@@ -25,7 +25,8 @@ public class EventRepo {
     private static EventRepo eventRepoInstance;
     private static final MutableLiveData<List<Event>> eventsLiveData = new MutableLiveData<>();
     private static final MutableLiveData<List<Event>> dayEventsLiveData = new MutableLiveData<>();
-    private static MutableLiveData<Date> selectedDate = new MutableLiveData<>();
+    private static final MutableLiveData<List<Event>> alarmEventsLiveData = new MutableLiveData<>();
+    private static final MutableLiveData<Date> selectedDate = new MutableLiveData<>();
     public static String userName;
     public MutableLiveData<List<Event>> allEventsLiveData = new MutableLiveData<>();
     public List<Event> allEvents = new ArrayList<>();
@@ -103,6 +104,31 @@ public class EventRepo {
             @Override
             public void onFailure(Call<List<Event>> call, Throwable t) {
                 //todo handle failure
+            }
+        });
+    }
+
+    public void loadAlarmEvents(){
+        Calendar cal = Calendar.getInstance();
+        RetrofitEvent.getEventApi().getDayEvents(cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH)+1,
+                userName,
+                cal.get(Calendar.DAY_OF_MONTH)).enqueue(new Callback<List<Event>>() {
+            @Override
+            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+                if(!response.isSuccessful()|| response.body()==null) return;
+                new Thread() {
+                    @Override
+                    public void run() {
+                        Collections.sort(response.body(), getComparator());
+                        alarmEventsLiveData.postValue(response.body());
+                    }
+                }.start();
+            }
+
+            @Override
+            public void onFailure(Call<List<Event>> call, Throwable t) {
+
             }
         });
     }
@@ -216,5 +242,7 @@ public class EventRepo {
         return dayEventsLiveData;
     }
 
-
+    public LiveData<List<Event>> getAlarmEventsLiveData() {
+        return alarmEventsLiveData;
+    }
 }

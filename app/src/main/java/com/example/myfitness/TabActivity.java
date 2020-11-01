@@ -11,6 +11,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.lifecycle.Observer;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -47,14 +48,19 @@ public class TabActivity extends AppCompatActivity {
         setupEventsAlarm();
     }
 
-    private void setupEventsAlarm() {
-        Event e = new Event();
-        e.setE_id(1);
-        e.setEventDate("2020-11-01");
-        e.setIrName("藤本成紀");
-        e.setStartTime("17:09:00");
-        e.setVideoTime("00:01:06");
-        e.setVideoTitle("シニア体操⑤脚を痛めない歩き方");
+    private void setupEventsAlarm(){
+        EventRepo.getInstance().loadAlarmEvents();
+        EventRepo.getInstance().getAlarmEventsLiveData().observe(this, new Observer<List<Event>>() {
+            @Override
+            public void onChanged(List<Event> events) {
+                if(events==null || events.isEmpty()) return;
+                for(Event event : events){
+                    setEventAlarm(event);
+                }
+            }
+        });
+    }
+    private void setEventAlarm(Event e) {
 
         try {
             Calendar cal = getCalendar(e.getEventDate(),e.getStartTime());

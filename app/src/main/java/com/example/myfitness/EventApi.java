@@ -18,7 +18,7 @@ public interface EventApi {
     Call<List<Event>> getDayEvents(@Query("year") int year,
                                 @Query("month") int month,
                                 @Query("user_id") String userId,
-                                @Query("day") String dayOfMonth);
+                                @Query("day") int dayOfMonth);
 
     @DELETE("del.php")
     Call<Object> deleteEvent(@Query("user_id") String userId,
