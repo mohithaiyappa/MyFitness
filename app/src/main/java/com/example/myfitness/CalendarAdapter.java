@@ -46,9 +46,9 @@ public class CalendarAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             convertView = mLayoutInflater.inflate(R.layout.calendar_cell, null);
-            holder = new ViewHolder();
-            holder.dateText = convertView.findViewById(R.id.dateText);
-            holder.eventText = convertView.findViewById(R.id.eventsText);
+            holder  = new ViewHolder();
+            holder.dateText     = convertView.findViewById(R.id.dateText);
+            holder.eventText    = convertView.findViewById(R.id.eventsText);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder)convertView.getTag();
@@ -86,20 +86,6 @@ public class CalendarAdapter extends BaseAdapter {
                 break;
         }
         holder.dateText.setTextColor(colorId);
-
-        /*holder.dateText.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                
-            }
-        });*/
-
-        /*holder.dateText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @SuppressLint("NewApi") public void onItemClick(AdapterView<?> parent, View v,
-                                                            int position, long id) {
-            }
-            });*/
         return convertView;
     }
 
@@ -122,7 +108,6 @@ public class CalendarAdapter extends BaseAdapter {
     //翌月表示 display the next month
     public void nextMonth(){
         mDateManager.nextMonth();
-        //todo make api request for next month data
         EventRepo.getInstance().loadEvents(mDateManager.getYear(),mDateManager.getMonth());
         dateArray = mDateManager.getDays();
         this.notifyDataSetChanged();
@@ -131,7 +116,6 @@ public class CalendarAdapter extends BaseAdapter {
     //前月表示 display the previous month
     public void prevMonth(){
         mDateManager.prevMonth();
-        //todo make api request for next month data
         EventRepo.getInstance().loadEvents(mDateManager.getYear(),mDateManager.getMonth());
         dateArray = mDateManager.getDays();
         this.notifyDataSetChanged();
@@ -167,8 +151,7 @@ public class CalendarAdapter extends BaseAdapter {
     }
 
     public void updateList(List<Event> events){
-        //todo uncomment this when loading different months data
-        //if(monthEvents.isEmpty()&&events.isEmpty()) return;
+        if(monthEvents.isEmpty()&&events.isEmpty()) return;
 
         monthEvents = events;
         dateArray = mDateManager.getDays();
