@@ -80,12 +80,18 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="1dp"
                 android:layout_weight="0.5"
+                android:text="編集"
+                android:textAlignment="center"
+                android:textColor="@color/blackColor"
                 android:background="@color/whiteColor"
                 android:visibility="visible"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="1dp"
+                android:text="削除"
+                android:textAlignment="center"
+                android:textColor="@color/blackColor"
                 android:layout_weight="0.5"
                 android:background="@color/whiteColor"/>
 
