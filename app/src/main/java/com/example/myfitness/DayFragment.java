@@ -12,14 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -82,15 +80,15 @@ public class DayFragment extends Fragment {
     private String getDay(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        int str =cal.get(Calendar.DAY_OF_WEEK);
+        int str = cal.get(Calendar.DAY_OF_WEEK);
         switch (str){
-            case Calendar.SUNDAY : return " (日)";
-            case Calendar.MONDAY : return " (月)";
-            case Calendar.TUESDAY : return " (火)";
+            case Calendar.SUNDAY    : return " (日)";
+            case Calendar.MONDAY    : return " (月)";
+            case Calendar.TUESDAY   : return " (火)";
             case Calendar.WEDNESDAY : return " (水)";
-            case Calendar.THURSDAY : return " (木)";
-            case Calendar.FRIDAY : return " (⾦)";
-            case Calendar.SATURDAY : return " (土)";
+            case Calendar.THURSDAY  : return " (木)";
+            case Calendar.FRIDAY    : return " (⾦)";
+            case Calendar.SATURDAY  : return " (土)";
         }
         return "";
     }
