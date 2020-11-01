@@ -103,7 +103,7 @@ public class CalendarAdapter extends BaseAdapter {
 
     //表示月を取得 display the current month
     public String getTitle(){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM", Locale.US);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月", Locale.US);
         return format.format(mDateManager.mCalendar.getTime());
     }
 
