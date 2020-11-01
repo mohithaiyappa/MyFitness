@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import android.os.Bundle;
 
 import android.view.View;
@@ -49,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this,"Forgot Password",Toast.LENGTH_SHORT).show();
+            }
+        });
+        ConstraintLayout cs = findViewById(R.id.loginLayoutConstraintView);
+        cs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //empty onClick listener to remove focus from both editTexts
             }
         });
 
