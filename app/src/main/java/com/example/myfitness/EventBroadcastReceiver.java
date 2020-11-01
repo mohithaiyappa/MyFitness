@@ -15,10 +15,10 @@ public class EventBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if(isAppInForeground(context) ){
             String eventJsonString = intent.getStringExtra("event");
-            //todo start video activity
+
             Intent videoViewIntent = new Intent(context, VideoViewActivity.class);
-            //todo add data to event here
             videoViewIntent.putExtra("event", eventJsonString);
+
             context.startActivity(videoViewIntent);
         }
     }
@@ -29,9 +29,7 @@ public class EventBroadcastReceiver extends BroadcastReceiver {
         List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
         if (!tasks.isEmpty()) {
             ComponentName topActivity = tasks.get(0).topActivity;
-            if (!topActivity.getPackageName().equals(mContext.getPackageName())) {
-                return false;
-            }
+            return topActivity.getPackageName().equals(mContext.getPackageName());
         }
 
         return true;
