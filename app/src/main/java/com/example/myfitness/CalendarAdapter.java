@@ -63,7 +63,9 @@ public class CalendarAdapter extends BaseAdapter {
         //日付のみ表示させる
         final SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.US);
         holder.dateText.setText(dateFormat.format(dateArray.get(position)));
-        holder.eventText.setText(getThisDaysEvents(dateArray.get(position)));
+        //run only if monthEvents is not empty
+        if(!monthEvents.isEmpty())
+            holder.eventText.setText(getThisDaysEvents(dateArray.get(position)));
 
         //当月以外のセルをグレーアウト
         if (mDateManager.isCurrentMonth(dateArray.get(position))){
