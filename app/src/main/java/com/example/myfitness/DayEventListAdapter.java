@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DayEventListAdapter extends BaseAdapter {
-    private Context context;
+    private final Context context;
     private List<Event> dayEvents = new ArrayList<>();
 
     public DayEventListAdapter(Context ctx){
@@ -42,15 +42,15 @@ public class DayEventListAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).
                     inflate(R.layout.day_fragment_list_view, parent, false);
             holder = new ViewHolder();
-            holder.lvStartTime = convertView.findViewById(R.id.lv_startTime);
-            holder.lvTitle = convertView.findViewById(R.id.lv_title);
-            holder.lvIrName = convertView.findViewById(R.id.lv_irName);
-            holder.lvVideoLength = convertView.findViewById(R.id.lv_videoLength);
-            holder.lvEditButton = convertView.findViewById(R.id.lvEditButton);
-            holder.lvDeleteButton = convertView.findViewById(R.id.lvDeleteButton);
+            holder.lvStartTime      = convertView.findViewById(R.id.lv_startTime);
+            holder.lvTitle          = convertView.findViewById(R.id.lv_title);
+            holder.lvIrName         = convertView.findViewById(R.id.lv_irName);
+            holder.lvVideoLength    = convertView.findViewById(R.id.lv_videoLength);
+            holder.lvEditButton     = convertView.findViewById(R.id.lvEditButton);
+            holder.lvDeleteButton   = convertView.findViewById(R.id.lvDeleteButton);
             convertView.setTag(holder);
         }else {
-            holder = (ViewHolder)convertView.getTag();
+            holder  = (ViewHolder)convertView.getTag();
         }
         holder.event = (Event) getItem(position);
         holder.lvStartTime.setText(holder.event.getStartTime());
