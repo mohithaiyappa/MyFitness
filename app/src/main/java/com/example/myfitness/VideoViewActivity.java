@@ -41,7 +41,7 @@ public class VideoViewActivity extends AppCompatActivity {
         if(!(eventJsonString == null || eventJsonString.isEmpty())) {
             event = new Gson().fromJson(eventJsonString, Event.class);
         }else {
-            Log.d("MyFitness123456", "event json data is empty ");
+            Log.d("MyFitness", "event json data is empty ");
         }
         if(event !=null){
             playVideo();
@@ -62,7 +62,6 @@ public class VideoViewActivity extends AppCompatActivity {
         videoView.setMediaController(new MediaController(this));
         videoView.requestFocus();
         videoView.setVideoURI(Uri.parse(urlArray.get(counter++)));
-        //videoView.start();
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -95,7 +94,7 @@ public class VideoViewActivity extends AppCompatActivity {
             handler.postDelayed(new Runnable() {
                 public void run() {
                     videoView.pause();
-                    Log.d("MyFitness123456", "run: "+runTime);
+                    Log.d("MyFitness", "run: "+runTime);
                     finish();
                 }
             }, runTime);
@@ -107,7 +106,7 @@ public class VideoViewActivity extends AppCompatActivity {
         SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = dateFormat.parse(stringDate.trim()+" "+stringTime.trim());
         if(date==null) {
-            throw new ParseException("error",3);
+            throw new ParseException("parse error",3);
         }
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
