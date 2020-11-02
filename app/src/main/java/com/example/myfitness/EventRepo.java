@@ -199,6 +199,11 @@ public class EventRepo {
         }
     }
 
+    public void loadInitialEvents(){
+        loadEvents(currentYear(),
+                currentMonth());
+    }
+
     public List<WeekViewEvent> getMatchedEvents(int year, int month) {
         Log.d("MyFitness2298", "getAllWeekViewEvents: " + allWeekViewEvents.size());
         List<WeekViewEvent> matchedEvents = new ArrayList<>();

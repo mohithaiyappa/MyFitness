@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Button;
 import android.widget.GridView;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class MonthSchedule extends Fragment {
     private Button prevButton, nextButton;
     private CalendarAdapter mCalendarAdapter;
     private GridView calendarGridView;
+    private boolean initialLoad = true;
 
     @Override
     public View onCreateView(
@@ -73,6 +75,10 @@ public class MonthSchedule extends Fragment {
             @Override
             public void onChanged(List<Event> events) {
                 mCalendarAdapter.updateList(events);
+                if(initialLoad){
+                    EventRepo.getInstance().loadDayEvents(Calendar.getInstance().getTime());
+                    initialLoad=false;
+                }
             }
         });
     }
