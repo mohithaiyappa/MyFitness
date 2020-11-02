@@ -47,6 +47,7 @@ public class TabActivity extends AppCompatActivity {
         EventRepo.getInstance().getAlarmEventsLiveData().observe(this, new Observer<List<Event>>() {
             @Override
             public void onChanged(List<Event> events) {
+                removeAlarm();
                 if(events==null || events.isEmpty()) return;
                 for(Event event : events){
                     setEventAlarm(event);
@@ -103,6 +104,7 @@ public class TabActivity extends AppCompatActivity {
                 alarmManager.cancel(pi);
             }
         }
+        pendingIntentList.clear();
     }
 
     public Calendar getCalendar(String stringDate,String stringTime) throws ParseException {
