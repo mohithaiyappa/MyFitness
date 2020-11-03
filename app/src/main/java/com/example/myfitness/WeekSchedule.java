@@ -186,7 +186,7 @@ public class WeekSchedule extends Fragment {
 
     private void setHeadingDate(){
         Date d = mCalendar.getTime();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM", Locale.US);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月", Locale.US);
         titleText.setText(dateFormat.format(d));
     }
 
