@@ -1,6 +1,8 @@
 package com.example.myfitness;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import java.util.List;
 public class DayEventListAdapter extends BaseAdapter {
     private final Context context;
     private List<Event> dayEvents = new ArrayList<>();
+    private Event eventToBeDeleted;
 
     public DayEventListAdapter(Context ctx){
         this.context = ctx;
@@ -70,11 +73,8 @@ public class DayEventListAdapter extends BaseAdapter {
         holder.lvDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"Delete Clicked", Toast.LENGTH_SHORT).show();
-                Event  event = (Event) getItem(position);
-                EventRepo.getInstance().deleteEvent(event.getE_id(),event);
-                dayEvents.remove(position);
-                notifyDataSetChanged();
+                eventToBeDeleted = (Event) getItem(position);
+                getDeleteAlertDialog().show();
             }
         });
         return convertView;
@@ -83,6 +83,30 @@ public class DayEventListAdapter extends BaseAdapter {
     public void updateList(List<Event> events){
         dayEvents = events;
         notifyDataSetChanged();
+    }
+
+    public AlertDialog getDeleteAlertDialog(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        alertDialogBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(eventToBeDeleted!= null) {
+                    EventRepo.getInstance().deleteEvent(eventToBeDeleted.getE_id(), eventToBeDeleted);
+                    dayEvents.remove(eventToBeDeleted);
+                    notifyDataSetChanged();
+                    eventToBeDeleted = null;
+                }
+            }
+        });
+        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                eventToBeDeleted = null;
+                dialog.dismiss();
+            }
+        });
+        alertDialogBuilder.setMessage("Do you want to delete this event?");
+        return alertDialogBuilder.create();
     }
 
     private static class ViewHolder {
