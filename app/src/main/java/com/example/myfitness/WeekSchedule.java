@@ -60,6 +60,7 @@ public class WeekSchedule extends Fragment {
         mWeekView.goToDate(mCalendar);
         mWeekView.goToHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
         setHeadingDate();
+        mWeekView.notifyDatasetChanged();
     }
 
     private void setCalendar(){

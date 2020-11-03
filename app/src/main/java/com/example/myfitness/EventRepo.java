@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.alamkanak.weekview.WeekViewEvent;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -160,9 +161,24 @@ public class EventRepo {
         });
         try {
             List<Event> newAllEvents = eventsLiveData.getValue();
-            newAllEvents.remove(event);
-            eventsLiveData.postValue(newAllEvents);
+            if (newAllEvents != null) {
+                newAllEvents.remove(event);
+            }
+            eventsLiveData.setValue(newAllEvents);
         }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        try {
+            allEvents.remove(event);
+            allEventsLiveData.setValue(allEvents);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        try{
+            WeekViewEvent weekViewEvent = WeekEventConverter.getInstance().getWeekEventConverter(event);
+            allWeekViewEvents.remove(weekViewEvent);
+            allWeekViewEventsLiveData.setValue(allWeekViewEvents);
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 
