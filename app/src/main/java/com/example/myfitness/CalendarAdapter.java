@@ -64,8 +64,7 @@ public class CalendarAdapter extends BaseAdapter {
         final SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.US);
         holder.dateText.setText(dateFormat.format(dateArray.get(position)));
         //run only if monthEvents is not empty
-        if(!monthEvents.isEmpty())
-            holder.eventText.setText(getThisDaysEvents(dateArray.get(position)));
+        holder.eventText.setText(getThisDaysEvents(dateArray.get(position)));
 
         //当月以外のセルをグレーアウト
         if (mDateManager.isCurrentMonth(dateArray.get(position))){
@@ -112,6 +111,7 @@ public class CalendarAdapter extends BaseAdapter {
         mDateManager.nextMonth();
         EventRepo.getInstance().loadEvents(mDateManager.getYear(),mDateManager.getMonth());
         dateArray = mDateManager.getDays();
+        monthEvents.clear();
         this.notifyDataSetChanged();
     }
 
@@ -120,6 +120,7 @@ public class CalendarAdapter extends BaseAdapter {
         mDateManager.prevMonth();
         EventRepo.getInstance().loadEvents(mDateManager.getYear(),mDateManager.getMonth());
         dateArray = mDateManager.getDays();
+        monthEvents.clear();
         this.notifyDataSetChanged();
     }
 
