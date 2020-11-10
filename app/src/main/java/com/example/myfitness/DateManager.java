@@ -52,6 +52,16 @@ public class DateManager {
         }
     }
 
+    public boolean isToday(Date date){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd", Locale.US);
+        String today = format.format(Calendar.getInstance().getTime());
+        if (today.equals(format.format(date))){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     //週数を取得
     public int getWeeks(){
         return mCalendar.getActualMaximum(Calendar.WEEK_OF_MONTH);

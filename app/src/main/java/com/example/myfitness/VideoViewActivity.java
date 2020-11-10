@@ -57,7 +57,10 @@ public class VideoViewActivity extends AppCompatActivity {
     }
 
     private void playVideo() {
-        urlArray.add(event.getVideoUrl());
+        //todo add local path to the list. basic is done
+        for(EventVideoDetails eventVideo : event.getVideoArray()){
+            urlArray.add(eventVideo.getLocalPath());
+        }
 
         videoView.setMediaController(new MediaController(this));
         videoView.requestFocus();
@@ -86,10 +89,13 @@ public class VideoViewActivity extends AppCompatActivity {
     }
 
     private void finishActivityAfterEventTime(){
+        //todo handle end time
+        //todo check if you require to use end time or video length
         try {
             Handler handler = new Handler();
-            String endTimeStr = getEndTime(event.getStartTime(), event.getVideoTime());
-            long endTime = getFinishTime(event.getEventDate(), endTimeStr).getTimeInMillis();
+            // end time is in sent from backend
+            //String endTimeStr = getEndTime(event.getStartTime(), event.getVideoArray().get(0).getVideoTime());//todo changed to video end time correct it later
+            long endTime = getFinishTime(event.getEventStartDate(), event.getEndTime()).getTimeInMillis();//todo change to event start time
             long runTime = endTime-Calendar.getInstance().getTimeInMillis();
             handler.postDelayed(new Runnable() {
                 public void run() {

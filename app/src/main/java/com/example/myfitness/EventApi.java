@@ -9,7 +9,7 @@ import retrofit2.http.Query;
 
 public interface EventApi {
 
-    @GET("cal.php")
+    @GET("vidjson.php")
     Call<List<Event>> getEvents(@Query("year") int year,
                                 @Query("month") int month,
                                 @Query("user_id") String userId);

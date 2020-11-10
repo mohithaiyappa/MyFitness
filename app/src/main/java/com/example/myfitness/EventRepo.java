@@ -59,12 +59,18 @@ public class EventRepo {
                     eventsLiveData.setValue(Collections.emptyList());
                     return;
                 }
+                Log.d("MyFitness229789", "posting value: "+response.body().size()+ " <- size");
+
                 new Thread() {
                     @Override
                     public void run() {
                         Collections.sort(response.body(), getComparator());
                         eventsLiveData.postValue(response.body());
-                        Log.d("MyFitness229789", "posting value: ");
+                        Log.d("MyFitness229789", "posting value: "+response.body().size());
+                        for (Event event :
+                                response.body()) {
+                            Log.d("MyFitness229789", "run: " + event.toString());
+                        }
                     }
                 }.start();
             }
@@ -140,7 +146,7 @@ public class EventRepo {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         String dateString = dateFormat.format(date);
         for (Event event : getEventsList()) {
-            if (event.getEventDate().equals(dateString)) {
+            if (event.getEventStartDate().equals(dateString)) {
                 dayEventList.add(event);
             }
         }

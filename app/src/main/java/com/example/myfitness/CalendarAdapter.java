@@ -87,6 +87,13 @@ public class CalendarAdapter extends BaseAdapter {
                 break;
         }
         holder.dateText.setTextColor(colorId);
+        if(mDateManager.isToday(dateArray.get(position))){
+            holder.dateText.setBackgroundColor(Color.RED);
+        }else if(mDateManager.isCurrentMonth(dateArray.get(position))){
+            holder.dateText.setBackgroundColor(Color.WHITE);
+        }else {
+            holder.dateText.setBackgroundColor(Color.LTGRAY);
+        }
         return convertView;
     }
 
@@ -130,6 +137,8 @@ public class CalendarAdapter extends BaseAdapter {
 
     //checks for day events to add to calendar grid view
     private String getThisDaysEvents(Date date) {
+        //todo handle event object here
+        //todo ask if all video titles should appear in the calendar view or only the first one
         String eventText = "";
         if (monthEvents.isEmpty()) return eventText;
 
@@ -137,14 +146,14 @@ public class CalendarAdapter extends BaseAdapter {
         String dateString = dateFormat.format(date);
         int counter = 0;
         for ( Event event : monthEvents){
-            if (event.getEventDate().equals(dateString)){
+            if (event.getEventStartDate().equals(dateString)){
                 counter++;
                 if (counter<3) {
                     int lastIndex = event.getStartTime().lastIndexOf(":");
                     eventText = eventText
-                            + event.getStartTime().substring(0, lastIndex)
+                            + event.getStartTime().substring(0, lastIndex)//todo here
                             + " "
-                            + event.getVideoTitle().substring(0, 4)
+                            + event.getVideoArray().get(0).getVideoTitle().substring(0, 4)//todo here
                             + "...\n";
                 }
             }

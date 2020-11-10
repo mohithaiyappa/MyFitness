@@ -39,6 +39,7 @@ public class TabActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+        EventRepo.getInstance().loadInitialEvents();
         setupEventsAlarm();
     }
 
@@ -58,7 +59,7 @@ public class TabActivity extends AppCompatActivity {
     private void setEventAlarm(Event e) {
 
         try {
-            Calendar cal = getCalendar(e.getEventDate(),e.getStartTime());
+            Calendar cal = getCalendar(e.getEventStartDate(),e.getStartTime());
             boolean hasEventTimePassed = Calendar.getInstance().getTime().after(cal.getTime());
             if (!hasEventTimePassed){
                 long time = cal.getTimeInMillis();

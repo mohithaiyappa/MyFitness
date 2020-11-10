@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,9 +49,7 @@ public class DayEventListAdapter extends BaseAdapter {
                     inflate(R.layout.day_fragment_list_view, parent, false);
             holder = new ViewHolder();
             holder.lvStartTime      = convertView.findViewById(R.id.lv_startTime);
-            holder.lvTitle          = convertView.findViewById(R.id.lv_title);
-            holder.lvIrName         = convertView.findViewById(R.id.lv_irName);
-            holder.lvVideoLength    = convertView.findViewById(R.id.lv_videoLength);
+            holder.videoListView= convertView.findViewById(R.id.videoDetailsListView);
             holder.lvEditButton     = convertView.findViewById(R.id.lvEditButton);
             holder.lvDeleteButton   = convertView.findViewById(R.id.lvDeleteButton);
             convertView.setTag(holder);
@@ -57,9 +58,13 @@ public class DayEventListAdapter extends BaseAdapter {
         }
         holder.event = (Event) getItem(position);
         holder.lvStartTime.setText(holder.event.getStartTime());
-        holder.lvTitle.setText(holder.event.getVideoTitle());
-        holder.lvIrName.setText(holder.event.getIrName());
-        holder.lvVideoLength.setText(holder.event.getVideoTime());
+        //todo add list view and set data there
+        DayVideoDetailsAdapter adapter = new DayVideoDetailsAdapter(context);
+        holder.videoListView.setAdapter(adapter);
+        adapter.updateList(holder.event.getVideoArray());
+//        holder.lvTitle.setText(holder.event.getVideoTitle());
+//        holder.lvIrName.setText(holder.event.getIrName());
+//        holder.lvVideoLength.setText(holder.event.getVideoTime());
         holder.lvEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +82,7 @@ public class DayEventListAdapter extends BaseAdapter {
                 getDeleteAlertDialog().show();
             }
         });
+        setListViewHeightBasedOnChildren(holder.videoListView);
         return convertView;
     }
 
@@ -109,11 +115,31 @@ public class DayEventListAdapter extends BaseAdapter {
         return alertDialogBuilder.create();
     }
 
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+    }
+
     private static class ViewHolder {
         public TextView lvStartTime;
-        public TextView lvTitle;
-        public TextView lvIrName;
-        public TextView lvVideoLength;
+        public ListView videoListView;
         public ImageButton lvEditButton,lvDeleteButton;
         public Event event;
     }

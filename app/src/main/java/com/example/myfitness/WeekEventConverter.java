@@ -42,11 +42,14 @@ public class WeekEventConverter {
     }
 
     public WeekViewEvent getWeekEventConverter(Event event) throws ParseException{
-        String endTimeStr = getEndTime(event.getStartTime(),event.getVideoTime());
+        //todo handle  endTime
+        //todo decide between using end time in video length or use the end time
+        //String endTimeStr = getEndTime(event.getStartTime(),event.getEndTime());//todo remove this if not necessary
+        String endTimeStr = event.getEndTime();
         return new WeekViewEvent(event.getE_id(),
                     getFormattedEventString(event,endTimeStr),
-                    getCalendar(event.getEventDate(), event.getStartTime()),
-                    getCalendar(event.getEventDate(),endTimeStr));
+                    getCalendar(event.getEventStartDate(), event.getStartTime()),
+                    getCalendar(event.getEventStartDate(),endTimeStr));
     }
 
     private String getEndTime(String startTime, String videoTime) throws ParseException {
@@ -70,13 +73,33 @@ public class WeekEventConverter {
         return cal;
     }
 
+    //todo remove endTime string if not necessary
     public String getFormattedEventString(Event event,String endTimeString){
-        return event.getVideoTitle()
-                +"\n"
-                +event.getStartTime()
-                +" ~ "
-                +endTimeString
-                +"\n"
-                +event.getIrName();
+        //todo make for loop and build the string
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(event.getStartTime().substring(0,5));
+        stringBuilder.append(" ");
+        stringBuilder.append(event.getMode());
+        stringBuilder.append("\n\n");
+        for(EventVideoDetails videoDetails : event.getVideoArray()){
+            stringBuilder.append(videoDetails.getVideoTitle());
+            stringBuilder.append("\n");
+            stringBuilder.append(videoDetails.getIrName());
+            stringBuilder.append("\n");
+            stringBuilder.append(videoDetails.getVideoTime());
+            stringBuilder.append("\n\n");
+        }
+        stringBuilder.append(event.getEndTime().substring(0,5));
+        return stringBuilder.toString();
+
+
+//        return event.getVideoArray().get(0).getVideoTitle()
+//                +"\n"
+//                +event.getStartTime()
+//                +" ~ "
+//                +endTimeString
+//                +"\n"
+//                +event.getVideoArray().get(0).getIrName();
+
     }
 }

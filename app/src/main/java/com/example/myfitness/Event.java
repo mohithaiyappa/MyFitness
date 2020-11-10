@@ -4,99 +4,103 @@ import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Event {
 
-    @SerializedName("video_title")
-    private String videoTitle;
-    @SerializedName("video_time")
-    private String videoTime;
-    @SerializedName("ir_name")
-    private String irName;
-    @SerializedName("start_time")
-    private String startTime;
-    @SerializedName("date")
-    private String eventDate;
     @SerializedName("e_id")
     private int e_id;
-    @SerializedName("video_id")
-    private int videoId;
-    @SerializedName("video_url")
-    private String videoUrl;
-    @SerializedName("local_path")
-    private String localPath;
+    @SerializedName("mode")
+    private String mode;
+    @SerializedName("vid_id")
+    private String videoId;
+    @SerializedName("start_time")
+    private String startTime;
+    @SerializedName("end_time")
+    private String endTime;
+    @SerializedName("start_date")
+    private String eventStartDate;
+    @SerializedName("end_date")
+    private String eventEndDate;
+    @SerializedName("days_only")
+    private String daysOnly;
+    @SerializedName("video_array")
+    private List<EventVideoDetails> videoArray;
 
     //Getters
-    public String getVideoTitle() {
-        return videoTitle;
+
+    public int getE_id() {
+        return e_id;
     }
 
-    public String getVideoTime() {
-        return videoTime;
+    public String getMode() {
+        return mode;
     }
 
-    public String getIrName() {
-        return irName;
+    public String getVideoId() {
+        return videoId;
     }
 
     public String getStartTime() {
         return startTime;
     }
 
-    public String getEventDate() {
-        return eventDate;
+    public String getEndTime() {
+        return endTime;
     }
 
-    public int getE_id() {
-        return e_id;
+    public String getEventStartDate() {
+        return eventStartDate;
     }
 
-    public int getVideoId() {
-        return videoId;
+    public String getEventEndDate() {
+        return eventEndDate;
     }
 
-    public String getVideoUrl() {
-        return videoUrl;
+    public String getDaysOnly() {
+        return daysOnly;
     }
 
-    public String getLocalPath() {
-        return localPath;
+    public List<EventVideoDetails> getVideoArray() {
+        return videoArray;
     }
 
     //Setters
-    public void setVideoTitle(String videoTitle) {
-        this.videoTitle = videoTitle;
+
+    public void setE_id(int e_id) {
+        this.e_id = e_id;
     }
 
-    public void setVideoTime(String videoTime) {
-        this.videoTime = videoTime;
+    public void setMode(String mode) {
+        this.mode = mode;
     }
 
-    public void setIrName(String irName) {
-        this.irName = irName;
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
     }
 
     public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public void setEventDate(String eventDate) {
-        this.eventDate = eventDate;
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
-    public void setE_id(int e_id) {
-        this.e_id = e_id;
+    public void setEventStartDate(String eventStartDate) {
+        this.eventStartDate = eventStartDate;
     }
 
-    public void setVideoId(int videoId) {
-        this.videoId = videoId;
+    public void setEventEndDate(String eventEndDate) {
+        this.eventEndDate = eventEndDate;
     }
 
-    public void setVideoUrl(String videoUrl) {
-        this.videoUrl = videoUrl;
+    public void setDaysOnly(String daysOnly) {
+        this.daysOnly = daysOnly;
     }
 
-    public void setLocalPath(String localPath) {
-        this.localPath = localPath;
+    public void setVideoArray(List<EventVideoDetails> videoArray) {
+        this.videoArray = videoArray;
     }
 
     @Override
