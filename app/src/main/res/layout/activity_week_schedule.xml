@@ -53,7 +53,7 @@
             android:layout_marginVertical="10dp"
             android:layout_marginLeft="10dp"
             android:background="@color/colorAccent"
-            android:text="Prev" />
+            android:text="前週" />
 
         <Button
             android:id="@+id/nextButton"
@@ -63,7 +63,7 @@
             android:layout_marginVertical="10dp"
             android:layout_marginRight="10dp"
             android:background="@color/colorAccent"
-            android:text="Next" />
+            android:text="翌週" />
     </RelativeLayout>
 
     <!--<LinearLayout
