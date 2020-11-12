@@ -67,6 +67,7 @@ public class MonthSchedule extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Date selectedDate = (Date) mCalendarAdapter.getItem(position);
                 if(mCalendarAdapter.getDateManager().isCurrentMonth(selectedDate)) {
+                    mCalendarAdapter.clickedDate(view);
                     EventRepo.getInstance().loadDayEvents(selectedDate);
                 }
             }
