@@ -22,6 +22,7 @@ public class CalendarAdapter extends BaseAdapter {
     private DateManager mDateManager;
     private LayoutInflater mLayoutInflater;
     private List<Event> monthEvents = new ArrayList<>();
+    private View currentSelectedView;
 
     //カスタムセルを拡張したらここでWigetを定義
     private static class ViewHolder {
@@ -168,5 +169,13 @@ public class CalendarAdapter extends BaseAdapter {
         monthEvents = events;
         dateArray = mDateManager.getDays();
         notifyDataSetChanged();
+    }
+
+    public void clickedDate(View view){
+        if (currentSelectedView!=null){
+            currentSelectedView.setBackgroundColor(Color.WHITE);
+        }
+        currentSelectedView = view;
+        currentSelectedView.setBackgroundColor(Color.parseColor("#ffe6e6"));
     }
 }
