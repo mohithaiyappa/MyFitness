@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/grayColor"
+    android:orientation="horizontal"
+    android:padding="1dp">
+
+    <TextView
+        android:id="@+id/lv_startTime"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="1dp"
+        android:layout_weight="1"
+        android:background="@color/whiteColor"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@color/blackColor"
+        android:padding="4dp"/>
+
+    <ListView
+        android:id="@+id/videoDetailsListView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4"/>
+
+    <ImageButton
+        android:id="@+id/lvEditButton"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="1dp"
+        android:layout_weight="0.5"
+        android:background="@color/whiteColor"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_edit"/>
+
+    <ImageButton
+        android:id="@+id/lvDeleteButton"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="1dp"
+        android:layout_weight="0.5"
+        android:background="@color/whiteColor"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_delete"/>
+
+
+</LinearLayout>

@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteColor"
+    android:orientation="vertical"
+    android:padding="7dp"
+    tools:context=".WeekSchedule">
+
+    <LinearLayout
+        android:id="@+id/noticeLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grayColor"
+        android:orientation="vertical"
+        android:padding="1dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/whiteColor"
+            android:padding="4dp"
+            android:text="お知らせ"
+            android:textColor="@color/colorAccent"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/whiteColor" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/whiteColor">
+
+        <TextView
+            android:id="@+id/titleTextWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="2020.10"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/prevButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_marginVertical="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/colorAccent"
+            android:text="前週" />
+
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginVertical="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorAccent"
+            android:text="翌週" />
+    </RelativeLayout>
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grayColor"
+        android:orientation="horizontal"
+        android:paddingTop="2dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="1dp"
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:text="日付"
+            android:textAlignment="center"
+            android:textColor="@color/blackColor" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="1dp"
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:text="2020/8/10"
+            android:textAlignment="center"
+            android:textColor="@color/blackColor" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:text="2020/8/11"
+            android:textAlignment="center"
+            android:textColor="@color/blackColor" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:text="2020/8/12"
+            android:textAlignment="center"
+            android:textColor="@color/blackColor" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:text="2020/8/13"
+            android:textAlignment="center"
+            android:textColor="@color/blackColor" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:text="2020/8/14"
+            android:textAlignment="center"
+            android:textColor="@color/blackColor" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:text="2020/8/15"
+            android:textAlignment="center"
+            android:textColor="@color/blueColor" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:text="2020/8/16"
+            android:textAlignment="center"
+            android:textColor="@color/redColor" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grayColor"
+        android:orientation="horizontal"
+        android:paddingTop="2dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="1dp"
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:text="時間／曜日"
+            android:textAlignment="center"
+            android:textColor="@color/blackColor" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="1dp"
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:text="月曜日"
+            android:textAlignment="center"
+            android:textColor="@color/blackColor" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:text="火曜日"
+            android:textAlignment="center"
+            android:textColor="@color/blackColor" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:text="水曜日"
+            android:textAlignment="center"
+            android:textColor="@color/blackColor" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:text="⽊曜日"
+            android:textAlignment="center"
+            android:textColor="@color/blackColor" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:text="⾦曜日"
+            android:textAlignment="center"
+            android:textColor="@color/blackColor" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:text="土曜日"
+            android:textAlignment="center"
+            android:textColor="@color/blueColor" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:text="日曜日"
+            android:textAlignment="center"
+            android:textColor="@color/redColor" />
+
+#05000000
+    </LinearLayout>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blackColor"
+        android:padding="1dp">
+
+        <com.alamkanak.weekview.WeekView
+            android:id="@+id/weekView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/whiteColor"
+            app:columnGap="8dp"
+            app:dayBackgroundColor="#05000000"
+            app:eventTextColor="@android:color/black"
+            app:firstDayOfWeek="monday"
+            app:headerColumnBackground="#ffffffff"
+            app:headerColumnPadding="8dp"
+            app:headerColumnTextColor="#8f000000"
+            app:headerRowBackgroundColor="#ffefefef"
+            app:headerRowPadding="12dp"
+            app:horizontalFlingEnabled="true"
+            app:hourHeight="240dp"
+            app:hourSeparatorColor="@color/blackColor"
+            app:hourSeparatorHeight="1dp"
+            app:noOfVisibleDays="7"
+            app:showDistinctWeekendColor="true"
+            app:textSize="16sp"
+            app:todayBackgroundColor="#10000000"
+            app:showNowLine="true"
+            app:nowLineColor="@color/colorAccent"
+            app:eventTextSize="13sp"
+            app:eventPadding="10dp"
+            app:minHourHeight="30dp"
+            app:maxHourHeight="960dp"/>
+    </LinearLayout>
+
+</LinearLayout>
