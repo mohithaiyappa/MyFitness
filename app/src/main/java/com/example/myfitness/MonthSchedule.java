@@ -25,7 +25,8 @@ public class MonthSchedule extends Fragment {
     private TextView titleText;
     private Button prevButton, nextButton;
     private CalendarAdapter mCalendarAdapter;
-    private GridView calendarGridView;
+    private DayHeadingTextAdapter dayHeadingTextAdapter;
+    private GridView calendarGridView,headingGridView;
     private boolean initialLoad = true;
 
     @Override
@@ -58,6 +59,9 @@ public class MonthSchedule extends Fragment {
                 titleText.setText(mCalendarAdapter.getTitle());
             }
         });
+        headingGridView = view.findViewById(R.id.calendarHeadingGridView);
+        dayHeadingTextAdapter = new DayHeadingTextAdapter(this.getActivity());
+        headingGridView.setAdapter(dayHeadingTextAdapter);
         calendarGridView = view.findViewById(R.id.calendarGridView);
         mCalendarAdapter = new CalendarAdapter(this.getActivity());
         calendarGridView.setAdapter(mCalendarAdapter);
