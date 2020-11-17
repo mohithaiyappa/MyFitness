@@ -121,6 +121,7 @@ public class CalendarAdapter extends BaseAdapter {
         EventRepo.getInstance().loadEvents(mDateManager.getYear(),mDateManager.getMonth());
         dateArray = mDateManager.getDays();
         monthEvents.clear();
+        currentSelectedView=null;
         this.notifyDataSetChanged();
     }
 
@@ -130,6 +131,7 @@ public class CalendarAdapter extends BaseAdapter {
         EventRepo.getInstance().loadEvents(mDateManager.getYear(),mDateManager.getMonth());
         dateArray = mDateManager.getDays();
         monthEvents.clear();
+        currentSelectedView = null;
         this.notifyDataSetChanged();
     }
 
