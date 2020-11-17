@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -121,6 +122,7 @@ public class CalendarAdapter extends BaseAdapter {
         EventRepo.getInstance().loadEvents(mDateManager.getYear(),mDateManager.getMonth());
         dateArray = mDateManager.getDays();
         monthEvents.clear();
+        deselectView();
         currentSelectedView=null;
         this.notifyDataSetChanged();
     }
@@ -131,6 +133,7 @@ public class CalendarAdapter extends BaseAdapter {
         EventRepo.getInstance().loadEvents(mDateManager.getYear(),mDateManager.getMonth());
         dateArray = mDateManager.getDays();
         monthEvents.clear();
+        deselectView();
         currentSelectedView = null;
         this.notifyDataSetChanged();
     }
@@ -175,10 +178,22 @@ public class CalendarAdapter extends BaseAdapter {
     }
 
     public void clickedDate(View view){
+        deselectView();
+        selectView(view);
+    }
+
+    private void deselectView(){
         if (currentSelectedView!=null){
+            LinearLayout oldLinearLayout = (LinearLayout) currentSelectedView.findViewById(R.id.calendarCellLinearLayout);
+            oldLinearLayout.setPadding(0,0,0,0);
             currentSelectedView.setBackgroundColor(Color.WHITE);
         }
+    }
+
+    private void selectView(View view){
+        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.calendarCellLinearLayout);
         currentSelectedView = view;
         currentSelectedView.setBackgroundColor(Color.parseColor("#ffe6e6"));
+        linearLayout.setPadding(10,10,10,10);
     }
 }
