@@ -16,6 +16,7 @@
         android:id="@+id/eventsText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingHorizontal="3dp"
         android:background="?android:attr/selectableItemBackground" />
 
 </LinearLayout>
