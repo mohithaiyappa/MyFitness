@@ -2,6 +2,8 @@ package com.example.myfitness;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +60,7 @@ public class CalendarAdapter extends BaseAdapter {
 
         //セルのサイズを指定
         float dp = mContext.getResources().getDisplayMetrics().density;
-        AbsListView.LayoutParams params = new AbsListView.LayoutParams(parent.getWidth()/7 - (int)dp,
+        AbsListView.LayoutParams params = new AbsListView.LayoutParams(parent.getWidth()/7 /*- (int)dp+((int)(3*dp))*/,
                 (parent.getHeight() - (int)dp * mDateManager.getWeeks() ) / mDateManager.getWeeks());
         convertView.setLayoutParams(params);
 
@@ -71,8 +73,10 @@ public class CalendarAdapter extends BaseAdapter {
         //当月以外のセルをグレーアウト
         if (mDateManager.isCurrentMonth(dateArray.get(position))){
             convertView.setBackgroundColor(Color.WHITE);
+            holder.eventText.setBackgroundColor(Color.WHITE);
         }else {
             convertView.setBackgroundColor(Color.LTGRAY);
+            holder.eventText.setBackgroundColor(Color.LTGRAY);
         }
 
         //日曜日を赤、土曜日を青に color used for weekends
@@ -90,7 +94,7 @@ public class CalendarAdapter extends BaseAdapter {
         }
         holder.dateText.setTextColor(colorId);
         if(mDateManager.isToday(dateArray.get(position))){
-            holder.dateText.setBackgroundColor(Color.RED);
+            holder.dateText.setBackgroundColor(Color.parseColor("#F4B085"));
             holder.dateText.setTextColor(Color.WHITE);
         }else if(mDateManager.isCurrentMonth(dateArray.get(position))){
             holder.dateText.setBackgroundColor(Color.WHITE);
@@ -184,20 +188,27 @@ public class CalendarAdapter extends BaseAdapter {
 
     private void deselectView(){
         if (currentSelectedView!=null){
+            int dp = (int)mContext.getResources().getDisplayMetrics().density;
+            int cdPadding = 3*dp;
             LinearLayout oldLinearLayout = (LinearLayout) currentSelectedView.findViewById(R.id.calendarCellLinearLayout);
             TextView cellDescTv = oldLinearLayout.findViewById(R.id.eventsText);
             oldLinearLayout.setPadding(0,0,0,0);
-            cellDescTv.setPadding(3,0,3,0);
+            cellDescTv.setPadding(cdPadding,0,cdPadding,0);
             currentSelectedView.setBackgroundColor(Color.WHITE);
+            cellDescTv.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
         }
     }
 
     private void selectView(View view){
+        int dp = (int)mContext.getResources().getDisplayMetrics().density;
+        int llPadding = 3*dp;
+        int cdPadding = dp;
         LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.calendarCellLinearLayout);
         TextView cellDescTv = view.findViewById(R.id.eventsText);
         currentSelectedView = view;
-        currentSelectedView.setBackgroundColor(Color.parseColor("#ffe6e6"));
-        linearLayout.setPadding(3,7,3,3);
-        cellDescTv.setPadding(0,0,0,0);
+        currentSelectedView.setBackgroundColor(Color.parseColor("#FFC000"));
+        linearLayout.setPadding(llPadding,llPadding,llPadding,llPadding);
+        cellDescTv.setPadding(cdPadding,0,cdPadding,0);
+        cellDescTv.setTextSize(TypedValue.COMPLEX_UNIT_SP,13);
     }
 }

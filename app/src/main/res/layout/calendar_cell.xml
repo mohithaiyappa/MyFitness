@@ -3,20 +3,30 @@
     android:id="@+id/calendarCellLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_margin="0.5dp">
 
-    <TextView
-        android:id="@+id/dateText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center" />
-
-    <!--ここに拡張可能-->
-    <TextView
-        android:id="@+id/eventsText"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="3dp"
-        android:background="?android:attr/selectableItemBackground" />
+        android:background="@color/grayColor"
+        android:orientation="vertical"
+        android:padding="0.5dp">
 
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/whiteColor"
+            android:textAlignment="center" />
+
+        <!--ここに拡張可能-->
+        <TextView
+            android:id="@+id/eventsText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
+            android:background="@color/whiteColor"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingHorizontal="3dp" />
+    </LinearLayout>
 </LinearLayout>

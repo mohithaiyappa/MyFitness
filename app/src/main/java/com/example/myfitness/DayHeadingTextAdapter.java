@@ -5,15 +5,18 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 public class DayHeadingTextAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
+    private Context mContext;
     String[] days = {"日" ,"月","火","水","木","金","土"};
 
     public DayHeadingTextAdapter(Context ctx) {
         mLayoutInflater = LayoutInflater.from(ctx);
+        mContext = ctx;
     }
 
     @Override
@@ -42,6 +45,10 @@ public class DayHeadingTextAdapter extends BaseAdapter {
         } else {
             holder = (DayHeadingTextAdapter.ViewHolder) convertView.getTag();
         }
+        float dp = mContext.getResources().getDisplayMetrics().density;
+        AbsListView.LayoutParams params = new AbsListView.LayoutParams(parent.getWidth()/7 ,
+                (parent.getHeight() - (int)dp * 1 ) / 1);
+        convertView.setLayoutParams(params);
         holder.dayText.setText(getItem(position));
         if(position==0){
             holder.dayText.setTextColor(Color.RED);

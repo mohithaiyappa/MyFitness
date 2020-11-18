@@ -29,7 +29,6 @@
             android:layout_marginVertical="10dp"
             android:layout_marginLeft="10dp"
             android:background="@color/colorAccent"
-            android:minHeight="50dp"
             android:text="前月" />
 
         <Button
@@ -40,30 +39,37 @@
             android:layout_marginVertical="10dp"
             android:layout_marginRight="10dp"
             android:background="@color/colorAccent"
-            android:minHeight="50dp"
             android:text="翌月" />
     </RelativeLayout>
 
-    <GridView
-        android:id="@+id/calendarHeadingGridView"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="1dp"
-        android:horizontalSpacing="1.5dp"
-        android:numColumns="7"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="1dp" />
+        android:background="@color/whiteColor">
 
-    <GridView
-        android:id="@+id/calendarGridView"
+        <GridView
+            android:id="@+id/calendarHeadingGridView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="0dp"
+            android:numColumns="7"
+            android:stretchMode="columnWidth" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="1dp"
-        android:horizontalSpacing="2dp"
-        android:numColumns="7"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="1dp" />
+        android:background="@color/whiteColor">
+
+        <GridView
+            android:id="@+id/calendarGridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="7"
+            android:horizontalSpacing="0dp"
+            android:verticalSpacing="0dp"
+            android:stretchMode="columnWidth" />
+
+    </LinearLayout>
 
 </LinearLayout>
