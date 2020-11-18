@@ -185,15 +185,19 @@ public class CalendarAdapter extends BaseAdapter {
     private void deselectView(){
         if (currentSelectedView!=null){
             LinearLayout oldLinearLayout = (LinearLayout) currentSelectedView.findViewById(R.id.calendarCellLinearLayout);
+            TextView cellDescTv = oldLinearLayout.findViewById(R.id.eventsText);
             oldLinearLayout.setPadding(0,0,0,0);
+            cellDescTv.setPadding(3,0,3,0);
             currentSelectedView.setBackgroundColor(Color.WHITE);
         }
     }
 
     private void selectView(View view){
         LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.calendarCellLinearLayout);
+        TextView cellDescTv = view.findViewById(R.id.eventsText);
         currentSelectedView = view;
         currentSelectedView.setBackgroundColor(Color.parseColor("#ffe6e6"));
-        linearLayout.setPadding(10,10,10,10);
+        linearLayout.setPadding(3,7,3,3);
+        cellDescTv.setPadding(0,0,0,0);
     }
 }
