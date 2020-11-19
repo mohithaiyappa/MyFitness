@@ -14,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -41,6 +42,10 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VideoList extends Fragment {
 
@@ -267,6 +272,7 @@ public class VideoList extends Fragment {
                     Intent intent = new Intent(getActivity(),Reservation.class);
                     intent.putExtra("user_id",user_id);
                     startActivity(intent);
+//                    getFragmentManager().beginTransaction().remove(VideoList.this).commit();
                     break;
                 case R.id.content_img:
                     //詳細文表示ボタン
@@ -285,6 +291,13 @@ public class VideoList extends Fragment {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     // OK button pressed
+
+                                    /*Event eventToBeDeleted = new Event();
+                                    eventToBeDeleted.setE_id();
+                                    EventRepo.getInstance().deleteEvent(eventToBeDeleted.getE_id(), eventToBeDeleted);*/
+
+                                    //EventRepo.getInstance().getEventIdStrings(getCallback(),Integer.parseInt(item.getVideo_id()));
+
                                     DeleteSql deleteSql = new DeleteSql();
                                     deleteSql.execute(user_id,item.getVideo_id());
                                     File file = new File(item.getLocal_path());
@@ -302,6 +315,7 @@ public class VideoList extends Fragment {
     };
 
 
+
     private class DeleteSql extends AsyncTask<String, String, String> {
 
         @Override
@@ -313,7 +327,7 @@ public class VideoList extends Fragment {
         protected String doInBackground(String... params) {
 
             try {
-                URL url = new URL("http://www.cmanage.net/homefitness/file_delete.php");
+                URL url = new URL("http://www.cmanage.net/homefitness/file_delete2.php");
                 // connection を定義
                 conn = (HttpURLConnection)url.openConnection();
                 conn.setDoOutput(true);
@@ -363,10 +377,45 @@ public class VideoList extends Fragment {
             super.onPostExecute(result);
             if(result != null){
                 System.out.println("OK");
+                Log.d("TAG", "onPostExecute: " + result);
+                // deleteEvent(result);
             }else{
                 System.out.println("No");
             }
 
         }
+    }
+    //todo later
+    private void createIntegerList(String eventIdStr){
+        String[] strArray = eventIdStr.split(",");
+        for(String s : strArray){
+            deleteEvent(Integer.parseInt(s));
+            //idArray.add(Integer.valueOf(s));
+        }
+
+    }
+    private void deleteEvent(int eid) {
+        Event eventToBeDeleted = new Event();
+        eventToBeDeleted.setE_id(eid);
+        EventRepo.getInstance().deleteEvent(eventToBeDeleted.getE_id(), eventToBeDeleted);
+    }
+
+    private Callback<String> getCallback(){
+        return new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if(!response.isSuccessful()){
+                    Log.d("TAG", " retrofit onPostExecute: not successful" );
+                    return;
+                }
+                Log.d("TAG", "retrofit onPostExecute: " + response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.d("TAG", " retrofit onFailure: could not delete item "+t);
+            }
+
+        };
     }
 }

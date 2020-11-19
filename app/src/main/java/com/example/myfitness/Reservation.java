@@ -100,6 +100,7 @@ public class Reservation extends AppCompatActivity implements DatePickerDialog.O
     private TimePicker end_time;
 
     private ImageButton edit_button;
+    private ImageButton back_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,6 +203,16 @@ public class Reservation extends AppCompatActivity implements DatePickerDialog.O
         save_video_list.setOnItemClickListener(onItemClickListener);
         GetSavedata getSavedata = new GetSavedata();
         getSavedata.execute(user_id);
+        //戻るボタン
+        back_button = findViewById(R.id.back_button);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplication(), TabActivity.class);
+                intent.putExtra("user_id",user_id);
+                startActivity(intent);
+            }
+        });
         //リセットボタン
         reset_button = findViewById(R.id.reset_button);
         reset_button.setOnClickListener(new View.OnClickListener() {
@@ -314,7 +325,8 @@ public class Reservation extends AppCompatActivity implements DatePickerDialog.O
                                     String endtime = hhmmss.format(d_en_time);
                                     Schedule_register schedule_register = new Schedule_register();
                                     System.out.println(end_date.getText().toString() + ":" + end_date.getText().toString() + ":" + e_time + ":" + endtime + repeat_order);
-                                    schedule_register.execute(user_id, end_date.getText().toString(), end_date.getText().toString(), e_time, endtime, repeat_order, "", "当日のみ");
+                                    repeat_order = repeat_order.substring(0, repeat_order.length() - 1);
+                                    schedule_register.execute(user_id, end_date.getText().toString(), end_date.getText().toString(), e_time, endtime, repeat_order, "月,火,水,木,金,土,日", "当日のみ");
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -340,7 +352,8 @@ public class Reservation extends AppCompatActivity implements DatePickerDialog.O
                                 Date d_en_time = calendar.getTime();
                                 String endtime = hhmmss.format(d_en_time);
                                 Schedule_register schedule_register = new Schedule_register();
-                                schedule_register.execute(user_id, end_date.getText().toString(), end_date.getText().toString(), e_time, endtime, repeat_order, "", "当日のみ");
+                                repeat_order = repeat_order.substring(0, repeat_order.length() - 1);
+                                schedule_register.execute(user_id, end_date.getText().toString(), end_date.getText().toString(), e_time, endtime, repeat_order, "月,火,水,木,金,土,日", "当日のみ");
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -374,7 +387,8 @@ public class Reservation extends AppCompatActivity implements DatePickerDialog.O
                                 String endtime = hhmmss.format(d_en_time);
                                 Schedule_register schedule_register = new Schedule_register();
                                 System.out.println(end_date.getText().toString() + ":" + end_date.getText().toString() + ":" + e_time + ":" + endtime);
-                                schedule_register.execute(user_id, start_date.getText().toString(), end_date.getText().toString(), e_time, endtime, repeat_order, "", "期間指定");
+                                repeat_order = repeat_order.substring(0, repeat_order.length() - 1);
+                                schedule_register.execute(user_id, start_date.getText().toString(), end_date.getText().toString(), e_time, endtime, repeat_order, "月,火,水,木,金,土,日", "期間指定");
                             } catch (Exception e) {
 
                             }
@@ -399,24 +413,32 @@ public class Reservation extends AppCompatActivity implements DatePickerDialog.O
                     } else {
                         //開始の日付が終了の日付より前ならOK
                         if (e_date.compareTo(s_date) > 0) {
-                            try {
-                                String[] date_split = total_time.split(":");
-                                int hour = Integer.parseInt(date_split[0]);
-                                int minute = Integer.parseInt(date_split[1]);
-                                int second = Integer.parseInt(date_split[2]);
-                                Date st_time = hhmmss.parse(e_time);
-                                calendar.setTime(st_time);
-                                calendar.add(Calendar.HOUR, hour);
-                                calendar.add(Calendar.MINUTE, minute);
-                                calendar.add(Calendar.SECOND, second);
-                                Date d_en_time = calendar.getTime();
-                                String endtime = hhmmss.format(d_en_time);
-                                Schedule_register schedule_register = new Schedule_register();
-                                System.out.println(end_date.getText().toString() + ":" + end_date.getText().toString() + ":" + e_time + ":" + endtime);
-                                schedule_register.execute(user_id, start_date.getText().toString(), end_date.getText().toString(), e_time, endtime, repeat_order, day_of_week, "曜日指定");
-                            } catch (Exception e) {
+                            if (day_of_week.equals("")) {
+                                Toast ts = Toast.makeText(getApplicationContext() , "曜日にチェックしてください", Toast.LENGTH_LONG);
+                                ts.setGravity(Gravity.CENTER,0,-160);
+                                ts.show();
+                            } else {
+                                try {
+                                    String[] date_split = total_time.split(":");
+                                    int hour = Integer.parseInt(date_split[0]);
+                                    int minute = Integer.parseInt(date_split[1]);
+                                    int second = Integer.parseInt(date_split[2]);
+                                    Date st_time = hhmmss.parse(e_time);
+                                    calendar.setTime(st_time);
+                                    calendar.add(Calendar.HOUR, hour);
+                                    calendar.add(Calendar.MINUTE, minute);
+                                    calendar.add(Calendar.SECOND, second);
+                                    Date d_en_time = calendar.getTime();
+                                    String endtime = hhmmss.format(d_en_time);
+                                    Schedule_register schedule_register = new Schedule_register();
+                                    System.out.println(end_date.getText().toString() + ":" + end_date.getText().toString() + ":" + e_time + ":" + endtime);
+                                    repeat_order = repeat_order.substring(0, repeat_order.length() - 1);
+                                    schedule_register.execute(user_id, start_date.getText().toString(), end_date.getText().toString(), e_time, endtime, repeat_order, day_of_week, "曜日指定");
+                                } catch (Exception e) {
 
+                                }
                             }
+
                         } else {
                             Toast ts = Toast.makeText(getApplicationContext() , "終了の日付を開始の日付より後に設定してください", Toast.LENGTH_LONG);
                             ts.setGravity(Gravity.CENTER,0,-160);
@@ -446,9 +468,16 @@ public class Reservation extends AppCompatActivity implements DatePickerDialog.O
                                 ts.setGravity(Gravity.CENTER,0,-160);
                                 ts.show();
                             } else {
-                                Schedule_register schedule_register = new Schedule_register();
-                                schedule_register.execute(user_id, s_date, e_date, s_time, e_time, repeat_order, day_of_week, "リピート");
-                                System.out.println("OOOOk");
+                                if (day_of_week.equals("")) {
+                                    Toast ts = Toast.makeText(getApplicationContext() , "曜日にチェックしてください", Toast.LENGTH_LONG);
+                                    ts.setGravity(Gravity.CENTER,0,-160);
+                                    ts.show();
+                                } else {
+                                    Schedule_register schedule_register = new Schedule_register();
+                                    repeat_order = repeat_order.substring(0, repeat_order.length() - 1);
+                                    schedule_register.execute(user_id, s_date, e_date, s_time, e_time, repeat_order, day_of_week, "リピート");
+                                    System.out.println(user_id + s_date + e_date + s_time + e_time + repeat_order + day_of_week);
+                                }
                             }
                         } else {
                             Toast ts = Toast.makeText(getApplicationContext() , "終了の日付を開始の日付より後に設定してください", Toast.LENGTH_LONG);
@@ -710,7 +739,7 @@ public class Reservation extends AppCompatActivity implements DatePickerDialog.O
                 conn.setDoInput(true);
                 conn.setReadTimeout(2000);
                 conn.setConnectTimeout(2000);
-                conn.setRequestMethod("POST");
+                conn.setRequestMethod("GET");
 
                 Uri.Builder builder = new Uri.Builder()
                         .appendQueryParameter("user_id", params[0])
@@ -718,8 +747,8 @@ public class Reservation extends AppCompatActivity implements DatePickerDialog.O
                         .appendQueryParameter("end_date", params[2])
                         .appendQueryParameter("start_time", params[3])
                         .appendQueryParameter("end_time", params[4])
-                        .appendQueryParameter("video_ids", params[5])
-                        .appendQueryParameter("day_of_week", params[6])
+                        .appendQueryParameter("video_id", params[5])
+                        .appendQueryParameter("days_only", params[6])
                         .appendQueryParameter("mode", params[7]);
                 String query = builder.build().getEncodedQuery();
 
@@ -733,9 +762,35 @@ public class Reservation extends AppCompatActivity implements DatePickerDialog.O
 
                 conn.connect();
 
+//                String line = "";
+//                StringBuilder sb = new StringBuilder();
+//
+//                InputStreamReader in = new InputStreamReader(conn.getInputStream(), "UTF-8");
+//                BufferedReader br = new BufferedReader(in);
+//
+//                while((line = br.readLine()) != null){
+//                    if(sb.length() > 0) sb.append('\n');
+//                    sb.append(line);
+//                }
+//
+//                br.close();
+//                in.close();
+
+
                 final int status = conn.getResponseCode();
                 if (status == HttpURLConnection.HTTP_OK) {
-                    return ("OK");
+                    // Read data sent from server
+                    InputStream input = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                    StringBuilder result = new StringBuilder();
+                    String line;
+
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+                    conn.disconnect();
+                    // Pass data to onPostExecute method
+                    return(result.toString());
                 } else {
                     Toast.makeText(Reservation.this, "returning unsuccessful", Toast.LENGTH_LONG).show();
 
@@ -756,7 +811,16 @@ public class Reservation extends AppCompatActivity implements DatePickerDialog.O
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             if (result != null) {
-                System.out.println("OK");
+                if (result.equals("すでにスケジュールが登録されています")) {
+                    Toast ts = Toast.makeText(getApplicationContext() , "すでにスケジュールが登録されています", Toast.LENGTH_LONG);
+                    ts.setGravity(Gravity.CENTER,0,-160);
+                    ts.show();
+                } else {
+                    Toast ts = Toast.makeText(getApplicationContext() , "登録しました", Toast.LENGTH_LONG);
+                    ts.setGravity(Gravity.CENTER,0,-160);
+                    ts.show();
+                }
+//                System.out.println(result);
             } else {
                 System.out.println("No");
             }

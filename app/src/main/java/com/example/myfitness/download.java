@@ -286,6 +286,7 @@ public class download extends Fragment {
 
     private TextView createText(String text){
         TextView Text = new TextView(this.getActivity());
+        Text.setTextSize(25f);
         Text.setText(text);
         return Text;
     }
