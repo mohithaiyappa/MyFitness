@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,12 +59,12 @@ public class WeekSchedule extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mWeekView.goToDate(mCalendar);
-        mWeekView.goToHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+        if(EventRepo.getInstance().shouldReloadWeekViewEvents){
+            mWeekView.notifyDatasetChanged();
+            EventRepo.getInstance().shouldReloadWeekViewEvents = false;
+        }
         setHeadingDate();
-        mWeekView.notifyDatasetChanged();
-        ifSundayShowPrevWeek();
-
+        comeBackToToday();
     }
 
     private void setCalendar(){
@@ -201,6 +202,19 @@ public class WeekSchedule extends Fragment {
             setHeadingDate();
             hasMoved = true;
         }
+    }
+
+    private void comeBackToToday(){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setCalendar();
+                mWeekView.goToDate(mCalendar);
+                mWeekView.goToHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+                ifSundayShowPrevWeek();
+            }
+        },100);
     }
 
 }

@@ -377,6 +377,7 @@ public class VideoList extends Fragment {
             super.onPostExecute(result);
             if(result != null){
                 System.out.println("OK");
+                EventRepo.getInstance().clearAllWeekEvents();
                 Log.d("TAG", "onPostExecute: " + result);
                 // deleteEvent(result);
             }else{

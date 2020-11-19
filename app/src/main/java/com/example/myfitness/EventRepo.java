@@ -34,6 +34,9 @@ public class EventRepo {
     public List<WeekViewEvent> allWeekViewEvents = new ArrayList<>();
     public MutableLiveData<List<WeekViewEvent>> allWeekViewEventsLiveData = new MutableLiveData<>();
 
+    public boolean shouldReloadWeekViewEvents = false;
+    public boolean shouldReloadDayEvents = false;
+
     //private constructor
     private EventRepo() {
         allEventsLiveData.setValue(allEvents);
@@ -188,6 +191,14 @@ public class EventRepo {
             e.printStackTrace();
         }
 
+    }
+
+    public void clearAllWeekEvents(){
+        allEvents.clear();
+        allEventsLiveData.setValue(allEvents);
+        allWeekViewEvents.clear();
+        allWeekViewEventsLiveData.setValue(allWeekViewEvents);
+        shouldReloadWeekViewEvents = true;
     }
 
     public int currentYear() {
