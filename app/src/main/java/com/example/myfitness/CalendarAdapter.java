@@ -174,7 +174,8 @@ public class CalendarAdapter extends BaseAdapter {
     }
 
     public void updateList(List<Event> events){
-        if(monthEvents.isEmpty()&&events.isEmpty()) return;
+        //remove later if there is no bugs in loading events in cal view
+        //if(monthEvents.isEmpty()&&events.isEmpty()) return;
 
         monthEvents = events;
         dateArray = mDateManager.getDays();
