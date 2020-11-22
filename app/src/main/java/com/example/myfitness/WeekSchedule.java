@@ -63,6 +63,8 @@ public class WeekSchedule extends Fragment {
             mWeekView.notifyDatasetChanged();
             EventRepo.getInstance().shouldReloadWeekViewEvents = false;
         }
+        EventRepo.getInstance().clearAllWeekEvents();
+        mWeekView.notifyDatasetChanged();
         setHeadingDate();
         comeBackToToday();
     }

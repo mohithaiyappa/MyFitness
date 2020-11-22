@@ -158,15 +158,16 @@ public class EventRepo {
     }
 
     public void deleteEvent(int e_id,Event event){
-        RetrofitEvent.getEventApi().deleteEvent(userName,e_id).enqueue(new Callback<Object>() {
+        RetrofitEvent.getEventApi().deleteEvent(userName,e_id).enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<Object> call, Response<Object> response) { }
-
-            @Override
-            public void onFailure(Call<Object> call, Throwable t) {
-                Log.d("MyFitness", "onFailure: could not delete item "+t);
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.d("TestingDelete", "onResponse: in OnResponse ");
             }
 
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("TestingDelete", "onFailure: could not delete item "+t);
+            }
         });
         try {
             List<Event> newAllEvents = eventsLiveData.getValue();
