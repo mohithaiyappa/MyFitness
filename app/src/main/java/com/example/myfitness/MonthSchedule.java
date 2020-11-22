@@ -72,7 +72,7 @@ public class MonthSchedule extends Fragment {
                 Date selectedDate = (Date) mCalendarAdapter.getItem(position);
                 if(mCalendarAdapter.getDateManager().isCurrentMonth(selectedDate)) {
                     mCalendarAdapter.clickedDate(view);
-                    EventRepo.getInstance().loadDayEvents(selectedDate);
+                    EventRepo.getInstance().setSelectedDate(selectedDate);
                 }
             }
         });
@@ -81,7 +81,7 @@ public class MonthSchedule extends Fragment {
             public void onChanged(List<Event> events) {
                 mCalendarAdapter.updateList(events);
                 if(initialLoad){
-                    EventRepo.getInstance().loadDayEvents(Calendar.getInstance().getTime());
+                    EventRepo.getInstance().setSelectedDate(Calendar.getInstance().getTime());
                     initialLoad=false;
                 }
             }

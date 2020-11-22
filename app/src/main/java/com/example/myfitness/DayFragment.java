@@ -62,6 +62,7 @@ public class DayFragment extends Fragment {
             @Override
             public void onChanged(Date date) {
                 loadDayFragmentHeadingText(date);
+                EventRepo.getInstance().loadSelectedDayEvents(date);
             }
         });
         fabButton.setOnClickListener(new View.OnClickListener() {

@@ -144,6 +144,7 @@ public class EventRepo {
     }
 
     //loads events for the selected day in day fragment
+    //todo remove later if unnecessary
     public void loadDayEvents(Date date) {
         List<Event> dayEventList = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
@@ -155,6 +156,45 @@ public class EventRepo {
         }
         dayEventsLiveData.setValue(dayEventList);
         selectedDate.setValue(date);
+    }
+
+    public void setSelectedDate(Date date){
+        selectedDate.setValue(date);
+    }
+
+    public void loadSelectedDayEvents(Date date){
+        Calendar cal = Calendar.getInstance();
+        if(date == null){
+            dayEventsLiveData.postValue(Collections.emptyList());
+            return;
+        }
+        cal.setTime(date);
+        RetrofitEvent.getEventApi().getDayEvents(cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH)+1,
+                userName,
+                cal.get(Calendar.DAY_OF_MONTH)).enqueue(new Callback<List<Event>>() {
+            @Override
+            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+                if(!response.isSuccessful()) return;
+                new Thread() {
+                    @Override
+                    public void run() {
+                        if(response.body()==null){
+                            dayEventsLiveData.postValue(Collections.emptyList());
+                        }else {
+                            Collections.sort(response.body(), getComparator());
+                            dayEventsLiveData.postValue(response.body());
+                        }
+                    }
+                }.start();
+            }
+
+            @Override
+            public void onFailure(Call<List<Event>> call, Throwable t) {
+                dayEventsLiveData.postValue(Collections.emptyList());
+            }
+        });
+
     }
 
     public void deleteEvent(int e_id,Event event){
