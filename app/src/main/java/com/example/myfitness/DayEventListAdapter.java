@@ -97,7 +97,7 @@ public class DayEventListAdapter extends BaseAdapter {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(eventToBeDeleted!= null) {
-                    EventRepo.getInstance().deleteEvent(eventToBeDeleted.getE_id(), eventToBeDeleted);
+                    EventRepo.getInstance().deleteEvent(eventToBeDeleted.getE_id(), eventToBeDeleted,context);
                     dayEvents.remove(eventToBeDeleted);
                     notifyDataSetChanged();
                     eventToBeDeleted = null;

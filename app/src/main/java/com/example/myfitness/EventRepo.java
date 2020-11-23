@@ -1,5 +1,6 @@
 package com.example.myfitness;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -143,6 +144,14 @@ public class EventRepo {
         });
     }
 
+    public void loadAlarmEvents(Callback<List<Event>> alarmCallback){
+        Calendar cal = Calendar.getInstance();
+        RetrofitEvent.getEventApi().getDayEvents(cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH)+1,
+                userName,
+                cal.get(Calendar.DAY_OF_MONTH)).enqueue(alarmCallback);
+    }
+
     //loads events for the selected day in day fragment
     //todo remove later if unnecessary
     public void loadDayEvents(Date date) {
@@ -197,10 +206,11 @@ public class EventRepo {
 
     }
 
-    public void deleteEvent(int e_id,Event event){
+    public void deleteEvent(int e_id, Event event, Context context){
         RetrofitEvent.getEventApi().deleteEvent(userName,e_id).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+                EventAlarmManager.getInstance().resetAlarm(context);
                 Log.d("TestingDelete", "onResponse: in OnResponse ");
             }
 

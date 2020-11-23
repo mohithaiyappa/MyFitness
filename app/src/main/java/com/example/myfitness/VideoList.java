@@ -386,37 +386,5 @@ public class VideoList extends Fragment {
 
         }
     }
-    //todo later
-    private void createIntegerList(String eventIdStr){
-        String[] strArray = eventIdStr.split(",");
-        for(String s : strArray){
-            deleteEvent(Integer.parseInt(s));
-            //idArray.add(Integer.valueOf(s));
-        }
 
-    }
-    private void deleteEvent(int eid) {
-        Event eventToBeDeleted = new Event();
-        eventToBeDeleted.setE_id(eid);
-        EventRepo.getInstance().deleteEvent(eventToBeDeleted.getE_id(), eventToBeDeleted);
-    }
-
-    private Callback<String> getCallback(){
-        return new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if(!response.isSuccessful()){
-                    Log.d("TAG", " retrofit onPostExecute: not successful" );
-                    return;
-                }
-                Log.d("TAG", "retrofit onPostExecute: " + response.body());
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.d("TAG", " retrofit onFailure: could not delete item "+t);
-            }
-
-        };
-    }
 }
