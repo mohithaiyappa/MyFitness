@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -26,6 +27,7 @@ public class CalendarAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
     private List<Event> monthEvents = new ArrayList<>();
     private View currentSelectedView;
+    private Date currentSelectedDate = EventRepo.getInstance().getSelectedDate().getValue();
 
     //カスタムセルを拡張したらここでWigetを定義
     private static class ViewHolder {
@@ -100,6 +102,9 @@ public class CalendarAdapter extends BaseAdapter {
             holder.dateText.setBackgroundColor(Color.WHITE);
         }else {
             holder.dateText.setBackgroundColor(Color.LTGRAY);
+        }
+        if(currentSelectedDate != null & (sameDay(dateArray.get(position),currentSelectedDate))){
+            selectView(convertView);
         }
         return convertView;
     }
@@ -182,7 +187,13 @@ public class CalendarAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public void clickedDate(View view){
+    private boolean sameDay(Date d1,Date d2){
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd",Locale.US);
+        return fmt.format(d1).equals(fmt.format(d2));
+    }
+
+    public void clickedDate(View view,Date selectedDate){
+        currentSelectedDate = selectedDate;
         deselectView();
         selectView(view);
     }
