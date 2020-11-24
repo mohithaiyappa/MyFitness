@@ -23,4 +23,7 @@ public interface EventApi {
     @DELETE("del.php")
     Call<Void> deleteEvent(@Query("user_id") String userId,
                      @Query("e_id") int e_id);
+
+    @GET("notification.php")
+    Call<List<Notification>> getNotifications();
 }

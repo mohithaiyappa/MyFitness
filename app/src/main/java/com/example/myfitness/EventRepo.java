@@ -28,6 +28,7 @@ public class EventRepo {
     private static final MutableLiveData<List<Event>> eventsLiveData = new MutableLiveData<>();
     private static final MutableLiveData<List<Event>> dayEventsLiveData = new MutableLiveData<>();
     private static final MutableLiveData<List<Event>> alarmEventsLiveData = new MutableLiveData<>();
+    private static final MutableLiveData<List<Notification>> notificationsLiveData = new MutableLiveData<>();
     private static final MutableLiveData<Date> selectedDate = new MutableLiveData<>();
     public static String userName;
     public MutableLiveData<List<Event>> allEventsLiveData = new MutableLiveData<>();
@@ -244,6 +245,22 @@ public class EventRepo {
 
     }
 
+    public void loadNotifications(){
+        RetrofitEvent.getEventApi().getNotifications().enqueue(new Callback<List<Notification>>() {
+            @Override
+            public void onResponse(Call<List<Notification>> call, Response<List<Notification>> response) {
+                if(!response.isSuccessful() || response.body()==null) return;
+                notificationsLiveData.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Notification>> call, Throwable t) {
+                Log.d("MyFitness", "onFailure: loading notifications failed");
+            }
+        });
+
+    }
+
     public void clearAllWeekEvents(){
         allEvents.clear();
         allEventsLiveData.setValue(allEvents);
@@ -331,5 +348,9 @@ public class EventRepo {
 
     public LiveData<List<Event>> getAlarmEventsLiveData() {
         return alarmEventsLiveData;
+    }
+
+    public LiveData<List<Notification>> getNotificationsLiveData() {
+        return notificationsLiveData;
     }
 }
