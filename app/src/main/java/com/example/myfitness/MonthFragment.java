@@ -20,8 +20,8 @@ import java.util.List;
 
 public class MonthFragment extends Fragment {
 
-    private TextView notificationTextView;
-    private ScrollView notificationScrollView;
+    private TextView    notificationTextView;
+    private ScrollView  notificationScrollView;
 
     @Override
     public View onCreateView(
@@ -36,8 +36,8 @@ public class MonthFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         EventRepo.getInstance().loadNotifications();
-        notificationTextView = view.findViewById(R.id.notificationTextView);
-        notificationScrollView = view.findViewById(R.id.notificationScrollView);
+        notificationTextView    = view.findViewById(R.id.notificationTextView);
+        notificationScrollView  = view.findViewById(R.id.notificationScrollView);
 
     }
 
@@ -46,34 +46,38 @@ public class MonthFragment extends Fragment {
         EventRepo.getInstance().getNotificationData().observe(this, new Observer<Pair<Boolean, Spannable>>() {
             @Override
             public void onChanged(Pair<Boolean, Spannable> booleanSpannablePair) {
-                notificationTextView.setText("");
-                try {
-                    boolean shouldWrap = booleanSpannablePair.first;
-                    Spannable notificationText = booleanSpannablePair.second;
-
-                    if( !shouldWrap ){
-                        float dp = getResources().getDisplayMetrics().density;
-                        LayoutParams lp = new LinearLayout.LayoutParams(
-                                LayoutParams.MATCH_PARENT,
-                                (int)(35*dp) );
-
-                        notificationScrollView.setLayoutParams(lp);
-
-
-                    }else {
-                        LayoutParams lp = new LinearLayout.LayoutParams(
-                                LayoutParams.MATCH_PARENT,
-                                LayoutParams.WRAP_CONTENT );
-
-                        notificationScrollView.setLayoutParams(lp);
-                    }
-
-                    notificationTextView.setText(notificationText);
-                }catch (NullPointerException e){
-                    e.printStackTrace();
-                }
+                setNotificationText(booleanSpannablePair);
             }
         });
         super.onResume();
+    }
+
+    private void setNotificationText(Pair<Boolean, Spannable> booleanSpannablePair){
+        notificationTextView.setText("");
+        try {
+            boolean shouldWrap = booleanSpannablePair.first;
+            Spannable notificationText = booleanSpannablePair.second;
+
+            if( !shouldWrap ){
+                float dp = getResources().getDisplayMetrics().density;
+                LayoutParams lp = new LinearLayout.LayoutParams(
+                        LayoutParams.MATCH_PARENT,
+                        (int)(35*dp) );
+
+                notificationScrollView.setLayoutParams(lp);
+
+
+            }else {
+                LayoutParams lp = new LinearLayout.LayoutParams(
+                        LayoutParams.MATCH_PARENT,
+                        LayoutParams.WRAP_CONTENT );
+
+                notificationScrollView.setLayoutParams(lp);
+            }
+
+            notificationTextView.setText(notificationText);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 }

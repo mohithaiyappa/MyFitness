@@ -79,32 +79,7 @@ public class WeekSchedule extends Fragment {
         EventRepo.getInstance().getNotificationData().observe(this, new Observer<Pair<Boolean, Spannable>>() {
             @Override
             public void onChanged(Pair<Boolean, Spannable> booleanSpannablePair) {
-                notificationTextView.setText("");
-                try {
-                    boolean shouldWrap = booleanSpannablePair.first;
-                    Spannable notificationText = booleanSpannablePair.second;
-
-                    if( !shouldWrap ){
-                        float dp = getResources().getDisplayMetrics().density;
-                        ViewGroup.LayoutParams lp = new LinearLayout.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                (int)(35*dp) );
-
-                        notificationScrollView.setLayoutParams(lp);
-
-
-                    }else {
-                        ViewGroup.LayoutParams lp = new LinearLayout.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT );
-
-                        notificationScrollView.setLayoutParams(lp);
-                    }
-
-                    notificationTextView.setText(notificationText);
-                }catch (NullPointerException e){
-                    e.printStackTrace();
-                }
+                setNotificationText(booleanSpannablePair);
             }
         });
     }
@@ -257,6 +232,35 @@ public class WeekSchedule extends Fragment {
                 ifSundayShowPrevWeek();
             }
         },100);
+    }
+
+    private void setNotificationText(Pair<Boolean, Spannable> booleanSpannablePair){
+        notificationTextView.setText("");
+        try {
+            boolean shouldWrap = booleanSpannablePair.first;
+            Spannable notificationText = booleanSpannablePair.second;
+
+            if( !shouldWrap ){
+                float dp = getResources().getDisplayMetrics().density;
+                ViewGroup.LayoutParams lp = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        (int)(35*dp) );
+
+                notificationScrollView.setLayoutParams(lp);
+
+
+            }else {
+                ViewGroup.LayoutParams lp = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT );
+
+                notificationScrollView.setLayoutParams(lp);
+            }
+
+            notificationTextView.setText(notificationText);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
 }
