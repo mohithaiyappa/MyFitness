@@ -26,10 +26,21 @@
             android:textColor="@color/colorAccent"
             android:textSize="10sp" />
 
-        <TextView
+        <ScrollView
+            android:id="@+id/notificationScrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/whiteColor" />
+            android:background="@color/whiteColor">
+
+            <TextView
+                android:id="@+id/notificationTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/whiteColor"
+                android:lineSpacingExtra="2dp"
+                android:paddingHorizontal="7dp"
+                android:textSize="13sp" />
+        </ScrollView>
     </LinearLayout>
 
     <RelativeLayout
@@ -258,7 +269,9 @@
             android:background="@color/whiteColor"
             app:columnGap="8dp"
             app:dayBackgroundColor="#05000000"
+            app:eventPadding="10dp"
             app:eventTextColor="@android:color/black"
+            app:eventTextSize="13sp"
             app:firstDayOfWeek="monday"
             app:headerColumnBackground="#ffffffff"
             app:headerColumnPadding="8dp"
@@ -269,16 +282,14 @@
             app:hourHeight="240dp"
             app:hourSeparatorColor="@color/blackColor"
             app:hourSeparatorHeight="1dp"
-            app:noOfVisibleDays="7"
-            app:showDistinctWeekendColor="true"
-            app:textSize="16sp"
-            app:todayBackgroundColor="#10000000"
-            app:showNowLine="true"
-            app:nowLineColor="@color/colorAccent"
-            app:eventTextSize="13sp"
-            app:eventPadding="10dp"
+            app:maxHourHeight="960dp"
             app:minHourHeight="30dp"
-            app:maxHourHeight="960dp"/>
+            app:noOfVisibleDays="7"
+            app:nowLineColor="@color/colorAccent"
+            app:showDistinctWeekendColor="true"
+            app:showNowLine="true"
+            app:textSize="16sp"
+            app:todayBackgroundColor="#10000000" />
     </LinearLayout>
 
 </LinearLayout>

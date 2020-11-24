@@ -1,8 +1,13 @@
 package com.example.myfitness;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 
+import androidx.core.util.Pair;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -28,7 +33,7 @@ public class EventRepo {
     private static final MutableLiveData<List<Event>> eventsLiveData = new MutableLiveData<>();
     private static final MutableLiveData<List<Event>> dayEventsLiveData = new MutableLiveData<>();
     private static final MutableLiveData<List<Event>> alarmEventsLiveData = new MutableLiveData<>();
-    private static final MutableLiveData<List<Notification>> notificationsLiveData = new MutableLiveData<>();
+    private static final MutableLiveData<Pair<Boolean, Spannable>> notificationData = new MutableLiveData<>();
     private static final MutableLiveData<Date> selectedDate = new MutableLiveData<>();
     public static String userName;
     public MutableLiveData<List<Event>> allEventsLiveData = new MutableLiveData<>();
@@ -250,7 +255,18 @@ public class EventRepo {
             @Override
             public void onResponse(Call<List<Notification>> call, Response<List<Notification>> response) {
                 if(!response.isSuccessful() || response.body()==null) return;
-                notificationsLiveData.postValue(response.body());
+                new Thread(){
+                    @Override
+                    public void run() {
+                        boolean shouldWrap = true;
+                        if(response.body().size()>2) shouldWrap = false;
+                        Pair<Boolean, Spannable> pairNotificationData = new Pair<>(
+                                shouldWrap,
+                                makeSpannable(response.body()));
+                        notificationData.postValue(pairNotificationData);
+                    }
+                }.start();
+
             }
 
             @Override
@@ -259,6 +275,38 @@ public class EventRepo {
             }
         });
 
+    }
+
+    private Spannable makeSpannable(List<Notification> notifications){
+        SpannableStringBuilder finalSpannable = new SpannableStringBuilder();
+        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
+        boolean start = true;
+        for(Notification notification : notifications){
+
+            spannableStringBuilder.clear();
+            int dateTextLength = notification.getNotificationDate().length();
+            if (!start) {
+                dateTextLength++;
+                spannableStringBuilder.append("\n");
+            }
+            spannableStringBuilder.append(notification.getNotificationDate());
+            spannableStringBuilder.setSpan(
+                    new ForegroundColorSpan(Color.BLACK),
+                    0, dateTextLength,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableStringBuilder.setSpan(
+                    new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+                    0, dateTextLength,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            spannableStringBuilder.append("   ");
+            spannableStringBuilder.append(notification.getNotificationText());
+            finalSpannable.append(spannableStringBuilder);
+            start =false;
+
+        }
+
+        return finalSpannable;
     }
 
     public void clearAllWeekEvents(){
@@ -350,7 +398,7 @@ public class EventRepo {
         return alarmEventsLiveData;
     }
 
-    public LiveData<List<Notification>> getNotificationsLiveData() {
-        return notificationsLiveData;
+    public LiveData<Pair<Boolean, Spannable>> getNotificationData() {
+        return notificationData;
     }
 }
