@@ -25,6 +25,7 @@ import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -132,7 +133,18 @@ public class WeekSchedule extends Fragment {
         mWeekView.setOnEventClickListener(new WeekView.EventClickListener() {
             @Override
             public void onEventClick(WeekViewEvent event, RectF eventRect) {
+                if(hasEventTimePassed(event)) return;
+
                 Intent createEventActivityIntent = new Intent(getContext(),CreateEventActivity.class);
+
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                String dateStr = dateFormat.format(event.getStartTime().getTime());
+
+                createEventActivityIntent.putExtra("user_id", EventRepo.userName);
+                createEventActivityIntent.putExtra("date",dateStr);
+                createEventActivityIntent.putExtra("e_id",event.getId());
+
                 startActivity(createEventActivityIntent);
             }
         });
@@ -261,6 +273,10 @@ public class WeekSchedule extends Fragment {
         }catch (NullPointerException e){
             e.printStackTrace();
         }
+    }
+
+    private boolean hasEventTimePassed(WeekViewEvent event){
+        return Calendar.getInstance().getTime().after(event.getStartTime().getTime());
     }
 
 }

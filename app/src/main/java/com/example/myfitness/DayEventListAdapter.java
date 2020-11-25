@@ -15,8 +15,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class DayEventListAdapter extends BaseAdapter {
     private final Context context;
@@ -69,8 +74,16 @@ public class DayEventListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Event event = (Event) getItem(position);
-                Intent intent = new Intent(context,CreateEventActivity.class);
+                if(hasEventTimePassed(event)) return;
+
+                Intent intent = new Intent(context,Reservation.class);
                 // todo add data to send to create or edit activity
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                String dateStr = dateFormat.format(EventRepo.getInstance().getSelectedDate().getValue());
+
+                intent.putExtra("user_id", EventRepo.userName);
+                intent.putExtra("date",dateStr);
+                intent.putExtra("e_id",event.getE_id());
 
                 context.startActivity(intent);
             }
@@ -135,6 +148,26 @@ public class DayEventListAdapter extends BaseAdapter {
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
         listView.requestLayout();
+    }
+
+    private boolean hasEventTimePassed(Event event){
+        boolean eventTimePassed = false;
+        try {
+            SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = dateFormat.parse(event.getEventDate().trim()+" "+event.getStartTime().trim());
+
+            if(date == null) return true;
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            boolean hasEventTimePassed = Calendar.getInstance().getTime().after(cal.getTime());
+            if(hasEventTimePassed) eventTimePassed = true;
+            return eventTimePassed;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return true;
+        }
+
     }
 
     private static class ViewHolder {

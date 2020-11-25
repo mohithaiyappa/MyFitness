@@ -68,8 +68,18 @@ public class DayFragment extends Fragment {
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),CreateEventActivity.class);
+                if(hasSelectedDayPassed())
+                    return;
+                Intent intent = new Intent(getActivity(), Reservation.class);
+                // eid userid date
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                String dateStr = dateFormat.format(EventRepo.getInstance().getSelectedDate().getValue());
+
+                intent.putExtra("user_id", EventRepo.userName);
+                intent.putExtra("date",dateStr);
+
                 startActivity(intent);
+
             }
         });
     }
@@ -97,5 +107,17 @@ public class DayFragment extends Fragment {
     private String getDate(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
         return dateFormat.format(date);
+    }
+
+    private boolean hasSelectedDayPassed(){
+        boolean dayPassed = false;
+        Date selectedDate = EventRepo.getInstance().getSelectedDate().getValue();
+        Calendar cal = Calendar.getInstance();
+        if(selectedDate==null)  return true;
+        cal.setTime(selectedDate);
+        cal.add(Calendar.DAY_OF_MONTH,1);
+        boolean hasEventTimePassed = Calendar.getInstance().getTime().after(cal.getTime());
+        if(hasEventTimePassed) dayPassed = true;
+        return dayPassed;
     }
 }
