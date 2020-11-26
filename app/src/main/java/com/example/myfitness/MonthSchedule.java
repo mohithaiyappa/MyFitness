@@ -87,5 +87,11 @@ public class MonthSchedule extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mCalendarAdapter.reloadEvents();
+    }
 }
 

@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -76,14 +75,14 @@ public class DayEventListAdapter extends BaseAdapter {
                 Event event = (Event) getItem(position);
                 if(hasEventTimePassed(event)) return;
 
-                Intent intent = new Intent(context,Reservation.class);
+                Intent intent = new Intent(context,edit_reservation.class);
                 // todo add data to send to create or edit activity
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
                 String dateStr = dateFormat.format(EventRepo.getInstance().getSelectedDate().getValue());
 
                 intent.putExtra("user_id", EventRepo.userName);
                 intent.putExtra("date",dateStr);
-                intent.putExtra("e_id",event.getE_id());
+                intent.putExtra("e_id",String.valueOf(event.getE_id()));
 
                 context.startActivity(intent);
             }

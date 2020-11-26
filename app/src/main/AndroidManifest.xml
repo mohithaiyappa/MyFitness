@@ -20,6 +20,8 @@
             android:screenOrientation="landscape"></activity>
         <activity android:name=".Reservation"
             android:screenOrientation="landscape"></activity>
+        <activity android:name=".edit_reservation"
+            android:screenOrientation="landscape"/>
         <activity android:name=".CreateEventActivity"
             android:screenOrientation="landscape"/>
         <activity

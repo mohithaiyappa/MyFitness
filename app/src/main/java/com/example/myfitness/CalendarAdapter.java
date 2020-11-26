@@ -223,4 +223,8 @@ public class CalendarAdapter extends BaseAdapter {
         cellDescTv.setPadding(cdPadding,0,cdPadding,0);
         cellDescTv.setTextSize(TypedValue.COMPLEX_UNIT_SP,13);
     }
+
+    public void reloadEvents(){
+        EventRepo.getInstance().loadEvents(mDateManager.getYear(),mDateManager.getMonth());
+    }
 }

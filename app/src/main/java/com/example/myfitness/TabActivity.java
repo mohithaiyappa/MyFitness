@@ -39,12 +39,13 @@ public class TabActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        EventRepo.getInstance().loadInitialEvents();
+
     }
 
     @Override
     protected void onResume() {
-       EventAlarmManager.getInstance().resetAlarm(this);
+        //EventRepo.getInstance().loadInitialEvents();
+        EventAlarmManager.getInstance().resetAlarm(this);
         super.onResume();
     }
 

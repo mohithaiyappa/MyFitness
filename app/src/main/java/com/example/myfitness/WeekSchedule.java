@@ -143,7 +143,8 @@ public class WeekSchedule extends Fragment {
 
                 createEventActivityIntent.putExtra("user_id", EventRepo.userName);
                 createEventActivityIntent.putExtra("date",dateStr);
-                createEventActivityIntent.putExtra("e_id",event.getId());
+                createEventActivityIntent.putExtra("e_id",String.valueOf(event.getId()));
+
 
                 startActivity(createEventActivityIntent);
             }

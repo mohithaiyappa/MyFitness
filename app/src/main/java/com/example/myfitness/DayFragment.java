@@ -84,6 +84,15 @@ public class DayFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Date date = EventRepo.getInstance().getSelectedDate().getValue();
+        if(date != null)
+            EventRepo.getInstance().loadSelectedDayEvents(date);
+
+    }
+
     private void loadDayFragmentHeadingText(Date date) {
         dayFragmentHeadingText.setText("予約日 "+" "+getDate(date)+" "+getDay(date));
     }
