@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alamkanak.weekview.DateTimeInterpreter;
 import com.alamkanak.weekview.MonthLoader;
@@ -135,7 +136,7 @@ public class WeekSchedule extends Fragment {
             public void onEventClick(WeekViewEvent event, RectF eventRect) {
                 if(hasEventTimePassed(event)) return;
 
-                Intent createEventActivityIntent = new Intent(getContext(),CreateEventActivity.class);
+                Intent createEventActivityIntent = new Intent(getContext(),edit_reservation.class);
 
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
@@ -177,6 +178,29 @@ public class WeekSchedule extends Fragment {
             @Override
             public String interpretTime(int hour) {
                 return (hour)+ "    ";
+            }
+        });
+
+        mWeekView.setEmptyViewClickListener(new WeekView.EmptyViewClickListener() {
+            @Override
+            public void onEmptyViewClicked(Calendar time) {
+                boolean after = time.after(Calendar.getInstance());
+                if(!after){
+                    //don't open activity
+                    return;
+                }
+                Intent createEventActivityIntent = new Intent(getContext(),edit_reservation.class);
+
+                //todo send time along with date here
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                String dateStr = dateFormat.format(time.getTime());
+
+                createEventActivityIntent.putExtra("user_id", EventRepo.userName);
+                createEventActivityIntent.putExtra("date",dateStr);
+
+
+                startActivity(createEventActivityIntent);
+
             }
         });
 
