@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.MediaController;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,6 +61,7 @@ public class VideoViewActivity extends AppCompatActivity {
     private void playVideo() {
         //todo add local path to the list. basic is done
         for(EventVideoDetails eventVideo : event.getVideoArray()){
+            checkIfFilesExist(eventVideo.getLocalPath());
             urlArray.add(eventVideo.getLocalPath());
         }
 
@@ -130,5 +133,13 @@ public class VideoViewActivity extends AppCompatActivity {
         sum = date1.getTime() + date2.getTime();
 
         return timeFormat.format(new Date(sum));
+    }
+
+    private void checkIfFilesExist(String filePath){
+        File file = new File(filePath);
+        if(file.exists())
+            return;
+        Toast.makeText(this, "cant play video : 1 or more files does not exit", Toast.LENGTH_LONG).show();
+        finish();
     }
 }
