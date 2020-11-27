@@ -12,7 +12,11 @@ public class DateManager {
     Calendar mCalendar;
 
     public DateManager(){
-        mCalendar = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance();
+        Date selectedDate = EventRepo.getInstance().getSelectedDate().getValue();
+        if(selectedDate != null)
+            cal.setTime(selectedDate);
+        mCalendar = cal;
     }
 
     //当月の要素を取得

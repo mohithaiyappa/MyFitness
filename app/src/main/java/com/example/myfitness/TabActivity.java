@@ -26,16 +26,16 @@ import java.util.Date;
 import java.util.List;
 
 public class TabActivity extends AppCompatActivity {
-    public static  int requestCode = 2456;
-    private AlarmManager alarmManager;
-    private List<PendingIntent> pendingIntentList = new ArrayList<>();
+
+    private ViewPager viewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = findViewById(R.id.view_pager);
+        viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
@@ -45,6 +45,7 @@ public class TabActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         //EventRepo.getInstance().loadInitialEvents();
+        viewPager.setCurrentItem(0,true);
         EventAlarmManager.getInstance().resetAlarm(this);
         super.onResume();
     }
