@@ -1,29 +1,12 @@
 package com.example.myfitness;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
-import com.google.android.material.tabs.TabLayout;
-
-import androidx.lifecycle.Observer;
-import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.util.Log;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.myfitness.ui.main.SectionsPagerAdapter;
-import com.google.gson.Gson;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import com.google.android.material.tabs.TabLayout;
 
 public class TabActivity extends AppCompatActivity {
 
@@ -44,10 +27,10 @@ public class TabActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        //EventRepo.getInstance().loadInitialEvents();
-        viewPager.setCurrentItem(0,true);
-        EventAlarmManager.getInstance().resetAlarm(this);
         super.onResume();
+
+        viewPager.setCurrentItem(0, true);
+        EventAlarmManager.getInstance().resetAlarm(this);
     }
 
     @Override
