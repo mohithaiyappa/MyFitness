@@ -12,11 +12,7 @@ public class DateManager {
     Calendar mCalendar;
 
     public DateManager(){
-        Calendar cal = Calendar.getInstance();
-        Date selectedDate = EventRepo.getInstance().getSelectedDate().getValue();
-        if(selectedDate != null)
-            cal.setTime(selectedDate);
-        mCalendar = cal;
+        instantiateCalendarWithSelectedDate();
     }
 
     //当月の要素を取得
@@ -49,21 +45,13 @@ public class DateManager {
     public boolean isCurrentMonth(Date date){
         SimpleDateFormat format = new SimpleDateFormat("yyyy.MM", Locale.US);
         String currentMonth = format.format(mCalendar.getTime());
-        if (currentMonth.equals(format.format(date))){
-            return true;
-        }else {
-            return false;
-        }
+        return currentMonth.equals(format.format(date));
     }
 
     public boolean isToday(Date date){
         SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd", Locale.US);
         String today = format.format(Calendar.getInstance().getTime());
-        if (today.equals(format.format(date))){
-            return true;
-        }else {
-            return false;
-        }
+        return today.equals(format.format(date));
     }
 
     //週数を取得
@@ -91,7 +79,16 @@ public class DateManager {
     public int getYear(){
         return mCalendar.get(Calendar.YEAR);
     }
+
     public int getMonth(){
         return mCalendar.get(Calendar.MONTH)+1;
+    }
+
+    private void instantiateCalendarWithSelectedDate(){
+        Calendar cal = Calendar.getInstance();
+        Date selectedDate = EventRepo.getInstance().getSelectedDate().getValue();
+        if(selectedDate != null)
+            cal.setTime(selectedDate);
+        mCalendar = cal;
     }
 }
