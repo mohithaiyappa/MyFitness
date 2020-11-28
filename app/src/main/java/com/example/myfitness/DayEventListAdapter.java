@@ -62,13 +62,11 @@ public class DayEventListAdapter extends BaseAdapter {
         }
         holder.event = (Event) getItem(position);
         holder.lvStartTime.setText(holder.event.getStartTime());
-        //todo add list view and set data there
+
         DayVideoDetailsAdapter adapter = new DayVideoDetailsAdapter(context);
         holder.videoListView.setAdapter(adapter);
         adapter.updateList(holder.event.getVideoArray());
-//        holder.lvTitle.setText(holder.event.getVideoTitle());
-//        holder.lvIrName.setText(holder.event.getIrName());
-//        holder.lvVideoLength.setText(holder.event.getVideoTime());
+
         holder.lvEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +74,7 @@ public class DayEventListAdapter extends BaseAdapter {
                 if(hasEventTimePassed(event)) return;
 
                 Intent intent = new Intent(context,edit_reservation.class);
-                // todo add data to send to create or edit activity
+
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
                 String dateStr = dateFormat.format(EventRepo.getInstance().getSelectedDate().getValue());
 
