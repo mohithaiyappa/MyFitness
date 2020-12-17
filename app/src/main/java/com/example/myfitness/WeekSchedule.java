@@ -31,6 +31,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+//init v3
 public class WeekSchedule extends Fragment {
     private final Calendar mCalendar = Calendar.getInstance();
     private WeekView mWeekView;
