@@ -10,13 +10,14 @@
     <color name="blackColor">#000</color>
 
     <!-- New Colors-->
-    <color name="calypso">#3F7388</color>
-    <color name="cerise">#DB3672</color>
-    <color name="java">#2A9D8E</color>
-    <color name="terracotta">#E17F65</color>
-    <color name="terracottaAlt">#E37053</color>
-    <color name="gainsboro">#D8D8D8</color>
-    <color name="white">#FFFFFF</color>
-    <color name="foam">#D0E9E6</color>
-    <color name="whiteSmoke">#EEEEEE</color>
+    <color name="calypso">#3F7388</color>               <!-- Main Color-->
+    <color name="cerise">#DB3672</color>                <!-- Date selected color-->
+    <color name="java">#2A9D8E</color>                  <!-- Button color-->
+    <color name="terracotta">#E17F65</color>            <!-- Today date background color-->
+    <color name="terracottaAlt">#E37053</color>         <!-- Today date background color alt-->
+    <color name="gainsboro">#D8D8D8</color>             <!-- surface background color-->
+    <color name="white">#FFFFFF</color>                 <!-- white-->
+    <color name="foam">#D0E9E6</color>                  <!-- Week view today color-->
+    <color name="whiteSmoke">#EEEEEE
+    </color>            <!-- Week view time selection background color-->
 </resources>
