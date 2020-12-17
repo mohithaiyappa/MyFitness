@@ -10,8 +10,11 @@
     <color name="blackColor">#000</color>
 
     <!-- New Colors-->
-    <color name="Calypso">#3F7388</color>
-    <color name="Cerise">#DB3672</color>
-    <color name="Java">#2A9D8E</color>
-    <color name="Terracotta">#E17F65</color>
+    <color name="calypso">#3F7388</color>
+    <color name="cerise">#DB3672</color>
+    <color name="java">#2A9D8E</color>
+    <color name="terracotta">#E17F65</color>
+    <color name="terracottaAlt">#E37053</color>
+    <color name="gainsboro">#D8D8D8</color>
+    <color name="white">#FFFFFF</color>
 </resources>
