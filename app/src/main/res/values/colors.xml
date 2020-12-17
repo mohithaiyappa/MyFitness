@@ -8,4 +8,9 @@
     <color name="redColor">#F00</color>
     <color name="whiteColor">#FFF</color>
     <color name="blackColor">#000</color>
+
+    <!-- New Colors-->
+    <color name="Calypso">#3F7388</color>
+    <color name="Cerise">#DB3672</color>
+    <color name="Java">#2A9D8E</color>
 </resources>
