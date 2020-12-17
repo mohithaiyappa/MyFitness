@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/calendarCellLinearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="0.5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grayColor"
+        android:orientation="vertical"
+        android:padding="0.5dp">
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/whiteColor"
+            android:textAlignment="center" />
+
+        <!--ここに拡張可能-->
+        <TextView
+            android:id="@+id/eventsText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/whiteColor"
+            android:foreground="@drawable/yellow_ripple"
+            android:paddingHorizontal="3dp"
+            android:textSize="14sp" />
+    </LinearLayout>
+</LinearLayout>

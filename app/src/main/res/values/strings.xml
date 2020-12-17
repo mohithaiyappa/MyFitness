@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">MyFitness</string>
+    <string name="title_activity_tab">TabActivity</string>
+    <string name="tab_text_1">月表示スケジュール</string>
+    <string name="tab_text_2">週表示スケジュール</string>
+    <string name="tab_text_3">ダウンロード</string>
+    <string name="tab_text_4">保存動画一覧</string>
+
+    <string-array name="period_list">
+        <item>リピート</item>
+        <item>期間指定</item>
+        <item>曜日指定</item>
+        <item>当日のみ</item>
+    </string-array>
+
+    <string-array name="edit_reservation">
+        <item>当日のみ</item>
+    </string-array>
+
+
+    <string-array name="sort">
+        <item>公開日</item>
+        <item>動画の長さ</item>
+    </string-array>
+</resources>
