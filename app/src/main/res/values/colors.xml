@@ -18,6 +18,5 @@
     <color name="gainsboro">#D8D8D8</color>             <!-- surface background color-->
     <color name="white">#FFFFFF</color>                 <!-- white-->
     <color name="foam">#D0E9E6</color>                  <!-- Week view today color-->
-    <color name="whiteSmoke">#EEEEEE
-    </color>            <!-- Week view time selection background color-->
+    <color name="whiteSmoke">#EEEEEE</color>            <!-- Week view time selection background color-->
 </resources>
