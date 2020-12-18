@@ -1,6 +1,5 @@
 package com.example.myfitness;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,7 +23,6 @@ public class DayFragment extends Fragment {
     private DayEventListAdapter dayEventListAdapter;
     private ListView listView;
     private TextView dayFragmentHeadingText;
-    private FloatingActionButton fabButton;
 
 
     public DayFragment() {
@@ -47,7 +43,6 @@ public class DayFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         listView = view.findViewById(R.id.dayEventsListView);
         dayFragmentHeadingText = view.findViewById(R.id.dayFragmentHeading);
-        fabButton = view.findViewById(R.id.fab);
         dayEventListAdapter = new DayEventListAdapter(this.getActivity());
         listView.setAdapter(dayEventListAdapter);
         EventRepo.getInstance().getDayEventsLiveData().observe(this, new Observer<List<Event>>() {
@@ -63,23 +58,6 @@ public class DayFragment extends Fragment {
                 EventRepo.getInstance().loadSelectedDayEvents(date);
             }
         });
-        fabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (hasSelectedDayPassed())
-                    return;
-                Intent intent = new Intent(getActivity(), Reservation.class);
-                // eid userid date
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-                String dateStr = dateFormat.format(EventRepo.getInstance().getSelectedDate().getValue());
-
-                intent.putExtra("user_id", EventRepo.userName);
-                intent.putExtra("date", dateStr);
-
-                startActivity(intent);
-
-            }
-        });
     }
 
     @Override
@@ -92,7 +70,7 @@ public class DayFragment extends Fragment {
     }
 
     private void loadDayFragmentHeadingText(Date date) {
-        dayFragmentHeadingText.setText("予約日 " + " " + getDate(date) + " " + getDay(date));
+        dayFragmentHeadingText.setText(getDate(date) + " " + getDay(date));
     }
 
     private String getDay(Date date) {
@@ -119,7 +97,7 @@ public class DayFragment extends Fragment {
     }
 
     private String getDate(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM月dd日", Locale.US);
         return dateFormat.format(date);
     }
 
