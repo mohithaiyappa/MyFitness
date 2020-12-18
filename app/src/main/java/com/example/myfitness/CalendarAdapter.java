@@ -215,7 +215,7 @@ public class CalendarAdapter extends BaseAdapter {
         LinearLayout linearLayout = view.findViewById(R.id.calendarCellLinearLayout);
         TextView cellDescTv = view.findViewById(R.id.eventsText);
         currentSelectedView = view;
-        currentSelectedView.setBackgroundColor(Color.parseColor("#FFC000"));
+        currentSelectedView.setBackgroundColor(mContext.getResources().getColor(R.color.cerise));
         linearLayout.setPadding(llPadding, llPadding, llPadding, llPadding);
         cellDescTv.setPadding(cdPadding, 0, cdPadding, 0);
         cellDescTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
