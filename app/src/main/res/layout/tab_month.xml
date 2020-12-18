@@ -8,48 +8,53 @@
     android:orientation="vertical"
     android:padding="7dp">
 
-    <LinearLayout
-        android:id="@+id/noticeLinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
-        android:background="@color/grayColor"
-        android:orientation="vertical"
-        android:padding="1dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/whiteColor"
-            android:paddingHorizontal="7dp"
-            android:paddingTop="4dp"
-            android:text="お知らせ"
-            android:textColor="@color/colorAccent"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <ScrollView
-            android:id="@+id/notificationScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/whiteColor">
-
-            <TextView
-                android:id="@+id/notificationTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/whiteColor"
-                android:lineSpacingExtra="2dp"
-                android:paddingHorizontal="7dp"
-                android:textSize="13sp" />
-        </ScrollView>
-
-    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:id="@+id/noticeLinearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="7dp"
+            android:background="@color/grayColor"
+            android:orientation="vertical"
+            android:padding="1dp"
+            app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/whiteColor"
+                android:paddingHorizontal="7dp"
+                android:paddingTop="4dp"
+                android:text="お知らせ"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <ScrollView
+                android:id="@+id/notificationScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/whiteColor">
+
+                <TextView
+                    android:id="@+id/notificationTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/whiteColor"
+                    android:lineSpacingExtra="2dp"
+                    android:paddingHorizontal="7dp"
+                    android:textSize="13sp" />
+            </ScrollView>
+
+        </LinearLayout>
 
         <fragment
             android:id="@+id/fragment"
@@ -60,7 +65,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/noticeLinearLayout" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"
