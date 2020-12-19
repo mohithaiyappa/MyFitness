@@ -10,12 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:elevation="0dp"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        >
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/calypso"
             app:tabBackground="@drawable/tab_background"
             app:tabIndicatorColor="@color/white"
             app:tabPaddingEnd="50dp"
