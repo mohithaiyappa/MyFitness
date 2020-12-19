@@ -204,7 +204,7 @@ public class CalendarAdapter extends BaseAdapter {
             oldLinearLayout.setPadding(0, 0, 0, 0);
             cellDescTv.setPadding(cdPadding, 0, cdPadding, 0);
             currentSelectedView.setBackgroundColor(Color.WHITE);
-            cellDescTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+            cellDescTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
         }
     }
 
@@ -218,7 +218,7 @@ public class CalendarAdapter extends BaseAdapter {
         currentSelectedView.setBackgroundColor(mContext.getResources().getColor(R.color.cerise));
         linearLayout.setPadding(llPadding, llPadding, llPadding, llPadding);
         cellDescTv.setPadding(cdPadding, 0, cdPadding, 0);
-        cellDescTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+        cellDescTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
     }
 
     public void reloadEvents() {

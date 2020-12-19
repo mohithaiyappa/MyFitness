@@ -27,6 +27,6 @@
             android:background="@color/whiteColor"
             android:foreground="@drawable/yellow_ripple"
             android:paddingHorizontal="3dp"
-            android:textSize="14sp" />
+            android:textSize="11sp" />
     </LinearLayout>
 </LinearLayout>
