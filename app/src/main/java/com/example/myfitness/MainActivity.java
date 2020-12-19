@@ -9,11 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Forgot Password", Toast.LENGTH_SHORT).show();
             }
         });
-        ConstraintLayout cs = findViewById(R.id.loginLayoutConstraintView);
-        cs.setOnClickListener(new View.OnClickListener() {
+        LinearLayout linearLayout = findViewById(R.id.loginLayout);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //empty onClick listener to remove focus from both editTexts
