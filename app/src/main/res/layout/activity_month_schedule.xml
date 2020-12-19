@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/grayColor"
     android:orientation="vertical"
     tools:context="com.example.myfitness.MonthSchedule">
@@ -21,25 +22,39 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/prevButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_marginVertical="10dp"
             android:layout_marginLeft="10dp"
-            android:background="@color/colorAccent"
-            android:text="前月" />
+            android:layout_toStartOf="@id/titleText"
+            android:gravity="center"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            app:icon="@drawable/ic_arrow_back"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/nextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_marginVertical="10dp"
             android:layout_marginRight="10dp"
-            android:background="@color/colorAccent"
-            android:text="翌月" />
+            android:layout_toEndOf="@id/titleText"
+            android:gravity="center"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            app:icon="@drawable/ic_arrow_forward"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp" />
     </RelativeLayout>
 
     <LinearLayout
