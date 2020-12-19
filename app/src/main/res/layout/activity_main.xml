@@ -19,9 +19,9 @@
         android:layout_marginEnd="10dp"
         android:hint="ログイン名またはメールアドレス"
         app:hintAnimationEnabled="true"
-        app:hintTextColor="@color/grayColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
@@ -45,10 +45,10 @@
         android:layout_marginEnd="10dp"
         android:hint="パスワード"
         app:hintAnimationEnabled="true"
-        app:hintTextColor="@color/grayColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_input_layout_email"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:passwordToggleEnabled="true">
 
         <EditText
@@ -80,7 +80,7 @@
         android:layout_marginTop="10dp"
         android:text="パスワードをお忘れですか︖"
         android:textAppearance="@style/Widget.AppCompat.Spinner.Underlined"
-        android:textColor="@color/colorAccent"
+        android:textColor="?attr/colorAccent"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
