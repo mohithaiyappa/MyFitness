@@ -1,10 +1,8 @@
 package com.example.myfitness;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 
 import androidx.core.util.Pair;
@@ -322,14 +320,17 @@ public class EventRepo {
                 spannableStringBuilder.append("\n");
             }
             spannableStringBuilder.append(notification.getNotificationDate());
-            spannableStringBuilder.setSpan(
-                    new ForegroundColorSpan(Color.BLACK),
-                    0, dateTextLength,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            spannableStringBuilder.setSpan(
-                    new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
-                    0, dateTextLength,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //commenting this if in the future the text needs to be modified modify it here
+            /**
+             spannableStringBuilder.setSpan(
+             new ForegroundColorSpan(Color.BLACK),
+             0, dateTextLength,
+             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+             spannableStringBuilder.setSpan(
+             new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+             0, dateTextLength,
+             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+             */
 
             spannableStringBuilder.append("   ");
             spannableStringBuilder.append(notification.getNotificationText());
