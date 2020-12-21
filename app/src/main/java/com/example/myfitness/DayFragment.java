@@ -45,13 +45,13 @@ public class DayFragment extends Fragment {
         dayFragmentHeadingText = view.findViewById(R.id.dayFragmentHeading);
         dayEventListAdapter = new DayEventListAdapter(this.getActivity());
         listView.setAdapter(dayEventListAdapter);
-        EventRepo.getInstance().getDayEventsLiveData().observe(this, new Observer<List<Event>>() {
+        EventRepo.getInstance().getDayEventsLiveData().observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
             @Override
             public void onChanged(List<Event> events) {
                 dayEventListAdapter.updateList(events);
             }
         });
-        EventRepo.getInstance().getSelectedDate().observe(this, new Observer<Date>() {
+        EventRepo.getInstance().getSelectedDate().observe(getViewLifecycleOwner(), new Observer<Date>() {
             @Override
             public void onChanged(Date date) {
                 loadDayFragmentHeadingText(date);
