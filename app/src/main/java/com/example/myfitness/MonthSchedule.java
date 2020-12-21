@@ -22,7 +22,7 @@ import java.util.List;
 public class MonthSchedule extends Fragment {
 
     private TextView titleText;
-    private Button prevButton, nextButton;
+    private Button prevButton, nextButton, todayButton;
     private CalendarAdapter mCalendarAdapter;
     private DayHeadingTextAdapter dayHeadingTextAdapter;
     private GridView calendarGridView, headingGridView;
@@ -55,6 +55,15 @@ public class MonthSchedule extends Fragment {
             @Override
             public void onClick(View v) {
                 mCalendarAdapter.nextMonth();
+                titleText.setText(mCalendarAdapter.getTitle());
+            }
+        });
+        todayButton = view.findViewById(R.id.goToToday);
+        todayButton.setEnabled(true);
+        todayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCalendarAdapter.goToToday();
                 titleText.setText(mCalendarAdapter.getTitle());
             }
         });

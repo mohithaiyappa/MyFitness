@@ -139,6 +139,19 @@ public class CalendarAdapter extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 
+    public void goToToday() {
+        Date todayDate = new Date();
+        mDateManager.goToToday(todayDate);
+        EventRepo.getInstance().loadEvents(mDateManager.getYear(), mDateManager.getMonth());
+        EventRepo.getInstance().setSelectedDate(todayDate);
+        dateArray = mDateManager.getDays();
+        monthEvents.clear();
+        deselectView();
+        currentSelectedView = null;
+        currentSelectedDate = todayDate;
+        this.notifyDataSetChanged();
+    }
+
     public DateManager getDateManager() {
         return mDateManager;
     }

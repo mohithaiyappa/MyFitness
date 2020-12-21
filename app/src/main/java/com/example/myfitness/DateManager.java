@@ -76,6 +76,10 @@ public class DateManager {
         mCalendar.add(Calendar.MONTH, -1);
     }
 
+    public void goToToday(Date todayDate) {
+        mCalendar.setTime(todayDate);
+    }
+
     public int getYear() {
         return mCalendar.get(Calendar.YEAR);
     }
