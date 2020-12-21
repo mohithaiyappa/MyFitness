@@ -11,13 +11,14 @@
 
     <!-- New Colors-->
     <color name="calypso">#3F7388</color>               <!-- Main Color-->
-    <color name="cerise">#DB3672</color>                <!-- Date selected color-->
-    <color name="java">#2A9D8E</color>                  <!-- Button color-->
-    <color name="terracotta">#E17F65</color>            <!-- Today date background color-->
+    <color name="cerise">#F50057</color>                <!-- Date selected color-->
+    <color name="java">#2A9D8F</color>                  <!-- Button color-->
+    <color name="terracotta">#E76F51</color>            <!-- Today date background color-->
     <color name="terracottaAlt">#E37053</color>         <!-- Today date background color alt-->
     <color name="gainsboro">#D8D8D8</color>             <!-- surface background color-->
     <color name="foam">#D0E9E6</color>                  <!-- Week view today color-->
-    <color name="whiteSmoke">#EEEEEE</color>            <!-- Week view time selection background color-->
+    <color name="whiteSmoke">#EEEEEE
+    </color>            <!-- Week view time selection background color-->
 
     <color name="white">#FFFFFF</color>                 <!-- white-->
     <color name="black">#000000</color>                 <!-- black-->
