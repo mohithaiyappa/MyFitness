@@ -10,6 +10,9 @@
         android:id="@+id/dayHeadingText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="7dp"
+        android:paddingVertical="3dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         android:background="@color/whiteColor"
         android:textAlignment="center" />
 
