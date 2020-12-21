@@ -75,7 +75,7 @@ public class MonthSchedule extends Fragment {
                 }
             }
         });
-        EventRepo.getInstance().getEventsLiveData().observe(this, new Observer<List<Event>>() {
+        EventRepo.getInstance().getEventsLiveData().observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
             @Override
             public void onChanged(List<Event> events) {
                 mCalendarAdapter.updateList(events);
