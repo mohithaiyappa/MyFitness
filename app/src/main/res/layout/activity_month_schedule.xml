@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/grayColor"
     android:orientation="vertical"
     tools:context="com.example.myfitness.MonthSchedule">
@@ -26,9 +26,9 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/prevButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_toStartOf="@id/titleText"
             android:gravity="center"
             android:insetLeft="0dp"
@@ -41,9 +41,9 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/nextButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_toEndOf="@id/titleText"
             android:gravity="center"
             android:insetLeft="0dp"
@@ -53,6 +53,16 @@
             app:icon="@drawable/ic_arrow_forward"
             app:iconGravity="textStart"
             app:iconPadding="0dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/goToToday"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="Today" />
     </RelativeLayout>
 
     <LinearLayout
