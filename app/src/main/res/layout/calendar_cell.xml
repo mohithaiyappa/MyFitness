@@ -12,12 +12,22 @@
         android:orientation="vertical"
         android:padding="0.5dp">
 
-        <TextView
-            android:id="@+id/dateText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/whiteColor"
-            android:textAlignment="center" />
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/circle_background"
+                android:gravity="center"
+                android:textStyle="bold" />
+        </LinearLayout>
+
 
         <!--ここに拡張可能-->
         <TextView

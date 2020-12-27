@@ -58,22 +58,23 @@ public class CalendarAdapter extends BaseAdapter {
                 (parent.getHeight() - (int) dp * mDateManager.getWeeks()) / mDateManager.getWeeks());
         convertView.setLayoutParams(params);
 
-        //日付のみ表示させる
-        final SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.US);
-        holder.dateText.setText(dateFormat.format(dateArray.get(position)));
-        //run only if monthEvents is not empty
-        holder.eventText.setText(getThisDaysEvents(dateArray.get(position)));
-
-        //当月以外のセルをグレーアウト
         if (mDateManager.isCurrentMonth(dateArray.get(position))) {
-            convertView.setBackgroundColor(Color.WHITE);
-            holder.eventText.setBackgroundColor(Color.WHITE);
-        } else {
-            convertView.setBackgroundColor(Color.LTGRAY);
-            holder.eventText.setBackgroundColor(Color.LTGRAY);
-        }
 
-        //日曜日を赤、土曜日を青に color used for weekends
+
+            //日付のみ表示させる
+            final SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.US);
+            holder.dateText.setText(dateFormat.format(dateArray.get(position)));
+            //run only if monthEvents is not empty
+            holder.eventText.setText(getThisDaysEvents(dateArray.get(position)));
+
+            //当月以外のセルをグレーアウト
+            if (mDateManager.isCurrentMonth(dateArray.get(position))) {
+                convertView.setBackgroundColor(Color.WHITE);
+                holder.eventText.setBackgroundColor(Color.WHITE);
+            }
+
+            //日曜日を赤、土曜日を青に color used for weekends
+        /*
         int colorId;
         switch (mDateManager.getDayOfWeek(dateArray.get(position))) {
             case 1:
@@ -86,17 +87,26 @@ public class CalendarAdapter extends BaseAdapter {
                 colorId = Color.BLACK;
                 break;
         }
-        holder.dateText.setTextColor(colorId);
-        if (mDateManager.isToday(dateArray.get(position))) {
-            holder.dateText.setBackgroundColor(Color.parseColor("#F4B085"));
-            holder.dateText.setTextColor(Color.WHITE);
-        } else if (mDateManager.isCurrentMonth(dateArray.get(position))) {
-            holder.dateText.setBackgroundColor(Color.WHITE);
+        holder.dateText.setTextColor(colorId);*/
+            holder.dateText.setTextColor(Color.BLACK);
+            if (mDateManager.isToday(dateArray.get(position))) {
+                holder.dateText.setBackgroundResource(R.drawable.color_background_selected);
+                holder.dateText.setTextColor(Color.WHITE);
+            } else if (mDateManager.isCurrentMonth(dateArray.get(position))) {
+                holder.dateText.setBackgroundResource(R.drawable.circle_background);
+            }
+            if (currentSelectedDate != null & (sameDay(dateArray.get(position), currentSelectedDate))) {
+                selectView(convertView);
+            }
+
         } else {
-            holder.dateText.setBackgroundColor(Color.LTGRAY);
-        }
-        if (currentSelectedDate != null & (sameDay(dateArray.get(position), currentSelectedDate))) {
-            selectView(convertView);
+            convertView.setBackgroundColor(Color.WHITE);
+            holder.dateText.setText("");
+            holder.dateText.setBackgroundColor(Color.WHITE);
+            holder.eventText.setText("");
+            holder.eventText.setBackgroundColor(Color.WHITE);
+            holder.dateText.setBackgroundResource(R.drawable.circle_background);
+
         }
         return convertView;
     }
