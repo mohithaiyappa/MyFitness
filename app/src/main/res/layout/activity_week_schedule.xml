@@ -129,7 +129,7 @@
             app:showDistinctWeekendColor="true"
             app:showNowLine="true"
             app:textSize="16sp"
-            app:todayBackgroundColor="#10000000" />
+            app:todayBackgroundColor="#303F7388" />
     </LinearLayout>
 
 </LinearLayout>
