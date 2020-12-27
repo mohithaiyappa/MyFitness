@@ -224,7 +224,7 @@ public class WeekSchedule extends Fragment {
     }
 
     private String getFormattedDayText(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd", Locale.US);
         String dateString = dateFormat.format(date) + "\n";
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
