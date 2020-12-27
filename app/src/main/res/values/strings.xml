@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">MyFitness</string>
     <string name="title_activity_tab">TabActivity</string>
-    <string name="tab_text_1">月表示スケジュール</string>
-    <string name="tab_text_2">週表示スケジュール</string>
-    <string name="tab_text_3">ダウンロード</string>
-    <string name="tab_text_4">保存動画一覧</string>
+    <string name="tab_text_1">月表示</string>
+    <string name="tab_text_2">週表示</string>
+    <string name="tab_text_3">動画一覧</string>
+    <string name="tab_text_4">スケジュール作成</string>
 
     <string-array name="period_list">
         <item>リピート</item>
