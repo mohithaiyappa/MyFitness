@@ -195,7 +195,7 @@ public class WeekSchedule extends Fragment {
 
             @Override
             public String interpretTime(int hour) {
-                return (hour) + "    ";
+                return (hour) + ":00    ";
             }
         });
 
