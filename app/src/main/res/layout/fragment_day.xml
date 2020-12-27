@@ -20,19 +20,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorAccent"
-            android:text=""
             android:padding="7dp"
-            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:text=""
             android:textAlignment="center"
+            android:textAppearance="?attr/textAppearanceHeadline6"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/dayEventsRecyclerView"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/day_event_details" />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dayEventsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="7dp"
+                tools:listitem="@layout/day_event_details" />
+        </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
