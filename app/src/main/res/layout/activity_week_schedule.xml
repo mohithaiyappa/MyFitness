@@ -91,7 +91,7 @@
             app:columnGap="8dp"
             app:dayBackgroundColor="#05000000"
             app:eventPadding="10dp"
-            app:eventTextColor="@android:color/black"
+            app:eventTextColor="@android:color/white"
             app:eventTextSize="13sp"
             app:firstDayOfWeek="monday"
             app:headerColumnBackground="#ffffffff"

@@ -61,7 +61,7 @@ public class WeekSchedule extends Fragment {
         titleText = view.findViewById(R.id.titleTextWeek);
         notificationTextView = view.findViewById(R.id.notificationTextView);
         notificationScrollView = view.findViewById(R.id.notificationScrollView);
-        mWeekView.setDefaultEventColor(Color.parseColor("#F5DEB3"));
+        mWeekView.setDefaultEventColor(Color.parseColor("#3F7388"));
         setListeners();
     }
 
@@ -208,14 +208,14 @@ public class WeekSchedule extends Fragment {
 
     private void setLiveDataObservers() {
 
-        EventRepo.getInstance().allEventsLiveData.observe(this, new Observer<List<Event>>() {
+        EventRepo.getInstance().allEventsLiveData.observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
             @Override
             public void onChanged(List<Event> events) {
                 EventRepo.getInstance().updateWeekViewEvents();
             }
         });
 
-        EventRepo.getInstance().allWeekViewEventsLiveData.observe(this, new Observer<List<WeekViewEvent>>() {
+        EventRepo.getInstance().allWeekViewEventsLiveData.observe(getViewLifecycleOwner(), new Observer<List<WeekViewEvent>>() {
             @Override
             public void onChanged(List<WeekViewEvent> weekViewEvents) {
                 mWeekView.notifyDatasetChanged();
