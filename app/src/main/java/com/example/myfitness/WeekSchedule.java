@@ -35,7 +35,7 @@ import java.util.Locale;
 public class WeekSchedule extends Fragment {
     private final Calendar mCalendar = Calendar.getInstance();
     private WeekView mWeekView;
-    private Button prevButton, nextButton;
+    private Button prevButton, nextButton, todayButton;
     private TextView titleText;
     private boolean hasMoved = false;
     private TextView notificationTextView;
@@ -58,6 +58,7 @@ public class WeekSchedule extends Fragment {
         mWeekView = view.findViewById(R.id.weekView);
         prevButton = view.findViewById(R.id.prevButton);
         nextButton = view.findViewById(R.id.nextButton);
+        todayButton = view.findViewById(R.id.goToTodayWeek);
         titleText = view.findViewById(R.id.titleTextWeek);
         notificationTextView = view.findViewById(R.id.notificationTextView);
         notificationScrollView = view.findViewById(R.id.notificationScrollView);
@@ -123,6 +124,24 @@ public class WeekSchedule extends Fragment {
                 mWeekView.goToDate(mCalendar);
                 mWeekView.setFirstDayOfWeek(Calendar.MONDAY);
                 setHeadingDate();
+            }
+        });
+
+        todayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCalendar.setTime(Calendar.getInstance().getTime());
+                setCalendar();
+                if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+                    mCalendar.add(Calendar.WEEK_OF_YEAR, -1);
+                    mWeekView.goToDate(mCalendar);
+                    mWeekView.setFirstDayOfWeek(Calendar.MONDAY);
+                    setHeadingDate();
+                } else {
+                    mWeekView.goToDate(mCalendar);
+                    mWeekView.setFirstDayOfWeek(Calendar.MONDAY);
+                }
+                mWeekView.goToHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
             }
         });
     }

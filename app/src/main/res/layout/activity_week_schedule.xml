@@ -17,15 +17,6 @@
         android:orientation="vertical"
         android:padding="1dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/whiteColor"
-            android:padding="4dp"
-            android:text="お知らせ"
-            android:textColor="@color/colorAccent"
-            android:textSize="10sp" />
-
         <ScrollView
             android:id="@+id/notificationScrollView"
             android:layout_width="match_parent"
@@ -52,29 +43,57 @@
             android:id="@+id/titleTextWeek"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="2020.10"
-            android:textSize="20sp" />
+            android:layout_alignTop="@id/prevButton"
+            android:layout_alignBottom="@id/prevButton"
+            android:layout_marginHorizontal="7dp"
+            android:layout_toEndOf="@id/prevButton"
+            android:gravity="center"
+            android:text="2018.2"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/prevButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginVertical="10dp"
-            android:layout_marginLeft="10dp"
-            android:background="@color/colorAccent"
-            android:text="前週" />
+            android:layout_toEndOf="@id/goToTodayWeek"
+            android:gravity="center"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            app:icon="@drawable/ic_arrow_back"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconTint="@color/black" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/nextButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginVertical="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/colorAccent"
-            android:text="翌週" />
+            android:layout_toEndOf="@id/titleTextWeek"
+            android:gravity="center"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            app:icon="@drawable/ic_arrow_forward"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconTint="@color/black" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/goToTodayWeek"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:enabled="true"
+            android:gravity="center"
+            android:text="今日" />
     </RelativeLayout>
 
     <LinearLayout
