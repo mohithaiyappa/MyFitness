@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="7dp"
+    android:background="@drawable/rounded_border_background"
+    android:clickable="true"
+    android:elevation="16dp"
+    android:focusable="true"
+    android:padding="14dp"
+    app:cardCornerRadius="7dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp"
+        android:orientation="horizontal"
+        android:weightSum="6">
+
+        <TextView
+            android:id="@+id/eventTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1.4"
+            android:gravity="start"
+            android:padding="3dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/eventDetailsRv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            tools:listitem="@layout/day_events_video_details" />
+
+        <ImageView
+            android:id="@+id/eventModeIv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="7dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_repeat" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

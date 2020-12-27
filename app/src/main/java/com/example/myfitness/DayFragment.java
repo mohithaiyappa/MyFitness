@@ -4,13 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,8 +21,9 @@ import java.util.Locale;
 
 public class DayFragment extends Fragment {
 
-    private DayEventListAdapter dayEventListAdapter;
-    private ListView listView;
+
+    private DayEventsAdapter dayEventsAdapter;
+    private RecyclerView recyclerView;
     private TextView dayFragmentHeadingText;
 
 
@@ -41,14 +43,18 @@ public class DayFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        listView = view.findViewById(R.id.dayEventsListView);
+        recyclerView = view.findViewById(R.id.dayEventsRecyclerView);
         dayFragmentHeadingText = view.findViewById(R.id.dayFragmentHeading);
-        dayEventListAdapter = new DayEventListAdapter(this.getActivity());
-        listView.setAdapter(dayEventListAdapter);
+        dayEventsAdapter = new DayEventsAdapter(this.getActivity());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
+        recyclerView.setAdapter(dayEventsAdapter);
+        recyclerView.setLayoutManager(layoutManager);
+
         EventRepo.getInstance().getDayEventsLiveData().observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
             @Override
             public void onChanged(List<Event> events) {
-                dayEventListAdapter.updateList(events);
+                dayEventsAdapter.submitList(events);
+                recyclerView.invalidate();
             }
         });
         EventRepo.getInstance().getSelectedDate().observe(getViewLifecycleOwner(), new Observer<Date>() {

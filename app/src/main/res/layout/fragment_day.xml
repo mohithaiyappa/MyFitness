@@ -28,10 +28,11 @@
             android:textStyle="bold" />
 
 
-        <ListView
-            android:id="@+id/dayEventsListView"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/dayEventsRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:listitem="@layout/day_event_details" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
