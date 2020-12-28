@@ -1,15 +1,21 @@
 package com.example.myfitness;
 
+import android.app.Instrumentation;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.RectF;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.text.Spannable;
+import android.view.InputDevice;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -23,6 +29,7 @@ import com.alamkanak.weekview.DateTimeInterpreter;
 import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
+import com.google.android.material.checkbox.MaterialCheckBox;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -31,7 +38,7 @@ import java.util.List;
 import java.util.Locale;
 
 //init v3
-public class WeekSchedule extends Fragment {
+public class WeekSchedule extends Fragment implements View.OnTouchListener {
     private final Calendar mCalendar = Calendar.getInstance();
     private WeekView mWeekView;
     private Button prevButton, nextButton, todayButton;
@@ -39,6 +46,10 @@ public class WeekSchedule extends Fragment {
     private boolean hasMoved = false;
     private TextView notificationTextView;
     private ScrollView notificationScrollView;
+    private MaterialCheckBox checkBox;
+
+
+    private volatile boolean autoScroll = false;
 
 
     @Nullable
@@ -47,7 +58,9 @@ public class WeekSchedule extends Fragment {
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_week_schedule, container, false);
+        View view = inflater.inflate(R.layout.activity_week_schedule, container, false);
+        view.setOnTouchListener(this);
+        return view;
     }
 
     @Override
@@ -59,6 +72,7 @@ public class WeekSchedule extends Fragment {
         nextButton = view.findViewById(R.id.nextButton);
         todayButton = view.findViewById(R.id.goToTodayWeek);
         titleText = view.findViewById(R.id.titleTextWeek);
+        checkBox = view.findViewById(R.id.checkbox);
         notificationTextView = view.findViewById(R.id.notificationTextView);
         notificationScrollView = view.findViewById(R.id.notificationScrollView);
         mWeekView.setDefaultEventColor(Color.parseColor("#3F7388"));
@@ -141,6 +155,34 @@ public class WeekSchedule extends Fragment {
                     mWeekView.setFirstDayOfWeek(Calendar.MONDAY);
                 }
                 mWeekView.goToHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+            }
+        });
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    //scrolls to end
+                    ((TabActivity) getActivity()).disableTabScrolling();
+                    autoScroll = true;
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            try {
+                                if (mWeekView == null) return;
+                                float bot = mWeekView.getBottom();
+                                fling(500f, 500f, bot, -5020f, 150);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }.start();
+                } else {
+                    ((TabActivity) getActivity()).enableTabScrolling();
+                    //stop scrolling
+                    autoScroll = false;
+
+                }
             }
         });
     }
@@ -335,4 +377,92 @@ public class WeekSchedule extends Fragment {
         return Calendar.getInstance().getTime().after(event.getStartTime().getTime());
     }
 
+    private void scrollToEnd() {
+        // Obtain MotionEvent object
+        long downTime = SystemClock.uptimeMillis();
+        long eventTime = SystemClock.uptimeMillis() + 1000;
+        float x = 0.0f;
+        float y = 0.0f;
+        float centreX =/*mWeekView.getX() +*/ ((float) mWeekView.getWidth() / 2);
+        float centreY =/*mWeekView.getY() + */((float) mWeekView.getHeight() / 2);
+        // List of meta states found here:     developer.android.com/reference/android/view/KeyEvent.html#getMetaState()
+        int metaState = 0;
+        MotionEvent motionEvent = MotionEvent.obtain(
+                downTime,
+                eventTime,
+                MotionEvent.ACTION_UP,
+                centreX,
+                centreY,
+                metaState
+        );
+
+        // Dispatch touch event to view
+        mWeekView.requestFocus();
+        mWeekView.dispatchTouchEvent(motionEvent);
+    }
+
+    private void fling(
+            Float fromX, Float toX, Float fromY,
+            Float toY, int stepCount
+    ) {
+
+        Instrumentation inst = new Instrumentation();
+
+        long downTime = SystemClock.uptimeMillis();
+        long eventTime = SystemClock.uptimeMillis();
+
+        float y = fromY;
+        float x = fromX;
+
+        float yStep = (toY - fromY) / stepCount;
+        float xStep = (toX - fromX) / stepCount;
+
+        MotionEvent event = MotionEvent.obtain(
+                downTime, eventTime,
+                MotionEvent.ACTION_DOWN, fromX, fromY, 0
+        );
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+            event.setSource(InputDevice.SOURCE_TOUCHSCREEN);
+        }
+        inst.sendPointerSync(event);
+
+
+        for (int i = 0; i < stepCount; i++/* in 0 until stepCount*/) {
+            if (!autoScroll) return;
+            y += yStep;
+            x += xStep;
+            eventTime = SystemClock.uptimeMillis();
+            event = MotionEvent.obtain(
+                    downTime, eventTime + stepCount,
+                    MotionEvent.ACTION_MOVE, x, y, 0
+            );
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+                event.setSource(InputDevice.SOURCE_TOUCHSCREEN);
+            }
+            inst.sendPointerSync(event);
+        }
+
+        eventTime = SystemClock.uptimeMillis() + (stepCount) + 2;
+        event = MotionEvent.obtain(
+                downTime, eventTime,
+                MotionEvent.ACTION_UP, toX, toY, 0
+        );
+        if (!autoScroll) return;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+            event.setSource(InputDevice.SOURCE_TOUCHSCREEN);
+        }
+        inst.sendPointerSync(event);
+        checkBox.setChecked(false);
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (autoScroll) {
+            autoScroll = false;
+            checkBox.setChecked(false);
+            return true;
+        }
+        return false;
+    }
 }
