@@ -96,40 +96,34 @@
             android:text="今日" />
     </RelativeLayout>
 
-    <LinearLayout
+
+    <com.alamkanak.weekview.WeekView
+        android:id="@+id/weekView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/blackColor"
-        android:padding="1dp">
-
-        <com.alamkanak.weekview.WeekView
-            android:id="@+id/weekView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/whiteColor"
-            app:columnGap="8dp"
-            app:dayBackgroundColor="#05000000"
-            app:eventPadding="10dp"
-            app:eventTextColor="@android:color/white"
-            app:eventTextSize="13sp"
-            app:firstDayOfWeek="monday"
-            app:headerColumnBackground="#ffffffff"
-            app:headerColumnPadding="8dp"
-            app:headerColumnTextColor="#8f000000"
-            app:headerRowBackgroundColor="#ffefefef"
-            app:headerRowPadding="12dp"
-            app:horizontalFlingEnabled="true"
-            app:hourHeight="240dp"
-            app:hourSeparatorColor="@color/blackColor"
-            app:hourSeparatorHeight="1dp"
-            app:maxHourHeight="960dp"
-            app:minHourHeight="30dp"
-            app:noOfVisibleDays="7"
-            app:nowLineColor="@color/colorAccent"
-            app:showDistinctWeekendColor="true"
-            app:showNowLine="true"
-            app:textSize="16sp"
-            app:todayBackgroundColor="#303F7388" />
-    </LinearLayout>
+        android:background="@color/whiteColor"
+        app:columnGap="8dp"
+        app:dayBackgroundColor="#05000000"
+        app:eventPadding="10dp"
+        app:eventTextColor="@android:color/white"
+        app:eventTextSize="13sp"
+        app:firstDayOfWeek="monday"
+        app:headerColumnBackground="#ffffffff"
+        app:headerColumnPadding="8dp"
+        app:headerColumnTextColor="#8f000000"
+        app:headerRowBackgroundColor="#ffefefef"
+        app:headerRowPadding="12dp"
+        app:horizontalFlingEnabled="true"
+        app:hourHeight="240dp"
+        app:hourSeparatorColor="@color/blackColor"
+        app:hourSeparatorHeight="1dp"
+        app:maxHourHeight="960dp"
+        app:minHourHeight="30dp"
+        app:noOfVisibleDays="7"
+        app:nowLineColor="@color/colorAccent"
+        app:showDistinctWeekendColor="true"
+        app:showNowLine="true"
+        app:textSize="16sp"
+        app:todayBackgroundColor="#303F7388" />
 
 </LinearLayout>
