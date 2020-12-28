@@ -13,25 +13,94 @@
         android:id="@+id/noticeLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/grayColor"
-        android:orientation="vertical"
-        android:padding="1dp">
+        android:orientation="horizontal">
 
-        <ScrollView
-            android:id="@+id/notificationScrollView"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="7dp"
+            android:layout_weight="1.5"
+            android:background="@drawable/rounded_border_background">
+
+            <ScrollView
+                android:id="@+id/notificationScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/notificationTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/whiteColor"
+                    android:lineSpacingExtra="2dp"
+                    android:paddingHorizontal="7dp"
+                    android:textSize="14sp" />
+            </ScrollView>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/whiteColor">
+            android:layout_margin="7dp"
+            android:layout_weight="1.7"
+            android:background="#EEEEEE"
+            android:orientation="horizontal"
+            android:weightSum="3">
 
             <TextView
-                android:id="@+id/notificationTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="営業時間"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/whiteColor"
-                android:lineSpacingExtra="2dp"
-                android:paddingHorizontal="7dp"
-                android:textSize="13sp" />
-        </ScrollView>
+                android:layout_margin="7dp"
+                android:layout_weight="1"
+                android:text="09:00"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:layout_weight="1"
+                android:text="23:00"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="7dp"
+            android:layout_weight="2.4"
+            android:background="#EEEEEE"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="自動スクロール"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:checked="true" />
+        </LinearLayout>
     </LinearLayout>
 
     <RelativeLayout

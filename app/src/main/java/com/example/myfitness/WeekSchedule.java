@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -306,8 +305,8 @@ public class WeekSchedule extends Fragment {
     private void setNotificationText(Pair<Boolean, Spannable> booleanSpannablePair) {
         notificationTextView.setText("");
         try {
-            boolean shouldWrap = booleanSpannablePair.first;
-            Spannable notificationText = booleanSpannablePair.second;
+            // boolean shouldWrap = booleanSpannablePair.first;
+            Spannable notificationText = booleanSpannablePair.second;/*
 
             if (!shouldWrap) {
                 float dp = getResources().getDisplayMetrics().density;
@@ -324,7 +323,7 @@ public class WeekSchedule extends Fragment {
                         ViewGroup.LayoutParams.WRAP_CONTENT);
 
                 notificationScrollView.setLayoutParams(lp);
-            }
+            }*/
 
             notificationTextView.setText(notificationText);
         } catch (NullPointerException e) {
