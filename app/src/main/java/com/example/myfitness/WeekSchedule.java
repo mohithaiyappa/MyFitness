@@ -1,14 +1,15 @@
 package com.example.myfitness;
 
 import android.app.Instrumentation;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.RectF;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.text.Spannable;
+import android.util.Log;
 import android.view.InputDevice;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,13 +43,21 @@ import java.util.Locale;
 public class WeekSchedule extends Fragment implements View.OnTouchListener {
     private final Calendar mCalendar = Calendar.getInstance();
     private WeekView mWeekView;
-    private Button prevButton, nextButton, todayButton;
+    private Button prevButton, nextButton, todayButton, startTimeButton, endTimeButton;
     private TextView titleText;
     private boolean hasMoved = false;
     private TextView notificationTextView;
     private ScrollView notificationScrollView;
     private MaterialCheckBox checkBox;
+    private int hourHeight = 240;
 
+
+    private int startTimeHour = 9;
+    private int endTimeHour = 23;
+    private int flingStepCount = 150;
+    private int hourDifference = 2;
+
+    private float flingY = -5020f;
 
     private volatile boolean autoScroll = false;
 
@@ -75,6 +85,8 @@ public class WeekSchedule extends Fragment implements View.OnTouchListener {
         checkBox = view.findViewById(R.id.checkbox);
         notificationTextView = view.findViewById(R.id.notificationTextView);
         notificationScrollView = view.findViewById(R.id.notificationScrollView);
+        startTimeButton = view.findViewById(R.id.wvStartTimeButton);
+        endTimeButton = view.findViewById(R.id.wvEndTimeButton);
         mWeekView.setDefaultEventColor(Color.parseColor("#3F7388"));
         setListeners();
     }
@@ -97,6 +109,13 @@ public class WeekSchedule extends Fragment implements View.OnTouchListener {
                 setNotificationText(booleanSpannablePair);
             }
         });
+
+        int hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        setButtonText(startTimeButton, hourOfDay, 0);
+        if (hourOfDay >= 22)
+            setButtonText(endTimeButton, 0, 0);
+        else
+            setButtonText(endTimeButton, hourOfDay + 2, 0);
     }
 
     private void setCalendar() {
@@ -171,7 +190,7 @@ public class WeekSchedule extends Fragment implements View.OnTouchListener {
                             try {
                                 if (mWeekView == null) return;
                                 float bot = mWeekView.getBottom();
-                                fling(500f, 500f, bot, -5020f, 150);
+                                fling(500f, 500f, bot, flingY, flingStepCount);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -183,6 +202,52 @@ public class WeekSchedule extends Fragment implements View.OnTouchListener {
                     autoScroll = false;
 
                 }
+            }
+        });
+
+        startTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int hour = Integer.parseInt(startTimeButton.getText().subSequence(0, 2).toString());
+                int minute = Integer.parseInt(startTimeButton.getText().subSequence(3, 5).toString());
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        //String formatted = String.format(Locale.US,"%02d:%02d", selectedHour,selectedMinute);
+                        //startTimeButton.setText( formatted);
+                        setButtonText((Button) v, selectedHour, selectedMinute);
+                        startTimeHour = selectedHour;
+                        setWeekViewHeight();
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                //mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            }
+        });
+
+        endTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int hour = Integer.parseInt(endTimeButton.getText().subSequence(0, 2).toString());
+                int minute = Integer.parseInt(endTimeButton.getText().subSequence(3, 5).toString());
+
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        //String formatted = String.format("%02d:%02d", selectedHour,selectedMinute);
+                        //endTimeButton.setText( formatted);
+                        setButtonText((Button) v, selectedHour, selectedMinute);
+                        endTimeHour = selectedHour;
+                        if (selectedMinute > 0) endTimeHour++;
+                        setWeekViewHeight();
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                //mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
             }
         });
     }
@@ -421,14 +486,29 @@ public class WeekSchedule extends Fragment implements View.OnTouchListener {
                 downTime, eventTime,
                 MotionEvent.ACTION_DOWN, fromX, fromY, 0
         );
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
-            event.setSource(InputDevice.SOURCE_TOUCHSCREEN);
-        }
+        event.setSource(InputDevice.SOURCE_TOUCHSCREEN);
         inst.sendPointerSync(event);
+
+        //First visible hour after scroll
+        int firstVisibleHourAfterScroll = 24 - hourDifference;
 
 
         for (int i = 0; i < stepCount; i++/* in 0 until stepCount*/) {
+            Log.d("WeekSchedule", "fling: " + mWeekView.getFirstVisibleHour());
+            int currentFirstVisibleHour = round(mWeekView.getFirstVisibleHour());
+            Log.d("WeekSchedule", "fling: rounded " + currentFirstVisibleHour);
+
+            //End Scrolling Event if the first visible hour after scroll is reached
+            if (firstVisibleHourAfterScroll == currentFirstVisibleHour) {
+                mWeekView.goToHour(currentFirstVisibleHour);
+                checkBox.setChecked(false);
+                return;
+            }
+
+            //End scrolling event if autoScroll boolean is false -> autoScroll checkBox is unchecked
             if (!autoScroll) return;
+
+            //Fling code
             y += yStep;
             x += xStep;
             eventTime = SystemClock.uptimeMillis();
@@ -436,10 +516,17 @@ public class WeekSchedule extends Fragment implements View.OnTouchListener {
                     downTime, eventTime + stepCount,
                     MotionEvent.ACTION_MOVE, x, y, 0
             );
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
-                event.setSource(InputDevice.SOURCE_TOUCHSCREEN);
-            }
+            event.setSource(InputDevice.SOURCE_TOUCHSCREEN);
             inst.sendPointerSync(event);
+
+            //Logging Fling Values
+            Log.d("WeekSchedule", "fling: Logging -------------------------------\n "
+                    + "\nfling: x " + x
+                    + "\nfling: y " + y
+                    + "\nfling: stepCount " + stepCount
+                    + "\nfling: xStep " + xStep
+                    + "\nfling: yStep " + yStep
+                    + "\nfling: eventTime " + eventTime);
         }
 
         eventTime = SystemClock.uptimeMillis() + (stepCount) + 2;
@@ -449,10 +536,10 @@ public class WeekSchedule extends Fragment implements View.OnTouchListener {
         );
         if (!autoScroll) return;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
-            event.setSource(InputDevice.SOURCE_TOUCHSCREEN);
-        }
+        event.setSource(InputDevice.SOURCE_TOUCHSCREEN);
         inst.sendPointerSync(event);
+
+        //Set checkBox to unChecked indicating scroll event ended
         checkBox.setChecked(false);
     }
 
@@ -464,5 +551,93 @@ public class WeekSchedule extends Fragment implements View.OnTouchListener {
             return true;
         }
         return false;
+    }
+
+    private void setWeekViewHeight() {
+        hourDifference = endTimeHour - startTimeHour;
+
+        mWeekView.setHourHeight(calculateHourHeight());
+
+        flingStepCount = calculateFlingStepCount();
+
+        calculateFlingY();
+
+        //Wait for weekView to finish resetting height
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mWeekView.goToHour(startTimeHour);
+            }
+        }, 500);
+
+    }
+
+    private int calculateHourHeight() {
+        switch (hourDifference) {
+            case 0:
+            case 1:
+                return 480; // return 480 for 0 and 1 hour
+            case 2:
+                return 240;
+            case 3:
+                return 160;
+            case 4:
+                return 120;
+            case 5:
+                return 100;
+            case 6:
+                return 80;
+            case 7:
+                return 70;
+            default:
+                return 60; // return 60 for 8 and more hours
+        }
+
+    }
+
+    private int calculateFlingStepCount() {
+        switch (hourDifference) {
+            case 0:
+            case 1:
+                return 278; // return 480 for 0 and 1 hour
+            case 2:
+                return 150;
+            case 3:
+                return 200;
+            case 4:
+                return 240;
+            case 5: /*return 300;*/
+            case 6:
+            case 7:
+                return 300;
+            default:
+                return 300; // return 60 for 8 and more hours
+        }
+
+    }
+
+    private void calculateFlingY() {
+        switch (hourDifference) {
+            case 0:
+            case 1:
+                flingY = -5020f * 2.5f; // return 480 for 0 and 1 hour
+                break;
+            default:
+                flingY = -5020f; // return 60 for 8 and more hours
+                break;
+        }
+
+    }
+
+    private int round(double doubleValue) {
+        int intValue = (int) doubleValue;
+        double fraction = doubleValue - intValue;
+        if (fraction > 0.8) intValue++;
+        return intValue;
+    }
+
+    private void setButtonText(Button button, int hour, int min) {
+        String formatted = String.format(Locale.US, "%02d:%02d", hour, min);
+        button.setText(formatted);
     }
 }
