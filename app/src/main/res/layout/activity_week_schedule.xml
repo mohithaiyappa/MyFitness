@@ -59,6 +59,7 @@
                 android:textStyle="normal" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/wvStartTimeButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="7dp"
@@ -68,6 +69,7 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/wvEndTimeButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="7dp"
