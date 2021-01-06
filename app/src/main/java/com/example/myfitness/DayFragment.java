@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ public class DayFragment extends Fragment {
     private DayEventsAdapter dayEventsAdapter;
     private RecyclerView recyclerView;
     private TextView dayFragmentHeadingText;
+    private Button createEventButton;
 
 
     public DayFragment() {
@@ -45,6 +47,7 @@ public class DayFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.dayEventsRecyclerView);
         dayFragmentHeadingText = view.findViewById(R.id.dayFragmentHeading);
+        createEventButton = view.findViewById(R.id.createEventButton);
         dayEventsAdapter = new DayEventsAdapter(this.getActivity());
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setAdapter(dayEventsAdapter);
@@ -62,6 +65,13 @@ public class DayFragment extends Fragment {
             public void onChanged(Date date) {
                 loadDayFragmentHeadingText(date);
                 EventRepo.getInstance().loadSelectedDayEvents(date);
+            }
+        });
+
+        createEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((CustomViewPager) ((TabActivity) getActivity()).findViewById(R.id.view_pager)).moveTo(2);
             }
         });
     }

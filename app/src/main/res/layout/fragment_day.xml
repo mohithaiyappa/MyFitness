@@ -15,17 +15,37 @@
         android:orientation="vertical"
         tools:context=".DayFragment">
 
-        <TextView
-            android:id="@+id/dayFragmentHeading"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorAccent"
-            android:padding="7dp"
-            android:text=""
-            android:textAlignment="center"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:background="?attr/colorAccent">
+
+            <Button
+                android:id="@+id/createEventButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginHorizontal="7dp"
+                android:layout_marginVertical="4dp"
+                android:backgroundTint="@color/white"
+                android:text="@string/create_event"
+                android:textColor="?attr/colorAccent" />
+
+
+            <TextView
+                android:id="@+id/dayFragmentHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+
+                android:padding="7dp"
+                android:text="01 06 ()"
+                android:textAlignment="center"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
