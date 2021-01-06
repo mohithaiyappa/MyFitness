@@ -26,7 +26,8 @@
             android:layout_gravity="center_vertical|top"
             android:layout_weight="1.3"
             android:gravity="start"
-            android:padding="3dp" />
+            android:padding="3dp"
+            android:textColor="@color/black" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/eventDetailsRv"
