@@ -17,10 +17,12 @@ public class DayEventsVideoDetailsAdapter extends RecyclerView.Adapter<DayEvents
 
     private List<EventVideoDetails> videoDetailsList = new ArrayList<>();
     private Context mContext;
+    private View.OnClickListener mClickListener;
 
-    public DayEventsVideoDetailsAdapter(Context ctx, List<EventVideoDetails> list) {
+    public DayEventsVideoDetailsAdapter(Context ctx, List<EventVideoDetails> list, View.OnClickListener clickListener) {
         mContext = ctx;
         videoDetailsList = list;
+        mClickListener = clickListener;
     }
 
     @NonNull
@@ -42,12 +44,14 @@ public class DayEventsVideoDetailsAdapter extends RecyclerView.Adapter<DayEvents
 
     class VideoDetailsViewHolder extends RecyclerView.ViewHolder {
         private TextView tvVideoName, tvVideoTime, tvIrName;
+        View view;
 
         public VideoDetailsViewHolder(@NonNull View itemView) {
             super(itemView);
             tvVideoName = itemView.findViewById(R.id.tvVideoTitle);
             tvVideoTime = itemView.findViewById(R.id.tvVideoTime);
             tvIrName = itemView.findViewById(R.id.tvIrName);
+            view = itemView;
         }
 
         public void bindData(EventVideoDetails eventVideoDetails) {
@@ -55,6 +59,7 @@ public class DayEventsVideoDetailsAdapter extends RecyclerView.Adapter<DayEvents
             tvVideoName.setText(eventVideoDetails.getVideoTitle().trim());
             tvVideoTime.setText(eventVideoDetails.getVideoTime().trim());
             tvIrName.setText(eventVideoDetails.getIrName().trim());
+            view.setOnClickListener(mClickListener);
         }
     }
 }

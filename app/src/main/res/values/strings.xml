@@ -6,6 +6,11 @@
     <string name="tab_text_3">動画一覧</string>
     <string name="tab_text_4">スケジュール作成</string>
 
+    <!-- -->
+    <string name="edit">編集</string>
+    <string name="delete">削除</string>
+    <string name="cancel">キャンセル</string>
+
     <string-array name="period_list">
         <item>リピート</item>
         <item>期間指定</item>

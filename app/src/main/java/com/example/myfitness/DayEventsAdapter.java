@@ -1,5 +1,6 @@
 package com.example.myfitness;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,12 +53,14 @@ public class DayEventsAdapter extends RecyclerView.Adapter<DayEventsAdapter.DayE
         private TextView eventTimeText;
         private ImageView eventModelImage;
         private RecyclerView recyclerView;
+        View view;
 
         public DayEventsViewHolder(@NonNull View itemView) {
             super(itemView);
             eventTimeText = (TextView) itemView.findViewById(R.id.eventTime);
             eventModelImage = (ImageView) itemView.findViewById(R.id.eventModeIv);
             recyclerView = itemView.findViewById(R.id.eventDetailsRv);
+            view = itemView;
 
         }
 
@@ -71,8 +74,41 @@ public class DayEventsAdapter extends RecyclerView.Adapter<DayEventsAdapter.DayE
             eventTimeText.setText(timeText);
             eventModelImage.setImageResource(R.drawable.ic_repeat);
             recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(new DayEventsVideoDetailsAdapter(mContext, event.getVideoArray()));
+
+            View.OnClickListener clickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Dialog dialog = new Dialog(mContext);
+                    dialog.setContentView(R.layout.event_click_dialog_layout);
+                    dialog.findViewById(R.id.cancelButton).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.findViewById(R.id.editButton).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ((CustomViewPager) ((TabActivity) mContext).findViewById(R.id.view_pager)).moveTo(3);
+
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.findViewById(R.id.deleteButton).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //todo add delete functionality here
+                        }
+                    });
+                    dialog.show();
+                }
+            };
+
+            recyclerView.setAdapter(new DayEventsVideoDetailsAdapter(mContext, event.getVideoArray(), clickListener));
             recyclerView.setRecycledViewPool(viewPool);
+
+            view.setOnClickListener(clickListener);
+
         }
     }
 }

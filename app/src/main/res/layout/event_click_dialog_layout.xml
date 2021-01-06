@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@color/gainsboro"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/editButton"
+        style="@style/Widget.MaterialComponents.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorAccent"
+        android:gravity="center"
+        android:minEms="20"
+        android:padding="10dp"
+        android:text="@string/edit"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/deleteButton"
+        style="@style/Widget.MaterialComponents.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="2dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:minEms="20"
+        android:padding="10dp"
+        android:text="@string/delete"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/cancelButton"
+        style="@style/Widget.MaterialComponents.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:minEms="20"
+        android:padding="10dp"
+        android:text="@string/cancel"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+</LinearLayout>

@@ -39,4 +39,9 @@ public class CustomViewPager extends ViewPager {
     public void enablePaging() {
         isPagingEnabled = true;
     }
+
+    public void moveTo(int pos) {
+        isPagingEnabled = true;
+        this.setCurrentItem(pos, true);
+    }
 }
