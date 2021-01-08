@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.myfitness.MonthFragment;
 import com.example.myfitness.R;
-import com.example.myfitness.VideoList;
+import com.example.myfitness.ReservationFragment;
 import com.example.myfitness.WeekSchedule;
 import com.example.myfitness.download;
 
@@ -46,7 +46,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 fragment = new download();
                 break;
             case 3:
-                fragment = new VideoList();
+                fragment = /*new VideoList();*/ new ReservationFragment(); // changing to create event fragment
                 break;
         }
         return fragment;

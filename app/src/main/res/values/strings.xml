@@ -6,11 +6,39 @@
     <string name="tab_text_3">動画一覧</string>
     <string name="tab_text_4">スケジュール作成</string>
 
-    <!-- -->
+    <!-- dialog button strings-->
     <string name="edit">編集</string>
     <string name="delete">削除</string>
     <string name="cancel">キャンセル</string>
     <string name="create_event">スケジュール追加</string>
+
+    <!-- create event tab strings-->
+    <string name="title_video_name">プログラム名</string>
+    <string name="instructor_name">インストラクター</string>
+    <string name="cal_burnt">消費カロリー</string>
+    <string name="release_date">公開日</string>
+    <string name="video_length">動画の長さ</string>
+
+    <!-- image desc-->
+    <string name="thumbnail_image_desc">thumbnail image</string>
+
+    <!-- create event right side display strings-->
+    <string name="total_time">総再生時間</string>
+    <string name="create_event_details">日時設定</string>
+    <string name="start_date">期間（開始日）</string>
+    <string name="end_date">期間（終了日）</string>
+    <string name="start_time">開始時刻</string>
+    <string name="end_time">リピート終了時刻</string>
+    <string name="days">曜日</string>
+    <string name="registration">登録</string>
+    <string name="monday">月</string>
+    <string name="tuesday">火</string>
+    <string name="wednesday">水</string>
+    <string name="thursday">木</string>
+    <string name="friday">金</string>
+    <string name="saturday">土</string>
+    <string name="sunday">日</string>
+
 
     <string-array name="period_list">
         <item>リピート</item>

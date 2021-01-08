@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gainsboro"
+    tools:orientation="horizontal">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_create_event_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <include
+        layout="@layout/create_event_left_display"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline_create_event_divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline_create_event_divider"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_right_display_divider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/videoTotalTimeText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:gravity="center_vertical|start"
+            android:padding="4dp"
+            android:text="@string/total_time"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toStartOf="@id/guideline_right_display_divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/videoTotalTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:gravity="center"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/videoTotalTimeText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_right_display_divider"
+            app:layout_constraintTop_toTopOf="@id/videoTotalTimeText"
+            tools:text="00:00:00" />
+
+        <View
+            android:id="@+id/horizontalDivider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="4dp"
+            android:background="@color/gainsboro"
+            app:layout_constraintTop_toBottomOf="@id/videoTotalTimeText" />
+
+        <TextView
+            android:id="@+id/createEventDetailsHeading"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:gravity="center_vertical|start"
+            android:paddingHorizontal="4dp"
+            android:text="@string/create_event_details"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@id/guideline_right_display_divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horizontalDivider" />
+
+        <TextView
+            android:id="@+id/eventStartDateText"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_margin="7dp"
+            android:gravity="center_vertical|start"
+            android:padding="4dp"
+            android:text="@string/start_date"
+            android:textAppearance="?attr/textAppearanceSubtitle2"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toStartOf="@id/guideline_right_display_divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/createEventDetailsHeading" />
+
+        <TextView
+            android:id="@+id/eventStartDate"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_margin="7dp"
+            android:background="@drawable/accent_background"
+            android:gravity="center"
+            android:padding="4dp"
+            android:textAppearance="?attr/textAppearanceSubtitle2"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/eventStartDateText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_right_display_divider"
+            app:layout_constraintTop_toTopOf="@id/eventStartDateText"
+            tools:text="2020/12/01" />
+
+        <TextView
+            android:id="@+id/eventEndDateText"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_margin="7dp"
+            android:gravity="center_vertical|start"
+            android:padding="4dp"
+            android:text="@string/end_date"
+            android:textAppearance="?attr/textAppearanceSubtitle2"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toStartOf="@id/guideline_right_display_divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventStartDateText" />
+
+        <TextView
+            android:id="@+id/eventEndDate"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_margin="7dp"
+            android:background="@drawable/accent_background"
+            android:gravity="center"
+            android:padding="4dp"
+            android:textAppearance="?attr/textAppearanceSubtitle2"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/eventEndDateText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_right_display_divider"
+            app:layout_constraintTop_toTopOf="@id/eventEndDateText"
+            tools:text="2020/12/02" />
+
+        <TextView
+            android:id="@+id/eventStartTimeText"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_margin="7dp"
+            android:gravity="center_vertical|start"
+            android:padding="4dp"
+            android:text="@string/start_time"
+            android:textAppearance="?attr/textAppearanceSubtitle2"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toStartOf="@id/guideline_right_display_divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventEndDateText" />
+
+        <TextView
+            android:id="@+id/eventStartTime"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_margin="7dp"
+            android:background="@drawable/accent_background"
+            android:gravity="center"
+            android:padding="4dp"
+            android:textAppearance="?attr/textAppearanceSubtitle2"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/eventStartTimeText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_right_display_divider"
+            app:layout_constraintTop_toTopOf="@id/eventStartTimeText"
+            tools:text="03:40" />
+
+        <TextView
+            android:id="@+id/eventEndTimeText"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_margin="7dp"
+            android:gravity="center_vertical|start"
+            android:padding="4dp"
+            android:text="@string/end_time"
+            android:textAppearance="?attr/textAppearanceSubtitle2"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toStartOf="@id/guideline_right_display_divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventStartTimeText" />
+
+        <TextView
+            android:id="@+id/eventEndTime"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_margin="7dp"
+            android:background="@drawable/accent_background"
+            android:gravity="center"
+            android:padding="4dp"
+            android:textAppearance="?attr/textAppearanceSubtitle2"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/eventEndTimeText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_right_display_divider"
+            app:layout_constraintTop_toTopOf="@id/eventEndTimeText"
+            tools:text="03:40" />
+
+        <TextView
+            android:id="@+id/daysText"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_margin="7dp"
+            android:gravity="center_vertical|start"
+            android:padding="4dp"
+            android:text="@string/days"
+            android:textAppearance="?attr/textAppearanceSubtitle2"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toStartOf="@id/guideline_right_display_divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventEndTimeText" />
+
+        <!--todo add days checkBox here-->
+
+        <CheckBox
+            android:id="@+id/mondayCheckBox"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_margin="7dp"
+            android:background="@drawable/check_box_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="@string/monday"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_right_display_divider"
+            app:layout_constraintTop_toTopOf="@id/daysText" />
+
+        <CheckBox
+            android:id="@+id/tuesdayCheckBox"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_margin="7dp"
+            android:background="@drawable/check_box_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="@string/tuesday"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_right_display_divider"
+            app:layout_constraintTop_toBottomOf="@id/mondayCheckBox" />
+
+        <CheckBox
+            android:id="@+id/wednesdayCheckBox"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_margin="7dp"
+            android:background="@drawable/check_box_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="@string/wednesday"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_right_display_divider"
+            app:layout_constraintTop_toBottomOf="@id/tuesdayCheckBox" />
+
+        <CheckBox
+            android:id="@+id/thursdayCheckBox"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_margin="7dp"
+            android:background="@drawable/check_box_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="@string/thursday"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_right_display_divider"
+            app:layout_constraintTop_toBottomOf="@id/wednesdayCheckBox" />
+
+        <CheckBox
+            android:id="@+id/fridayCheckBox"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_margin="7dp"
+            android:background="@drawable/check_box_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="@string/friday"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_right_display_divider"
+            app:layout_constraintTop_toBottomOf="@id/thursdayCheckBox" />
+
+        <CheckBox
+            android:id="@+id/saturdayCheckBox"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_margin="7dp"
+            android:background="@drawable/check_box_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="@string/saturday"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_right_display_divider"
+            app:layout_constraintTop_toBottomOf="@id/fridayCheckBox" />
+
+        <CheckBox
+            android:id="@+id/sundayCheckBox"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_margin="7dp"
+            android:background="@drawable/check_box_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="@string/sunday"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_right_display_divider"
+            app:layout_constraintTop_toBottomOf="@id/saturdayCheckBox" />
+
+
+        <TextView
+            android:id="@+id/submitEvent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorAccent"
+            android:gravity="center"
+            android:padding="14dp"
+            android:text="@string/registration"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

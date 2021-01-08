@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginVertical="7dp"
+    android:elevation="7dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/itemNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:ems="2"
+            android:gravity="center"
+            android:paddingHorizontal="2dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1." />
+
+        <ImageView
+            android:id="@+id/videoThumbNail"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/gainsboro"
+            android:contentDescription="@string/thumbnail_image_desc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="h,9:16"
+            app:layout_constraintStart_toEndOf="@id/itemNumber"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/videoName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|start"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline_rv_divider"
+            app:layout_constraintStart_toEndOf="@id/videoThumbNail"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_rv_divider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.50" />
+
+        <TextView
+            android:id="@+id/rvIrName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|start"
+            android:paddingHorizontal="3dp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/rvCalBurnt"
+            app:layout_constraintStart_toEndOf="@id/guideline_rv_divider"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/instructor_name" />
+
+        <TextView
+            android:id="@+id/rvCalBurnt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|start"
+            android:paddingHorizontal="3dp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/rvReleaseDate"
+            app:layout_constraintStart_toEndOf="@id/rvIrName"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/cal_burnt" />
+
+        <TextView
+            android:id="@+id/rvReleaseDate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|start"
+            android:paddingHorizontal="3dp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/rvVideoLength"
+            app:layout_constraintStart_toEndOf="@id/rvCalBurnt"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/release_date" />
+
+        <TextView
+            android:id="@+id/rvVideoLength"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|start"
+            android:paddingHorizontal="3dp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/rvReleaseDate"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/video_length" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_thumbnail_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.195" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
