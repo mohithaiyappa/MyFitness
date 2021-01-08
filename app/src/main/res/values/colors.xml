@@ -17,6 +17,7 @@
     <color name="terracottaAlt">#E37053</color>         <!-- Today date background color alt-->
     <color name="gainsboro">#D8D8D8</color>             <!-- surface background color-->
     <color name="foam">#D0E9E6</color>                  <!-- Week view today color-->
+    <color name="solitude">#F5F6FA</color>              <!-- Create Event Header Background color-->
     <color name="whiteSmoke">#EEEEEE
     </color>            <!-- Week view time selection background color-->
 
