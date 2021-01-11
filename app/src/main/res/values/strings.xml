@@ -11,6 +11,8 @@
     <string name="delete">削除</string>
     <string name="cancel">キャンセル</string>
     <string name="create_event">スケジュール追加</string>
+    <string name="move_up">上に移動</string>
+    <string name="move_down">下に移動</string>
 
     <!-- create event tab strings-->
     <string name="title_video_name">プログラム名</string>

@@ -89,6 +89,7 @@ public class DayEventsAdapter extends RecyclerView.Adapter<DayEventsAdapter.DayE
                     dialog.findViewById(R.id.editButton).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            EventRepo.getInstance().setCreateOrEditEvent(event);
                             ((CustomViewPager) ((TabActivity) mContext).findViewById(R.id.view_pager)).moveTo(3);
 
                             dialog.dismiss();

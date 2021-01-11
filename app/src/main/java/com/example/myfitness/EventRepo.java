@@ -40,6 +40,8 @@ public class EventRepo {
     public List<WeekViewEvent> allWeekViewEvents = new ArrayList<>();
     public MutableLiveData<List<WeekViewEvent>> allWeekViewEventsLiveData = new MutableLiveData<>();
 
+    private static final MutableLiveData<Event> createOrEditEvent = new MutableLiveData<>();
+
     public boolean shouldReloadWeekViewEvents = false;
     public boolean shouldReloadDayEvents = false;
 
@@ -441,6 +443,14 @@ public class EventRepo {
 
     public LiveData<Boolean> getMembershipStatusLiveData() {
         return membershipStatus;
+    }
+
+    public void setCreateOrEditEvent(Event event) {
+        createOrEditEvent.postValue(event);
+    }
+
+    public LiveData<Event> getCreateOrEditEventLiveData() {
+        return createOrEditEvent;
     }
 
     public void resetMembershipStatus() {

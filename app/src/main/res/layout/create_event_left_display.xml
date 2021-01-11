@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:background="@color/solitude"
         android:paddingVertical="7dp"
+        android:layout_marginHorizontal="7dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
