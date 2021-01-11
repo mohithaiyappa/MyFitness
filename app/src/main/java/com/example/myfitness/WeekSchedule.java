@@ -490,7 +490,11 @@ public class WeekSchedule extends Fragment implements View.OnTouchListener {
         inst.sendPointerSync(event);
 
         //First visible hour after scroll
-        int firstVisibleHourAfterScroll = 24 - hourDifference;
+        int subHour;
+        if (hourDifference <= 1) subHour = 1;
+        else if (hourDifference >= 8) subHour = 8;
+        else subHour = hourDifference;
+        int firstVisibleHourAfterScroll = 24 - subHour;
 
 
         for (int i = 0; i < stepCount; i++/* in 0 until stepCount*/) {
@@ -521,6 +525,8 @@ public class WeekSchedule extends Fragment implements View.OnTouchListener {
 
             //Logging Fling Values
             Log.d("WeekSchedule", "fling: Logging -------------------------------\n "
+                    + "\nhour difference" + hourDifference
+                    + "\nfirst visible hour" + firstVisibleHourAfterScroll
                     + "\nfling: x " + x
                     + "\nfling: y " + y
                     + "\nfling: stepCount " + stepCount
