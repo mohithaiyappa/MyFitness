@@ -19,6 +19,7 @@ public class TabActivity extends AppCompatActivity {
     private final List<PendingIntent> pendingIntentList = new ArrayList<>();
     private AlarmManager alarmManager;
     private CustomViewPager viewPager;
+    private TabLayout tabs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,7 @@ public class TabActivity extends AppCompatActivity {
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = findViewById(R.id.tabs);
+        tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
     }
@@ -65,5 +66,9 @@ public class TabActivity extends AppCompatActivity {
 
     public void enableTabScrolling() {
         viewPager.enablePaging();
+    }
+
+    public void updateEditOrCreateTabHeading(String headingText) {
+        tabs.getTabAt(3).setText(headingText);
     }
 }

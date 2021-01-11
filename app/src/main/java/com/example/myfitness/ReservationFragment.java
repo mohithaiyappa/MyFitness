@@ -33,6 +33,8 @@ import java.util.TimeZone;
 public class ReservationFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
 
     private static final String CANCEL_TEXT = "キャンセル";
+    private static final String TAB_NAME = "スケジュール作成";
+
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.US);
     private final Calendar calendar = Calendar.getInstance();
@@ -154,11 +156,13 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
             endDateTextView.setText(dateFormat.format(calendar.getTime()));
             startTimeTextView.setText(timeFormat.format(calendar.getTime()));
             endTimeTextView.setText(timeFormat.format(calendar.getTime()));
+            setTabName(0);
         } else {
             startDateTextView.setText(event.getEventStartDate());
             endDateTextView.setText(event.getEventEndDate());
             startTimeTextView.setText(event.getStartTime());
             endTimeTextView.setText(event.getEndTime());
+            setTabName(event.getVideoArray().size());
         }
     }
 
@@ -185,6 +189,14 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
                 }
             }
             videoTotalTime.setText(timeFormat.format(new Date(sumOfTime)));
+        }
+    }
+
+    private void setTabName(int size) {
+        if (size <= 0) {
+            ((TabActivity) getActivity()).updateEditOrCreateTabHeading(TAB_NAME);
+        } else {
+            ((TabActivity) getActivity()).updateEditOrCreateTabHeading(TAB_NAME + " [" + size + "]");
         }
     }
 

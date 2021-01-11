@@ -4,7 +4,7 @@
     <string name="tab_text_1">月表示</string>
     <string name="tab_text_2">週表示</string>
     <string name="tab_text_3">動画一覧</string>
-    <string name="tab_text_4">スケジュール作成</string>
+    <string name="tab_text_4">スケジュール作成    </string>
 
     <!-- dialog button strings-->
     <string name="edit">編集</string>
