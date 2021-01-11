@@ -1,4 +1,4 @@
-package com.example.myfitness.retrofit;
+package com.example.myfitness.network;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

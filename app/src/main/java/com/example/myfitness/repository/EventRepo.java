@@ -13,7 +13,7 @@ import com.alamkanak.weekview.WeekViewEvent;
 import com.example.myfitness.model.Event;
 import com.example.myfitness.model.Notification;
 import com.example.myfitness.model.User;
-import com.example.myfitness.retrofit.RetrofitEvent;
+import com.example.myfitness.network.RetrofitEvent;
 import com.example.myfitness.utils.EventAlarmManager;
 import com.example.myfitness.utils.WeekEventConverter;
 

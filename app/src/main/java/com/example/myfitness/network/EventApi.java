@@ -1,4 +1,4 @@
-package com.example.myfitness.retrofit;
+package com.example.myfitness.network;
 
 import com.example.myfitness.model.Event;
 import com.example.myfitness.model.Notification;
