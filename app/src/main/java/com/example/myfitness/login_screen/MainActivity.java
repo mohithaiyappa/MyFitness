@@ -1,4 +1,4 @@
-package com.example.myfitness;
+package com.example.myfitness.login_screen;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,6 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myfitness.R;
+import com.example.myfitness.repository.EventRepo;
+import com.example.myfitness.tab_screen.TabActivity;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

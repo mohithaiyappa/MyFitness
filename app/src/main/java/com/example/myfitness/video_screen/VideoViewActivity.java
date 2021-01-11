@@ -1,4 +1,4 @@
-package com.example.myfitness;
+package com.example.myfitness.video_screen;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -11,6 +11,9 @@ import android.widget.VideoView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myfitness.R;
+import com.example.myfitness.model.Event;
+import com.example.myfitness.model.EventVideoDetails;
 import com.google.gson.Gson;
 
 import java.text.ParseException;

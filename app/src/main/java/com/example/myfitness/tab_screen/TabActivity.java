@@ -1,4 +1,4 @@
-package com.example.myfitness;
+package com.example.myfitness.tab_screen;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -8,7 +8,12 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 
+import com.example.myfitness.R;
+import com.example.myfitness.login_screen.MainActivity;
+import com.example.myfitness.repository.EventRepo;
 import com.example.myfitness.ui.main.SectionsPagerAdapter;
+import com.example.myfitness.utils.CustomViewPager;
+import com.example.myfitness.utils.EventAlarmManager;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;

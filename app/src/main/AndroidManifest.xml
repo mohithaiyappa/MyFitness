@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".VideoViewActivity"
+            android:name=".video_screen.VideoViewActivity"
             android:screenOrientation="landscape"></activity>
         <activity
             android:name=".Reservation"
@@ -32,12 +32,12 @@
             android:name=".search_result"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".TabActivity"
+            android:name=".tab_screen.TabActivity"
             android:label="@string/title_activity_tab"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".login_screen.MainActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -48,7 +48,7 @@
         </activity>
 
         <receiver
-            android:name=".EventBroadcastReceiver"
+            android:name=".utils.EventBroadcastReceiver"
             android:enabled="true"
             android:exported="true" />
     </application>

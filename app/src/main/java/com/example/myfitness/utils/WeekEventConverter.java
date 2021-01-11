@@ -1,6 +1,8 @@
-package com.example.myfitness;
+package com.example.myfitness.utils;
 
 import com.alamkanak.weekview.WeekViewEvent;
+import com.example.myfitness.model.Event;
+import com.example.myfitness.model.EventVideoDetails;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

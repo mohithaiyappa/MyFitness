@@ -1,4 +1,4 @@
-package com.example.myfitness;
+package com.example.myfitness.tab_screen.create_event_tab;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.myfitness.R;
+import com.example.myfitness.model.EventVideoDetails;
 
 import java.util.List;
 

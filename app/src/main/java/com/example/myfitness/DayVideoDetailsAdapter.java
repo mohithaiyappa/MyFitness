@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.myfitness.model.EventVideoDetails;
+
 import java.util.ArrayList;
 import java.util.List;
 

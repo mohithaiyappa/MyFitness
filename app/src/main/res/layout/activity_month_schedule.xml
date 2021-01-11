@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/grayColor"
     android:orientation="vertical"
-    tools:context="com.example.myfitness.MonthSchedule">
+    tools:context="com.example.myfitness.tab_screen.month_tab.MonthSchedule">
 
     <RelativeLayout
         android:layout_width="match_parent"

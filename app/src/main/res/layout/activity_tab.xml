@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TabActivity">
+    tools:context=".tab_screen.TabActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp"
-        >
+        app:elevation="0dp">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
@@ -25,7 +24,7 @@
             app:tabTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.example.myfitness.CustomViewPager
+    <com.example.myfitness.utils.CustomViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

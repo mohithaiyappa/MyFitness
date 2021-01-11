@@ -8,11 +8,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.myfitness.MonthFragment;
 import com.example.myfitness.R;
-import com.example.myfitness.ReservationFragment;
-import com.example.myfitness.WeekSchedule;
 import com.example.myfitness.download;
+import com.example.myfitness.tab_screen.create_event_tab.ReservationFragment;
+import com.example.myfitness.tab_screen.month_tab.MonthFragment;
+import com.example.myfitness.tab_screen.week_tab.WeekSchedule;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to

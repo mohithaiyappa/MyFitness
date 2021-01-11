@@ -1,4 +1,4 @@
-package com.example.myfitness;
+package com.example.myfitness.tab_screen.month_tab;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +13,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.myfitness.R;
+import com.example.myfitness.model.Event;
+import com.example.myfitness.repository.EventRepo;
+import com.example.myfitness.tab_screen.TabActivity;
+import com.example.myfitness.utils.CustomViewPager;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

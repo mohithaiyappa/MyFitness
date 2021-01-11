@@ -1,4 +1,4 @@
-package com.example.myfitness;
+package com.example.myfitness.tab_screen.week_tab;
 
 import android.app.Instrumentation;
 import android.app.TimePickerDialog;
@@ -31,6 +31,11 @@ import com.alamkanak.weekview.DateTimeInterpreter;
 import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
+import com.example.myfitness.R;
+import com.example.myfitness.edit_reservation;
+import com.example.myfitness.model.Event;
+import com.example.myfitness.repository.EventRepo;
+import com.example.myfitness.tab_screen.TabActivity;
 import com.google.android.material.checkbox.MaterialCheckBox;
 
 import java.text.SimpleDateFormat;

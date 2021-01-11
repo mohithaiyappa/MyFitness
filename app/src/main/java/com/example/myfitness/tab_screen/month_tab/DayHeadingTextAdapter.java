@@ -1,4 +1,4 @@
-package com.example.myfitness;
+package com.example.myfitness.tab_screen.month_tab;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.example.myfitness.R;
 
 public class DayHeadingTextAdapter extends BaseAdapter {
     private final LayoutInflater mLayoutInflater;

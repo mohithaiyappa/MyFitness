@@ -28,6 +28,10 @@ import android.widget.VideoView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myfitness.model.Event;
+import com.example.myfitness.retrofit.RetrofitEvent;
+import com.example.myfitness.tab_screen.TabActivity;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 

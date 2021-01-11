@@ -1,4 +1,4 @@
-package com.example.myfitness;
+package com.example.myfitness.tab_screen.create_event_tab;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -20,6 +20,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.myfitness.R;
+import com.example.myfitness.model.Event;
+import com.example.myfitness.model.EventVideoDetails;
+import com.example.myfitness.repository.EventRepo;
+import com.example.myfitness.tab_screen.TabActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,10 +1,12 @@
-package com.example.myfitness;
+package com.example.myfitness.utils;
 
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+
+import com.example.myfitness.video_screen.VideoViewActivity;
 
 import java.util.List;
 

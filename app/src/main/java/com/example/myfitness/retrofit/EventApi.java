@@ -1,4 +1,8 @@
-package com.example.myfitness;
+package com.example.myfitness.retrofit;
+
+import com.example.myfitness.model.Event;
+import com.example.myfitness.model.Notification;
+import com.example.myfitness.model.User;
 
 import java.util.List;
 

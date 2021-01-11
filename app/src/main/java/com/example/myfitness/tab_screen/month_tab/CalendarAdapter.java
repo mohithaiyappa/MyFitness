@@ -1,4 +1,4 @@
-package com.example.myfitness;
+package com.example.myfitness.tab_screen.month_tab;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -10,6 +10,10 @@ import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.myfitness.R;
+import com.example.myfitness.model.Event;
+import com.example.myfitness.repository.EventRepo;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

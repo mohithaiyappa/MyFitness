@@ -1,4 +1,4 @@
-package com.example.myfitness;
+package com.example.myfitness.repository;
 
 import android.content.Context;
 import android.text.Spannable;
@@ -10,6 +10,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.alamkanak.weekview.WeekViewEvent;
+import com.example.myfitness.model.Event;
+import com.example.myfitness.model.Notification;
+import com.example.myfitness.model.User;
+import com.example.myfitness.retrofit.RetrofitEvent;
+import com.example.myfitness.utils.EventAlarmManager;
+import com.example.myfitness.utils.WeekEventConverter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

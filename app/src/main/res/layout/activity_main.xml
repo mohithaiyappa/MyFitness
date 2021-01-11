@@ -10,7 +10,7 @@
     android:focusableInTouchMode="true"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".login_screen.MainActivity">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_email"

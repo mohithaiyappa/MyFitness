@@ -1,4 +1,4 @@
-package com.example.myfitness;
+package com.example.myfitness.tab_screen.month_tab;
 
 import android.os.Bundle;
 import android.text.Spannable;
@@ -15,6 +15,9 @@ import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+
+import com.example.myfitness.R;
+import com.example.myfitness.repository.EventRepo;
 
 public class MonthFragment extends Fragment {
 

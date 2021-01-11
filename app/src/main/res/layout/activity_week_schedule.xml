@@ -8,7 +8,7 @@
     android:background="@color/whiteColor"
     android:orientation="vertical"
     android:padding="7dp"
-    tools:context=".WeekSchedule">
+    tools:context=".tab_screen.week_tab.WeekSchedule">
 
     <LinearLayout
         android:id="@+id/noticeLinearLayout"

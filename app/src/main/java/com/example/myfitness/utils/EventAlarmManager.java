@@ -1,4 +1,4 @@
-package com.example.myfitness;
+package com.example.myfitness.utils;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
+import com.example.myfitness.model.Event;
+import com.example.myfitness.repository.EventRepo;
 import com.google.gson.Gson;
 
 import java.text.ParseException;

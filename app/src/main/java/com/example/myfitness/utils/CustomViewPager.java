@@ -1,4 +1,4 @@
-package com.example.myfitness;
+package com.example.myfitness.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
