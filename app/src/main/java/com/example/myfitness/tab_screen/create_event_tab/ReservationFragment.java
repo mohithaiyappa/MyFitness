@@ -110,6 +110,8 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
                 adapter.submitList(event.getVideoArray());
                 calculateTotalTime(event.getVideoArray());
                 initData(event);
+                String[] days = event.getDaysOnly().split(",");
+                initCheckBox(days);
             }
         });
 
@@ -249,6 +251,56 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.setButton(DatePickerDialog.BUTTON_NEGATIVE, CANCEL_TEXT, datePickerDialog);
         datePickerDialog.show();
+    }
+
+    private void initCheckBox(String[] days) {
+        disableAllCheckBoxes();
+
+        for (String day : days) {
+            switch (day) {
+                case "月":
+                    monday.setChecked(true);
+                    break;
+                case "火":
+                    tuesday.setChecked(true);
+                    break;
+                case "水":
+                    wednesday.setChecked(true);
+                    break;
+                case "木":
+                    thursday.setChecked(true);
+                    break;
+                case "金":
+                    friday.setChecked(true);
+                    break;
+                case "土":
+                    saturday.setChecked(true);
+                    break;
+                case "日":
+                    sunday.setChecked(true);
+                    break;
+            }
+        }
+    }
+
+    private void enableAllCheckBoxes() {
+        monday.setChecked(true);
+        tuesday.setChecked(true);
+        wednesday.setChecked(true);
+        thursday.setChecked(true);
+        friday.setChecked(true);
+        saturday.setChecked(true);
+        sunday.setChecked(true);
+    }
+
+    private void disableAllCheckBoxes() {
+        monday.setChecked(false);
+        tuesday.setChecked(false);
+        wednesday.setChecked(false);
+        thursday.setChecked(false);
+        friday.setChecked(false);
+        saturday.setChecked(false);
+        sunday.setChecked(false);
     }
 
     @Override
