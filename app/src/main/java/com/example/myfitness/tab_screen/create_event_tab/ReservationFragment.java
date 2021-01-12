@@ -50,6 +50,21 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
     private RecyclerView recyclerView;
     private CreateEventsVideoDetailsAdapter adapter;
 
+    private final Observer<Event> editEventObserver = new Observer<Event>() {
+        @Override
+        public void onChanged(Event event) {
+            if (event == null) {
+                adapter.submitList(Collections.emptyList());
+                return;
+            }
+            adapter.submitList(event.getVideoArray());
+            calculateTotalTime(event.getVideoArray());
+            initData(event);
+            String[] days = event.getDaysOnly().split(",");
+            initCheckBox(days);
+        }
+    };
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,7 +89,15 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
 
         //populate editing data after event repo loads the event with full details
         //observe a liveData of editEvent and on Change submit new list to recycler view
+        setLiveDataListeners();
         populateEditingEventData();
+    }
+
+    @Override
+    public void onPause() {
+        removeLiveDataListeners();
+
+        super.onPause();
     }
 
     private void bindViews(View view) {
@@ -99,22 +122,8 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
         adapter = new CreateEventsVideoDetailsAdapter(getActivity(), Collections.emptyList());
         recyclerView.setAdapter(adapter);
 
-        //LiveData Listener move to separate fun
-        eventRepo.getCreateOrEditEventLiveData().observe(getViewLifecycleOwner(), new Observer<Event>() {
-            @Override
-            public void onChanged(Event event) {
-                if (event == null) {
-                    adapter.submitList(Collections.emptyList());
-                    return;
-                }
-                adapter.submitList(event.getVideoArray());
-                calculateTotalTime(event.getVideoArray());
-                initData(event);
-                String[] days = event.getDaysOnly().split(",");
-                initCheckBox(days);
-            }
-        });
-
+        //decide if you want to attach and detach observers in onResume and onPause or only once
+        //setLiveDataListeners();
     }
 
     private void setListeners() {
@@ -156,6 +165,14 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
             }
         });
 
+    }
+
+    private void setLiveDataListeners() {
+        eventRepo.getCreateOrEditEventLiveData().observe(getViewLifecycleOwner(), editEventObserver);
+    }
+
+    private void removeLiveDataListeners() {
+        eventRepo.getCreateOrEditEventLiveData().removeObserver(editEventObserver);
     }
 
     private void initData(Event event) {
