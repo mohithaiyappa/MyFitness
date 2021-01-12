@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myfitness.R;
 import com.example.myfitness.model.EventVideoDetails;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -20,10 +21,12 @@ public class CreateEventsVideoDetailsAdapter extends RecyclerView.Adapter<Create
 
     private Context mContext;
     private List<EventVideoDetails> videoDetailsList;
+    private final Picasso picasso;
 
     public CreateEventsVideoDetailsAdapter(Context ctx, List<EventVideoDetails> list) {
         mContext = ctx;
         videoDetailsList = list;
+        picasso = Picasso.with(mContext);
     }
 
     @NonNull
@@ -73,6 +76,12 @@ public class CreateEventsVideoDetailsAdapter extends RecyclerView.Adapter<Create
             videoTitleText.setText(videoDetails.getVideoTitle());
             irNameText.setText(videoDetails.getIrName());
             videoLengthText.setText(videoDetails.getVideoTime());
+            calBurntText.setText(videoDetails.getCalorie());
+            releaseDateText.setText(videoDetails.getReleaseDate());
+            if (!videoDetails.getThumbnailUrl().isEmpty()) {
+                picasso.load(videoDetails.getThumbnailUrl()).into(thumbnailImageView);
+            }
+
             View.OnClickListener clickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

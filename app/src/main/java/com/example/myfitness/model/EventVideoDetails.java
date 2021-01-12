@@ -12,6 +12,12 @@ public class EventVideoDetails {
     private String videoTime;
     @SerializedName("local_path")
     private String localPath;
+    @SerializedName("thumbnail_url")
+    private String thumbnailUrl = "";
+    @SerializedName("calorie")
+    private String calorie = "";
+    @SerializedName("release_date")
+    private String releaseDate = "";
 
     //getters
 
@@ -31,6 +37,18 @@ public class EventVideoDetails {
         this.irName = irName;
     }
 
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
+    public String getCalorie() {
+        return calorie;
+    }
+
     //setters
 
     public String getVideoTime() {
@@ -47,5 +65,17 @@ public class EventVideoDetails {
 
     public void setLocalPath(String localPath) {
         this.localPath = localPath;
+    }
+
+    public void setCalorie(String calorie) {
+        this.calorie = calorie;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
     }
 }

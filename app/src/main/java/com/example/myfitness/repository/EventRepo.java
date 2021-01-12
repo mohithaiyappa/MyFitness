@@ -250,6 +250,24 @@ public class EventRepo {
 
     }
 
+    public void loadEventWithDetails(int eId) {
+        RetrofitEvent.getEventApi().getEventWithCompleteDetails(userName, eId).enqueue(new Callback<List<Event>>() {
+            @Override
+            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+                if (!response.isSuccessful() || response.body().isEmpty()) {
+                    return;
+                }
+
+                createOrEditEvent.postValue(response.body().get(0));
+            }
+
+            @Override
+            public void onFailure(Call<List<Event>> call, Throwable t) {
+
+            }
+        });
+    }
+
     public void deleteEvent(int e_id, Event event, Context context) {
         RetrofitEvent.getEventApi().deleteEvent(userName, e_id).enqueue(new Callback<Void>() {
             @Override

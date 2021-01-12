@@ -33,4 +33,7 @@ public interface EventApi {
 
     @GET("loginExpDate.php")
     Call<List<User>> getUserDetails();
+
+    @GET("viddetails.php")
+    Call<List<Event>> getEventWithCompleteDetails(@Query("user_id") String userId, @Query("e_id") int e_id);
 }
