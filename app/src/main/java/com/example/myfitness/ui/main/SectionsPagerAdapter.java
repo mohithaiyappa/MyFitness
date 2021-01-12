@@ -9,9 +9,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.myfitness.R;
-import com.example.myfitness.download;
 import com.example.myfitness.tab_screen.create_event_tab.ReservationFragment;
 import com.example.myfitness.tab_screen.month_tab.MonthFragment;
+import com.example.myfitness.tab_screen.videos_tab.VideosFragment;
 import com.example.myfitness.tab_screen.week_tab.WeekSchedule;
 
 /**
@@ -43,7 +43,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 fragment = new WeekSchedule();
                 break;
             case 2:
-                fragment = new download();
+                fragment = /*new download();*/ new VideosFragment();
                 break;
             case 3:
                 fragment = /*new VideoList();*/ new ReservationFragment(); // changing to create event fragment
