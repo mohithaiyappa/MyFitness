@@ -11,14 +11,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myfitness.R;
+import com.example.myfitness.tab_screen.TabScreenSharedViewModel;
 
 import java.io.File;
 
 public class VideosFragment extends Fragment {
 
     private TextView emptySpaceText;
+
+    private TabScreenSharedViewModel viewModel;
 
 
     @Nullable
@@ -34,12 +39,20 @@ public class VideosFragment extends Fragment {
 
         bindViews(view);
 
+        viewModel = new ViewModelProvider(getActivity()).get(TabScreenSharedViewModel.class);
+
         findEmptySpace();
+
+        attachFragment();
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        //viewModel.loadDataFromNetwork();
+        //loadVideoData();
     }
 
     @Override
@@ -47,12 +60,23 @@ public class VideosFragment extends Fragment {
         super.onPause();
     }
 
+    private void attachFragment() {
+        //Bundle bundle = new Bundle();
+        Fragment fragment = new VideosCategoryFragment();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.add(R.id.fragmentContainer, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
     private void bindViews(View view) {
         emptySpaceText = view.findViewById(R.id.storageText);
     }
 
     private void findEmptySpace() {
-        emptySpaceText.setText("free space :" + getAvailableInternalMemorySize());
+        String spaceText = "free space :" + getAvailableInternalMemorySize();
+        emptySpaceText.setText(spaceText);
+        viewModel.displayText = spaceText;
     }
 
     private String getAvailableInternalMemorySize() {

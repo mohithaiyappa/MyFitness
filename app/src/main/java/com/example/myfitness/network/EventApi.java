@@ -1,8 +1,10 @@
 package com.example.myfitness.network;
 
 import com.example.myfitness.model.Event;
+import com.example.myfitness.model.InterRimCategory;
 import com.example.myfitness.model.Notification;
 import com.example.myfitness.model.User;
+import com.example.myfitness.model.VideoData;
 
 import java.util.List;
 
@@ -36,4 +38,10 @@ public interface EventApi {
 
     @GET("viddetails.php")
     Call<List<Event>> getEventWithCompleteDetails(@Query("user_id") String userId, @Query("e_id") int e_id);
+
+    @GET("category.php")
+    Call<List<InterRimCategory>> getInterRimCategories();
+
+    @GET("categorynew.php")
+    Call<List<VideoData>> getVideoData();
 }

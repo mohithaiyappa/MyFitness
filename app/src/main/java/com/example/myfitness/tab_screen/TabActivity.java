@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myfitness.R;
 import com.example.myfitness.login_screen.MainActivity;
@@ -35,6 +36,8 @@ public class TabActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+        TabScreenSharedViewModel viewModel = new ViewModelProvider(this).get(TabScreenSharedViewModel.class);
+        viewModel.loadDataFromNetwork();
 
     }
 
