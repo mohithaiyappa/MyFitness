@@ -6,23 +6,31 @@ import android.os.StatFs;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myfitness.R;
 import com.example.myfitness.tab_screen.TabScreenSharedViewModel;
 import com.example.myfitness.tab_screen.videos_tab.all_category.VideosCategoryFragment;
+import com.example.myfitness.tab_screen.videos_tab.all_subcategory.VideosSubCategoryFragment;
+import com.example.myfitness.utils.Selection;
 
 import java.io.File;
 
 public class VideosFragment extends Fragment {
 
     private TextView emptySpaceText;
+    private Button backButton;
+
+    private FragmentManager childFragmentManager;
 
     private TabScreenSharedViewModel viewModel;
 
@@ -44,7 +52,13 @@ public class VideosFragment extends Fragment {
 
         findEmptySpace();
 
-        attachFragment();
+
+        viewModel.selectedViewTypeLiveData.observe(getViewLifecycleOwner(), new Observer<Selection>() {
+            @Override
+            public void onChanged(Selection viewType) {
+                attachFragment(getRightFragment(viewType));
+            }
+        });
 
     }
 
@@ -61,17 +75,53 @@ public class VideosFragment extends Fragment {
         super.onPause();
     }
 
-    private void attachFragment() {
+    private void attachFragment(Fragment fragment) {
         //Bundle bundle = new Bundle();
-        Fragment fragment = new VideosCategoryFragment();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.add(R.id.fragmentContainer, fragment);
+        //Fragment fragment = new VideosCategoryFragment();
+
+        FragmentTransaction transaction = childFragmentManager.beginTransaction();
+        transaction.replace(R.id.fragmentContainer, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
 
+    private Fragment getRightFragment(Selection viewType) {
+        Fragment fragment;
+        switch (viewType) {
+            case CATEGORY_STAGGERED:
+                fragment = new VideosCategoryFragment();
+                break;
+
+            case SUBCATEGORY_STAGGERED: {
+                fragment = new VideosSubCategoryFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("categoryPosition", viewModel.selectedCategoryIndex);
+                fragment.setArguments(bundle);
+                break;
+            }
+
+            default:
+                fragment = new VideosCategoryFragment();
+        }
+
+        return fragment;
+    }
+
     private void bindViews(View view) {
+        childFragmentManager = getChildFragmentManager();
+
         emptySpaceText = view.findViewById(R.id.storageText);
+        backButton = view.findViewById(R.id.backButton);
+
+        //setting Listeners
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (childFragmentManager.getBackStackEntryCount() > 1) {
+                    childFragmentManager.popBackStack();
+                }
+            }
+        });
     }
 
     private void findEmptySpace() {

@@ -10,6 +10,7 @@ import com.example.myfitness.model.InterRimCategory;
 import com.example.myfitness.model.Subcategory;
 import com.example.myfitness.model.VideoData;
 import com.example.myfitness.network.RetrofitEvent;
+import com.example.myfitness.utils.Selection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,9 @@ public class TabScreenSharedViewModel extends ViewModel {
     public final List<Category> categoryList = new ArrayList<>();
 
     public final MutableLiveData<Boolean> hasLoadingFinished = new MutableLiveData<>(false);
+
+    public MutableLiveData<Selection> selectedViewTypeLiveData = new MutableLiveData<>(Selection.CATEGORY_STAGGERED);
+    public int selectedCategoryIndex = 0;
 
     public String displayText = "";
 

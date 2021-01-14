@@ -1,4 +1,4 @@
-package com.example.myfitness.tab_screen.videos_tab.all_category;
+package com.example.myfitness.tab_screen.videos_tab.all_subcategory;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,17 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myfitness.R;
 import com.example.myfitness.tab_screen.TabScreenSharedViewModel;
-import com.example.myfitness.utils.Selection;
 
-public class VideosCategoryAdapter extends RecyclerView.Adapter<VideosCategoryAdapter.VideosViewHolder> {
+public class VideosSubCategoryAdapter extends RecyclerView.Adapter<VideosSubCategoryAdapter.VideosViewHolder> {
 
     private final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
     public TabScreenSharedViewModel viewModel;
     private Context context;
+    private int selectedCategoryPosition;
 
-    public VideosCategoryAdapter(Context ctx, TabScreenSharedViewModel vm) {
+    public VideosSubCategoryAdapter(Context ctx, TabScreenSharedViewModel vm, int position) {
         context = ctx;
         viewModel = vm;
+        this.selectedCategoryPosition = position;
     }
 
     @NonNull
@@ -39,20 +40,20 @@ public class VideosCategoryAdapter extends RecyclerView.Adapter<VideosCategoryAd
 
     @Override
     public int getItemCount() {
-        return viewModel.categoryList.size();
+        return viewModel.categoryList.get(selectedCategoryPosition).getSubcategories().size();
     }
 
     class VideosViewHolder extends RecyclerView.ViewHolder {
 
         TextView headerText;
         RecyclerView recyclerView;
-        VideosCategoryHorizontalAdapter adapter;
+        VideosSubCategoryHorizontalAdapter adapter;
 
         public VideosViewHolder(@NonNull View itemView) {
             super(itemView);
             headerText = itemView.findViewById(R.id.staggeredViewHeading);
             recyclerView = itemView.findViewById(R.id.horizontalStaggeredVideoView);
-            adapter = new VideosCategoryHorizontalAdapter(context, viewModel);
+            adapter = new VideosSubCategoryHorizontalAdapter(context, viewModel);
             LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(manager);
@@ -60,19 +61,11 @@ public class VideosCategoryAdapter extends RecyclerView.Adapter<VideosCategoryAd
         }
 
         public void bindData(int position) {
-            adapter.updatePosition(position);
-            String text = viewModel.categoryList.get(position).getCategoryName()
+            adapter.updatePosition(position, selectedCategoryPosition);
+            String text = viewModel.categoryList.get(selectedCategoryPosition).getSubcategories().get(position)
+                    .getSubcategoryName()
                     + "    [ " + adapter.getItemCount() + " ]";
             headerText.setText(text);
-            View.OnClickListener clickListener = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Toast.makeText(context, "header clicked", Toast.LENGTH_SHORT).show();
-                    viewModel.selectedCategoryIndex = position;
-                    viewModel.selectedViewTypeLiveData.setValue(Selection.SUBCATEGORY_STAGGERED);
-                }
-            };
-            headerText.setOnClickListener(clickListener);
         }
     }
 }
