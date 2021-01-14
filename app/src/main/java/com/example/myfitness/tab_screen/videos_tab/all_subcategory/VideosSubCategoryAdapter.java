@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myfitness.R;
 import com.example.myfitness.tab_screen.TabScreenSharedViewModel;
+import com.example.myfitness.utils.Selection;
 
 public class VideosSubCategoryAdapter extends RecyclerView.Adapter<VideosSubCategoryAdapter.VideosViewHolder> {
 
@@ -66,6 +67,16 @@ public class VideosSubCategoryAdapter extends RecyclerView.Adapter<VideosSubCate
                     .getSubcategoryName()
                     + "    [ " + adapter.getItemCount() + " ]";
             headerText.setText(text);
+            View.OnClickListener clickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(context, "header clicked", Toast.LENGTH_SHORT).show();
+                    viewModel.selectedCategoryIndex = selectedCategoryPosition;
+                    viewModel.selectedSubcategoryIndex = position;
+                    viewModel.selectedViewTypeLiveData.setValue(Selection.SUBCATEGORY_DETAILED);
+                }
+            };
+            headerText.setOnClickListener(clickListener);
         }
     }
 }

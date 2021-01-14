@@ -21,6 +21,7 @@ import com.example.myfitness.R;
 import com.example.myfitness.tab_screen.TabScreenSharedViewModel;
 import com.example.myfitness.tab_screen.videos_tab.all_category.VideosCategoryFragment;
 import com.example.myfitness.tab_screen.videos_tab.all_subcategory.VideosSubCategoryFragment;
+import com.example.myfitness.tab_screen.videos_tab.detailed.VideosDetailedViewFragment;
 import com.example.myfitness.utils.Selection;
 
 import java.io.File;
@@ -96,6 +97,23 @@ public class VideosFragment extends Fragment {
                 fragment = new VideosSubCategoryFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("categoryPosition", viewModel.selectedCategoryIndex);
+                fragment.setArguments(bundle);
+                break;
+            }
+            case CATEGORY_DETAILED: {
+                fragment = new VideosDetailedViewFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("categoryPosition", viewModel.selectedCategoryIndex);
+                bundle.putSerializable("viewType", Selection.CATEGORY_DETAILED);
+                fragment.setArguments(bundle);
+                break;
+            }
+            case SUBCATEGORY_DETAILED: {
+                fragment = new VideosDetailedViewFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("categoryPosition", viewModel.selectedCategoryIndex);
+                bundle.putInt("subCategoryPosition", viewModel.selectedSubcategoryIndex);
+                bundle.putSerializable("viewType", Selection.SUBCATEGORY_DETAILED);
                 fragment.setArguments(bundle);
                 break;
             }

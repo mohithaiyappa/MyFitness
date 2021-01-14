@@ -27,6 +27,7 @@ public class TabScreenSharedViewModel extends ViewModel {
 
     public MutableLiveData<Selection> selectedViewTypeLiveData = new MutableLiveData<>(Selection.CATEGORY_STAGGERED);
     public int selectedCategoryIndex = 0;
+    public int selectedSubcategoryIndex = 0;
 
     public String displayText = "";
 
