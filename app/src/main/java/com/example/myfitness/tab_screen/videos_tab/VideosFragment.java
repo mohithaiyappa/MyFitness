@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myfitness.R;
 import com.example.myfitness.tab_screen.TabScreenSharedViewModel;
+import com.example.myfitness.tab_screen.videos_tab.all_category.VideosCategoryFragment;
 
 import java.io.File;
 

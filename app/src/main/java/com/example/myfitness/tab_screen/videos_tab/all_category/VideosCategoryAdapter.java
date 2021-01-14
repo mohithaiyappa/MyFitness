@@ -1,4 +1,4 @@
-package com.example.myfitness.tab_screen.videos_tab;
+package com.example.myfitness.tab_screen.videos_tab.all_category;
 
 import android.content.Context;
 import android.view.LayoutInflater;
