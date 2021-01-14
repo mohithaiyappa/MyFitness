@@ -143,7 +143,7 @@ public class VideosFragment extends Fragment {
     }
 
     private void findEmptySpace() {
-        String spaceText = "free space :" + getAvailableInternalMemorySize();
+        String spaceText = "空き容量 【" + getAvailableInternalMemorySize() + "】";
         emptySpaceText.setText(spaceText);
         viewModel.displayText = spaceText;
     }
