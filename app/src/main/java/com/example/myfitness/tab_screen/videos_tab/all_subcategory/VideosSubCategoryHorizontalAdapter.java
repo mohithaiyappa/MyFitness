@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myfitness.R;
+import com.example.myfitness.customdialog.VideoPopupDialog;
 import com.example.myfitness.model.VideoData;
 import com.example.myfitness.tab_screen.TabScreenSharedViewModel;
 import com.squareup.picasso.Picasso;
@@ -61,6 +62,7 @@ public class VideosSubCategoryHorizontalAdapter extends RecyclerView.Adapter<Vid
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView selectedText, videoLengthText, videoTitleText, releaseDateText, calBurntText, irNameText;
         ImageView thumbnailImage;
+        View view;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,6 +73,7 @@ public class VideosSubCategoryHorizontalAdapter extends RecyclerView.Adapter<Vid
             calBurntText = itemView.findViewById(R.id.calBurnt);
             irNameText = itemView.findViewById(R.id.irName);
             thumbnailImage = itemView.findViewById(R.id.videoThumbNail);
+            view = itemView;
         }
 
         public void bindData(int position) {
@@ -81,6 +84,16 @@ public class VideosSubCategoryHorizontalAdapter extends RecyclerView.Adapter<Vid
             calBurntText.setText(vData.getCalorie() + "kCal");
             irNameText.setText(vData.getIrName());
             picasso.load(vData.getThumbnailUrl()).into(thumbnailImage);
+
+            View.OnClickListener clickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    VideoPopupDialog videoPopupDialog = new VideoPopupDialog(context, vData);
+                    videoPopupDialog.show();
+                }
+            };
+
+            view.setOnClickListener(clickListener);
         }
     }
 }
