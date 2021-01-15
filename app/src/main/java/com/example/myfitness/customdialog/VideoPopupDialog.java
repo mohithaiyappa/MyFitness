@@ -101,7 +101,7 @@ public class VideoPopupDialog extends Dialog {
                 //mediaController.show();
                 mediaPlayer = mp;
                 mediaController.show(1000);
-                videoView.seekTo(3000);
+                videoView.seekTo(1);
                 Toast.makeText(mContext, "video ready", Toast.LENGTH_SHORT).show();
             }
         });
