@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myfitness.R;
+import com.example.myfitness.model.Subcategory;
 import com.example.myfitness.tab_screen.TabScreenSharedViewModel;
 import com.example.myfitness.utils.Selection;
 
@@ -61,9 +62,14 @@ public class VideosCategoryAdapter extends RecyclerView.Adapter<VideosCategoryAd
 
         public void bindData(int position) {
             adapter.updatePosition(position);
+            int itemCount = 0;
+            for (Subcategory subcategory : viewModel.categoryList.get(position).getSubcategories()) {
+                itemCount = itemCount + subcategory.getVideoDataList().size();
+            }
             String text = viewModel.categoryList.get(position).getCategoryName()
-                    + "    [ " + adapter.getItemCount() + " ]";
+                    + "    [ " + itemCount + " ]";
             headerText.setText(text);
+
             View.OnClickListener clickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -72,6 +78,8 @@ public class VideosCategoryAdapter extends RecyclerView.Adapter<VideosCategoryAd
                     viewModel.selectedViewTypeLiveData.setValue(Selection.SUBCATEGORY_STAGGERED);
                 }
             };
+
+
             headerText.setOnClickListener(clickListener);
         }
     }

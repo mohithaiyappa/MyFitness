@@ -63,10 +63,13 @@ public class VideosSubCategoryAdapter extends RecyclerView.Adapter<VideosSubCate
 
         public void bindData(int position) {
             adapter.updatePosition(position, selectedCategoryPosition);
+            int itemCount = viewModel.categoryList.get(selectedCategoryPosition)
+                    .getSubcategories().get(position).getVideoDataList().size();
             String text = viewModel.categoryList.get(selectedCategoryPosition).getSubcategories().get(position)
                     .getSubcategoryName()
-                    + "    [ " + adapter.getItemCount() + " ]";
+                    + "    [ " + itemCount + " ]";
             headerText.setText(text);
+
             View.OnClickListener clickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
