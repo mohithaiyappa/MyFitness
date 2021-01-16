@@ -320,6 +320,10 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
         sunday.setChecked(false);
     }
 
+    private void requirementsToMeet() {
+        //at least one checkBox is true
+    }
+
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
