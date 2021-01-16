@@ -114,7 +114,11 @@ public class VideoPopupDialog extends Dialog {
         startVideo();
         if (downloaded) {
             downloadVideo.setText(DELETE);
-        } else downloadVideo.setText(DOWNLOAD);
+            addToEvent.setEnabled(true);
+        } else {
+            downloadVideo.setText(DOWNLOAD);
+            addToEvent.setEnabled(false);
+        }
 
         downloadVideo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,6 +194,7 @@ public class VideoPopupDialog extends Dialog {
         file.delete();
         downloaded = false;
         downloadVideo.setText(DOWNLOAD);
+        addToEvent.setEnabled(false);
         if (view != null)
             view.setImageResource(R.drawable.ic_download);
 
@@ -298,6 +303,7 @@ public class VideoPopupDialog extends Dialog {
                 System.out.println("ダウンロード完了");
                 downloaded = true;
                 downloadVideo.setText(DELETE);
+                addToEvent.setEnabled(true);
                 if (view != null)
                     view.setImageResource(R.drawable.ic_download_completed);
                 //ダウンロード完了でDBに書き込み
