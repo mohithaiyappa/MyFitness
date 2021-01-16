@@ -14,7 +14,7 @@ public class Event {
     @SerializedName("mode")
     private String mode;
     @SerializedName("vid_id")
-    private String videoId;
+    private String videoId = "";
     @SerializedName("start_time")
     private String startTime;
     @SerializedName("end_time")

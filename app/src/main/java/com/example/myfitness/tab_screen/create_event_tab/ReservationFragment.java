@@ -3,6 +3,7 @@ package com.example.myfitness.tab_screen.create_event_tab;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,8 +26,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myfitness.R;
 import com.example.myfitness.model.Event;
 import com.example.myfitness.model.EventVideoDetails;
+import com.example.myfitness.network.RetrofitEvent;
 import com.example.myfitness.repository.EventRepo;
 import com.example.myfitness.tab_screen.TabActivity;
+import com.example.myfitness.utils.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,19 +40,28 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ReservationFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
 
     private static final String CANCEL_TEXT = "キャンセル";
     private static final String TAB_NAME = "スケジュール作成";
 
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.US);
     private final Calendar calendar = Calendar.getInstance();
-    private TextView startDateTextView, endDateTextView, startTimeTextView, endTimeTextView, videoTotalTime;
+    private TextView startDateTextView, endDateTextView, startTimeTextView, endTimeTextView, videoTotalTime, submitEvent;
     private CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
     private final EventRepo eventRepo = EventRepo.getInstance();
     private RecyclerView recyclerView;
     private CreateEventsVideoDetailsAdapter adapter;
+
+    private String mode = StringUtils.EVENT_MODE_SINGLE;
+
+    private String videoIdsInOrder = "";
 
     private final Observer<Event> editEventObserver = new Observer<Event>() {
         @Override
@@ -107,6 +120,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
         endTimeTextView = view.findViewById(R.id.eventEndTime);
         videoTotalTime = view.findViewById(R.id.videoTotalTime);
         recyclerView = view.findViewById(R.id.videoItems);
+        submitEvent = view.findViewById(R.id.submitEvent);
 
         //checkBox views
         monday = view.findViewById(R.id.mondayCheckBox);
@@ -161,7 +175,16 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
         endTimeTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showTimePickerDialog((TextView) v);
+                showEndTimePickerDialog((TextView) v);
+            }
+        });
+
+        //submit button
+        submitEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), adapter.getVideoIds(), Toast.LENGTH_SHORT).show();
+                uploadEvent();
             }
         });
 
@@ -245,6 +268,32 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
         timePickerDialog.show();
     }
 
+    private void showEndTimePickerDialog(TextView textView) {
+        // Get Current Time
+        final Calendar c = Calendar.getInstance();
+        int mHour = c.get(Calendar.HOUR_OF_DAY);
+        int mMinute = c.get(Calendar.MINUTE);
+
+        // Launch Time Picker Dialog
+        TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),
+                new TimePickerDialog.OnTimeSetListener() {
+
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay,
+                                          int minute) {
+                        String formattedTime = String.format(Locale.US, "%02d:%02d", hourOfDay, minute);
+                        textView.setText(formattedTime);
+                    }
+                }, mHour, mMinute, true);
+        timePickerDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                textView.setText("");
+            }
+        });
+        timePickerDialog.show();
+    }
+
     private void showDatePickerDialog(TextView textView) {
         Calendar cal = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -321,7 +370,101 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
     }
 
     private void requirementsToMeet() {
+        //TODO
         //at least one checkBox is true
+        //determine mode :
+        // if sum of video length is same as endTime then it is SINGLE EVENT comp hr and min
+        // if the hr and min don't match then the event is REPEAT mode
+        // also check event mode in event class if it in not null keep same event mode
+    }
+
+    private void submitEvent() {
+
+    }
+
+    //todo clear create event and all text views and disable submit button
+    private void clearScreen() {
+
+    }
+
+    //return selected days
+    private String getSelectedDaysText() {
+        String dayText = "";
+        if (monday.isChecked()) dayText += "月 ";
+        if (tuesday.isChecked()) dayText += "火 ";
+        if (wednesday.isChecked()) dayText += "水 ";
+        if (thursday.isChecked()) dayText += "木 ";
+        if (friday.isChecked()) dayText += "金 ";
+        if (saturday.isChecked()) dayText += "土 ";
+        if (sunday.isChecked()) dayText += "日 ";
+        dayText = dayText.trim();
+        dayText = dayText.replace(" ", ",");
+        return dayText;
+    }
+
+    //todo return video ids in selected Order - DONE
+    private String getVideoIdsInOrder() {
+        return adapter.getVideoIds();
+    }
+
+    private String getEndTimeString() {
+        String endTimeString = endTimeTextView.getText().toString().trim();
+        if (endTimeString == null || endTimeString.isEmpty() || endTimeString.equals("")) {
+            mode = StringUtils.EVENT_MODE_SINGLE;
+            endTimeString = addTotalVideoTimeToStartTimeAndReturn();
+        } else {
+            mode = StringUtils.EVENT_MODE_REPEAT;
+        }
+        return endTimeString;
+    }
+
+    //todo add functionality - little done
+    private String addTotalVideoTimeToStartTimeAndReturn() {
+
+        try {
+            String time1 = startTimeTextView.getText().toString().trim();
+            String time2 = videoTotalTime.getText().toString().trim();
+
+            SimpleDateFormat tFormat = new SimpleDateFormat("HH:mm:ss");
+            tFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+            Date date1 = tFormat.parse(time1);
+            Date date2 = tFormat.parse(time2);
+
+            long sum = date1.getTime() + date2.getTime();
+
+            String date3 = timeFormat.format(new Date(sum));
+            if (date3 != null) return date3;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    //todo check if videos are empty
+    private void uploadEvent() {
+        RetrofitEvent.getEventApi().addEvent(EventRepo.userName,
+                startDateTextView.getText().toString().trim(),
+                endDateTextView.getText().toString().trim(),
+                startTimeTextView.getText().toString().trim(),
+                getEndTimeString(),
+                getVideoIdsInOrder(),
+                getSelectedDaysText(),
+                mode).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    clearScreen();
+                    Toast.makeText(getContext(), "uploaded", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

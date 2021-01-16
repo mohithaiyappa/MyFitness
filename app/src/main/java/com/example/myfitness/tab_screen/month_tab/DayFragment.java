@@ -78,13 +78,14 @@ public class DayFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-                SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("hh:mm:ss", Locale.ENGLISH);
+                SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
                 Date date = new Date();
                 Event e = new Event();
                 e.setEventStartDate(simpleDateFormat.format(date));
                 e.setEventDate(simpleDateFormat.format(date));
                 e.setEventEndDate(simpleDateFormat.format(date));
                 e.setStartTime(simpleTimeFormat.format(date));
+                e.setVideoId("");
                 e.setDaysOnly("月,火,水,木,金,土,日");
                 EventRepo.getInstance().setCreateOrEditEvent(e);
                 ((CustomViewPager) ((TabActivity) getActivity()).findViewById(R.id.view_pager)).moveTo(2);

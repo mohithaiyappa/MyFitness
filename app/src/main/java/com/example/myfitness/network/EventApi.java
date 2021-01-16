@@ -52,4 +52,14 @@ public interface EventApi {
 
     @POST("file_delete2.php")
     Call<ResponseBody> deleteFile(@Query("user_id") String userId, @Query("video_id") String videoId);
+
+    @GET("schedule_insert.php")
+    Call<ResponseBody> addEvent(@Query("user_id") String userId,
+                                @Query("start_date") String startDate,
+                                @Query("end_date") String endDate,
+                                @Query("start_time") String startTime,
+                                @Query("end_time") String endTime,
+                                @Query("video_id") String videoId,
+                                @Query("days_only") String daysOnly,
+                                @Query("mode") String mode);
 }

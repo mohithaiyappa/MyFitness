@@ -13,8 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myfitness.R;
 import com.example.myfitness.model.EventVideoDetails;
+import com.example.myfitness.repository.EventRepo;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class CreateEventsVideoDetailsAdapter extends RecyclerView.Adapter<CreateEventsVideoDetailsAdapter.VideoDetailsViewHolder> {
@@ -22,11 +26,14 @@ public class CreateEventsVideoDetailsAdapter extends RecyclerView.Adapter<Create
     private Context mContext;
     private List<EventVideoDetails> videoDetailsList;
     private final Picasso picasso;
+    private List<String> videoIdList = new ArrayList<>();
 
     public CreateEventsVideoDetailsAdapter(Context ctx, List<EventVideoDetails> list) {
         mContext = ctx;
         videoDetailsList = list;
         picasso = Picasso.with(mContext);
+        //String[] idArray = EventRepo.getInstance().getCreateOrEditEventLiveData().getValue().getVideoId().split(",");
+        //videoIdList = Arrays.asList(idArray);
     }
 
     @NonNull
@@ -49,7 +56,48 @@ public class CreateEventsVideoDetailsAdapter extends RecyclerView.Adapter<Create
 
     public void submitList(List<EventVideoDetails> list) {
         videoDetailsList = list;
+        String[] idArray = EventRepo.getInstance().getCreateOrEditEventLiveData().getValue().getVideoId().split(",");
+        videoIdList = new ArrayList<>(Arrays.asList(idArray));
         notifyDataSetChanged();
+    }
+
+    public void moveUp(int position) {
+        if (position < 1) return;
+
+        Collections.swap(videoDetailsList, position, position - 1);
+        Collections.swap(videoIdList, position, position - 1);
+        updateEventItem();
+    }
+
+    public void moveDown(int position) {
+        if (position >= videoDetailsList.size() - 1) return; //5 4 3
+
+        Collections.swap(videoDetailsList, position, position + 1);
+        Collections.swap(videoIdList, position, position + 1);
+        updateEventItem();
+    }
+
+    public void removeFromList(int position) {
+        videoDetailsList.remove(position);
+        videoIdList.remove(position);
+        updateEventItem();
+    }
+
+    public void updateEventItem() {
+        EventRepo.getInstance().getCreateOrEditEventLiveData().getValue().setVideoArray(videoDetailsList);
+        EventRepo.getInstance().getCreateOrEditEventLiveData().getValue().setVideoId(getVideoIds());
+        notifyDataSetChanged();
+    }
+
+    //todo return video id arrayList as string with ,
+    public String getVideoIds() {
+        String videoId = "";
+        for (String id : videoIdList) {
+            videoId = videoId + id + " ";
+        }
+        videoId = videoId.trim();
+        videoId = videoId.replace(" ", ",");
+        return videoId;
     }
 
     class VideoDetailsViewHolder extends RecyclerView.ViewHolder {
@@ -98,16 +146,14 @@ public class CreateEventsVideoDetailsAdapter extends RecyclerView.Adapter<Create
                     });
 
                     //if video size is 1 or less don't highlight any options
-                    if (videoDetailsList.size() <= 1) {
-                        //don't set listeners for other views
-                        //Todo: ask if view has to be grayed out
-                    } else {
+
 
                         //make item move up
                         dialog.findViewById(R.id.moveUpButton).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
+                                moveUp(position);
+                                dialog.dismiss();
                             }
                         });
 
@@ -115,7 +161,8 @@ public class CreateEventsVideoDetailsAdapter extends RecyclerView.Adapter<Create
                         dialog.findViewById(R.id.moveDownButton).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
+                                moveDown(position);
+                                dialog.dismiss();
                             }
                         });
 
@@ -123,12 +170,10 @@ public class CreateEventsVideoDetailsAdapter extends RecyclerView.Adapter<Create
                         dialog.findViewById(R.id.deleteButton).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
+                                removeFromList(position);
+                                dialog.dismiss();
                             }
                         });
-
-
-                    }
 
                     dialog.show();
                 }
@@ -139,5 +184,7 @@ public class CreateEventsVideoDetailsAdapter extends RecyclerView.Adapter<Create
 
         public void onClick(View v) {
         }
+
+
     }
 }
