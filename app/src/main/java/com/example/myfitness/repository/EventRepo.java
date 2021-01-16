@@ -13,6 +13,7 @@ import com.alamkanak.weekview.WeekViewEvent;
 import com.example.myfitness.model.Event;
 import com.example.myfitness.model.Notification;
 import com.example.myfitness.model.User;
+import com.example.myfitness.model.VideoData;
 import com.example.myfitness.network.RetrofitEvent;
 import com.example.myfitness.utils.EventAlarmManager;
 import com.example.myfitness.utils.WeekEventConverter;
@@ -27,6 +28,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,6 +49,8 @@ public class EventRepo {
     public MutableLiveData<List<WeekViewEvent>> allWeekViewEventsLiveData = new MutableLiveData<>();
 
     private static final MutableLiveData<Event> createOrEditEvent = new MutableLiveData<>();
+
+    public static List<String> downloadedVideosIds = new ArrayList<>();
 
     public boolean shouldReloadWeekViewEvents = false;
     public boolean shouldReloadDayEvents = false;
@@ -331,6 +335,44 @@ public class EventRepo {
             }
         });
 
+    }
+
+    public void loadDownloadedVideoIds() {
+        RetrofitEvent.getEventApi().getDownloadedVideoIds(userName).enqueue(new Callback<List<VideoData>>() {
+            @Override
+            public void onResponse(Call<List<VideoData>> call, Response<List<VideoData>> response) {
+                downloadedVideosIds.clear();
+                if (!response.isSuccessful() && response.body().isEmpty()) {
+                    return;
+                }
+
+                for (VideoData vData : response.body()) {
+                    downloadedVideosIds.add(vData.getVideoId());
+                }
+                for (String id : downloadedVideosIds) {
+                    Log.d("testingDownloadId", "onResponse: loadDownloadedVideoIds" + id);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<VideoData>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void deleteFile(String videoId) {
+        RetrofitEvent.getEventApi().deleteFile(userName, videoId).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                loadDownloadedVideoIds();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
     private Spannable makeSpannable(List<Notification> notifications) {

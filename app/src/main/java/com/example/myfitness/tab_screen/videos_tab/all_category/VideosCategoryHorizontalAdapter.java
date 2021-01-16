@@ -1,6 +1,7 @@
 package com.example.myfitness.tab_screen.videos_tab.all_category;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.example.myfitness.R;
 import com.example.myfitness.customdialog.VideoPopupDialog;
 import com.example.myfitness.model.Subcategory;
 import com.example.myfitness.model.VideoData;
+import com.example.myfitness.repository.EventRepo;
 import com.example.myfitness.tab_screen.TabScreenSharedViewModel;
 import com.example.myfitness.utils.Selection;
 import com.squareup.picasso.Picasso;
@@ -33,6 +35,8 @@ public class VideosCategoryHorizontalAdapter extends RecyclerView.Adapter<Videos
     private final int VIEW_TYPE_MORE_CARD = 2;
     private int selectedCategoryIndex;
     private int itemCount;
+
+    private List<String> downloadedVideoIds = EventRepo.downloadedVideosIds;
 
     public VideosCategoryHorizontalAdapter(Context ctx, TabScreenSharedViewModel viewModel) {
         this.viewModel = viewModel;
@@ -87,7 +91,7 @@ public class VideosCategoryHorizontalAdapter extends RecyclerView.Adapter<Videos
 
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView selectedText, videoLengthText, videoTitleText, releaseDateText, calBurntText, irNameText;
-        ImageView thumbnailImage;
+        ImageView thumbnailImage, downloadStateIconImage;
         View view;
         public int viewType;
 
@@ -110,6 +114,7 @@ public class VideosCategoryHorizontalAdapter extends RecyclerView.Adapter<Videos
             calBurntText = itemView.findViewById(R.id.calBurnt);
             irNameText = itemView.findViewById(R.id.irName);
             thumbnailImage = itemView.findViewById(R.id.videoThumbNail);
+            downloadStateIconImage = itemView.findViewById(R.id.downloadStateIcon);
         }
 
         private void bindMoreCardViewType(View itemView) {
@@ -123,11 +128,26 @@ public class VideosCategoryHorizontalAdapter extends RecyclerView.Adapter<Videos
             calBurntText.setText(vData.getCalorie() + "kCal");
             irNameText.setText(vData.getIrName());
             picasso.load(vData.getThumbnailUrl()).into(thumbnailImage);
+            if (downloadedVideoIds.contains(vData.getVideoId())) {
+                downloadStateIconImage.setImageResource(R.drawable.ic_download_completed);
+            } else {
+                downloadStateIconImage.setImageResource(R.drawable.ic_download);
+            }
+            DialogInterface.OnDismissListener dismissListener = new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    if (downloadedVideoIds.size() != EventRepo.downloadedVideosIds.size()) {
+                        downloadedVideoIds = EventRepo.downloadedVideosIds;
+                        notifyDataSetChanged();
+                    } else downloadedVideoIds = EventRepo.downloadedVideosIds;
+                }
+            };
 
             View.OnClickListener clickListener = new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    VideoPopupDialog videoPopupDialog = new VideoPopupDialog(context, vData);
+                    VideoPopupDialog videoPopupDialog = new VideoPopupDialog(context, vData, downloadStateIconImage);
+                    videoPopupDialog.setOnDismissListener(dismissListener);
                     videoPopupDialog.show();
                 }
             };

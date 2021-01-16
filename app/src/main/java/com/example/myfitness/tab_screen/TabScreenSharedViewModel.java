@@ -10,6 +10,7 @@ import com.example.myfitness.model.InterRimCategory;
 import com.example.myfitness.model.Subcategory;
 import com.example.myfitness.model.VideoData;
 import com.example.myfitness.network.RetrofitEvent;
+import com.example.myfitness.repository.EventRepo;
 import com.example.myfitness.utils.Selection;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class TabScreenSharedViewModel extends ViewModel {
     public String displayText = "";
 
     public void loadDataFromNetwork() {
+        EventRepo.getInstance().loadDownloadedVideoIds();
         new Thread() {
             @Override
             public void run() {
@@ -42,6 +44,8 @@ public class TabScreenSharedViewModel extends ViewModel {
     }
 
     private void createCategories() {
+
+
         RetrofitEvent.getEventApi().getInterRimCategories().enqueue(new Callback<List<InterRimCategory>>() {
             @Override
             public void onResponse(Call<List<InterRimCategory>> call, Response<List<InterRimCategory>> response) {

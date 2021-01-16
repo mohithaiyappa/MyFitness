@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import com.example.myfitness.repository.EventRepo;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,6 +48,8 @@ public class VideoPopupDialog extends Dialog {
     private VideoData videoData;
 
     static final int TIMEOUT_SECOND = 60000;
+    static final String DOWNLOAD = "DOWNLOAD";
+    static final String DELETE = "DELETE";
 
     private TextView titleText, videoDetails, videoExplanation, addToEvent, downloadVideo, cancelText;
     private VideoView videoView;
@@ -54,6 +58,8 @@ public class VideoPopupDialog extends Dialog {
     private MediaController mediaController;
     private final String user_id = EventRepo.userName;
     private ProgressDialog progressDialog;
+    private boolean downloaded = false;
+    private ImageView view;
 
     private View.OnClickListener videoClickListener = new View.OnClickListener() {
         @Override
@@ -66,10 +72,12 @@ public class VideoPopupDialog extends Dialog {
         }
     };
 
-    public VideoPopupDialog(@NonNull Context context, VideoData vData) {
+    public VideoPopupDialog(@NonNull Context context, VideoData vData, ImageView v) {
         super(context);
         mContext = context;
         videoData = vData;
+        view = v;
+        this.downloaded = EventRepo.downloadedVideosIds.contains(videoData.getVideoId());
     }
 
     @Override
@@ -104,10 +112,16 @@ public class VideoPopupDialog extends Dialog {
         videoDetails.setText(detailsText);
         videoExplanation.setText(videoData.getVideoExplanation());
         startVideo();
+        if (downloaded) {
+            downloadVideo.setText(DELETE);
+        } else downloadVideo.setText(DOWNLOAD);
+
         downloadVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startDownload();
+                if (!downloaded)
+                    startDownload();
+                else deleteFile();
             }
         });
     }
@@ -162,6 +176,23 @@ public class VideoPopupDialog extends Dialog {
         DownLoadTask task = new DownLoadTask();
         String file_name = DOWNLOAD_URL.replace("/", "a").replace(":", "a");
         task.execute(DOWNLOAD_URL, file_name, videoData.getVideoId());
+    }
+
+    private void deleteFile() {
+        String filePath;
+        EventRepo.getInstance().deleteFile(videoData.getVideoId());
+
+        String DOWNLOAD_URL = videoData.getVideoUrl();
+        String file_name = DOWNLOAD_URL.replace("/", "a").replace(":", "a");
+        String sdPath = Environment.getExternalStorageDirectory().getPath() + "/.fitness";
+        filePath = sdPath + "/" + file_name;
+        File file = new File(filePath);
+        file.delete();
+        downloaded = false;
+        downloadVideo.setText(DOWNLOAD);
+        if (view != null)
+            view.setImageResource(R.drawable.ic_download);
+
     }
 
     public void setData(VideoData videoData) {
@@ -265,6 +296,10 @@ public class VideoPopupDialog extends Dialog {
             String toastMessage = (success) ? "ダウンロード完了" : "ダウンロード失敗";
             if (success) {
                 System.out.println("ダウンロード完了");
+                downloaded = true;
+                downloadVideo.setText(DELETE);
+                if (view != null)
+                    view.setImageResource(R.drawable.ic_download_completed);
                 //ダウンロード完了でDBに書き込み
                 InsertVideodata insertvideodata = new InsertVideodata();
                 insertvideodata.execute(user_id, video_id, download_date, filePath);
@@ -335,6 +370,7 @@ public class VideoPopupDialog extends Dialog {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            EventRepo.getInstance().loadDownloadedVideoIds();
             if (result != null) {
                 System.out.println(result);
 //                finish();
