@@ -22,6 +22,8 @@ import android.widget.VideoView;
 import androidx.annotation.NonNull;
 
 import com.example.myfitness.R;
+import com.example.myfitness.model.Event;
+import com.example.myfitness.model.EventVideoDetails;
 import com.example.myfitness.model.VideoData;
 import com.example.myfitness.repository.EventRepo;
 
@@ -147,6 +149,30 @@ public class VideoPopupDialog extends Dialog {
             public void onClick(View v) {
                 videoView.pause();
                 VideoPopupDialog.this.dismiss();
+            }
+        });
+        addToEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Event event = EventRepo.getInstance().getCreateOrEditEventLiveData().getValue();
+                if (event == null) event = new Event();
+                EventVideoDetails videoDetails = new EventVideoDetails();
+                videoDetails.setThumbnailUrl(videoData.getThumbnailUrl());
+                videoDetails.setCalorie(videoData.getCalorie());
+                videoDetails.setIrName(videoData.getIrName());
+                videoDetails.setReleaseDate(videoData.getReleaseDate());
+                videoDetails.setVideoTitle(videoData.getVideoTitle());
+                videoDetails.setVideoTime(videoData.getVideoTime());
+                String id = videoData.getVideoId();
+                if (event.getVideoId() == null || event.getVideoId().isEmpty()) {
+                    event.setVideoId(id);
+                } else {
+                    event.setVideoId(event.getVideoId() + "," + id);
+                }
+                Toast.makeText(mContext, event.getVideoId(), Toast.LENGTH_SHORT).show();
+
+                event.addToVideoArray(videoDetails);
+                EventRepo.getInstance().setCreateOrEditEvent(event);
             }
         });
     }

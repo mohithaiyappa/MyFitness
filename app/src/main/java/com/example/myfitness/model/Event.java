@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Event {
@@ -27,7 +28,7 @@ public class Event {
     @SerializedName("days_only")
     private String daysOnly;
     @SerializedName("video_array")
-    private List<EventVideoDetails> videoArray;
+    private List<EventVideoDetails> videoArray = new ArrayList<>();
 
     //Getters
 
@@ -103,6 +104,10 @@ public class Event {
 
     public void setVideoArray(List<EventVideoDetails> videoArray) {
         this.videoArray = videoArray;
+    }
+
+    public void addToVideoArray(EventVideoDetails videoDetails) {
+        this.videoArray.add(videoDetails);
     }
 
     public String getEventDate() {
