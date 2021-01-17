@@ -12,7 +12,7 @@ public class Event {
     @SerializedName("e_id")
     private int e_id;
     @SerializedName("mode")
-    private String mode;
+    private String mode = "";
     @SerializedName("vid_id")
     private String videoId = "";
     @SerializedName("start_time")
@@ -20,13 +20,13 @@ public class Event {
     @SerializedName("end_time")
     private String endTime;
     @SerializedName("date")
-    private String eventDate;
+    private String eventDate = "";
     @SerializedName("start_date")
-    private String eventStartDate;
+    private String eventStartDate = "";
     @SerializedName("end_date")
     private String eventEndDate;
     @SerializedName("days_only")
-    private String daysOnly;
+    private String daysOnly = "";
     @SerializedName("video_array")
     private List<EventVideoDetails> videoArray = new ArrayList<>();
 

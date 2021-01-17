@@ -173,6 +173,7 @@ public class VideoPopupDialog extends Dialog {
 
                 event.addToVideoArray(videoDetails);
                 EventRepo.getInstance().setCreateOrEditEvent(event);
+                dismiss();
             }
         });
     }
