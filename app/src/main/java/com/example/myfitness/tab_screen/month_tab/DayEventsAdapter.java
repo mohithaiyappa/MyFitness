@@ -105,6 +105,10 @@ public class DayEventsAdapter extends RecyclerView.Adapter<DayEventsAdapter.DayE
                         @Override
                         public void onClick(View v) {
                             //todo add delete functionality here
+                            EventRepo.getInstance().deleteEvent(event.getE_id(), event, mContext);
+                            dayEvents.remove(event);
+                            notifyDataSetChanged();
+                            dialog.dismiss();
                         }
                     });
                     dialog.show();
