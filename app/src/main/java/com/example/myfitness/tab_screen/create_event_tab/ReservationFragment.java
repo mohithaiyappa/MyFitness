@@ -14,7 +14,6 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -191,7 +190,6 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
         submitEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), adapter.getVideoIds(), Toast.LENGTH_SHORT).show();
                 uploadEvent();
             }
         });
