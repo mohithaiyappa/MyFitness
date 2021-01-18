@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ import com.example.myfitness.model.EventVideoDetails;
 import com.example.myfitness.network.RetrofitEvent;
 import com.example.myfitness.repository.EventRepo;
 import com.example.myfitness.tab_screen.TabActivity;
+import com.example.myfitness.utils.CustomViewPager;
 import com.example.myfitness.utils.StringUtils;
 
 import java.text.ParseException;
@@ -62,6 +64,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
     private String mode = StringUtils.EVENT_MODE_SINGLE;
 
     private String videoIdsInOrder = "";
+    private String selectedDateString;
 
     private SetVideoTime setVideoTimeInterface = new SetVideoTime() {
         @Override
@@ -458,6 +461,9 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
 
     //todo check if videos are empty
     private void uploadEvent() {
+
+        selectedDateString = startDateTextView.getText().toString().trim();
+
         RetrofitEvent.getEventApi().addEvent(EventRepo.userName,
                 startDateTextView.getText().toString().trim(),
                 endDateTextView.getText().toString().trim(),
@@ -472,6 +478,21 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
                     clearScreen();
                     AcknowledgementDialog acknowledgementDialog = new AcknowledgementDialog(getContext(),
                             StringUtils.MESSAGE_EVENT_ADDED);
+                    OnDismissListener dismissListener = new OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            try {
+                                Date date = dateFormat.parse(selectedDateString);
+                                EventRepo.getInstance().setSelectedDate(date);
+                                ((CustomViewPager) ((TabActivity) getActivity()).findViewById(R.id.view_pager)).moveTo(0);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+                    };
+                    acknowledgementDialog.setOnDismissListener(dismissListener);
                     acknowledgementDialog.show();
                 }
             }
