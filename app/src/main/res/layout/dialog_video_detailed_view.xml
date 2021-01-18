@@ -63,7 +63,7 @@
             android:layout_weight="1"
             android:background="@drawable/enabled_state_drawable"
             android:gravity="center"
-            android:text="Add to Event"
+            android:text="@string/add_to_event"
             android:textColor="@color/white"
             android:textSize="20sp" />
 

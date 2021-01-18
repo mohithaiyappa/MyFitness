@@ -42,6 +42,9 @@
     <string name="sunday">日</string>
 
 
+    <string name="add_to_event">選択</string>
+
+
     <string-array name="period_list">
         <item>リピート</item>
         <item>期間指定</item>
