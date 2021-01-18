@@ -63,6 +63,13 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
 
     private String videoIdsInOrder = "";
 
+    private SetVideoTime setVideoTimeInterface = new SetVideoTime() {
+        @Override
+        public void calculateAndSetTime(List<EventVideoDetails> videoArray) {
+            calculateTotalTime(videoArray);
+        }
+    };
+
     private final Observer<Event> editEventObserver = new Observer<Event>() {
         @Override
         public void onChanged(Event event) {
@@ -133,7 +140,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
 
         //setting up recycler view
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new CreateEventsVideoDetailsAdapter(getActivity(), Collections.emptyList());
+        adapter = new CreateEventsVideoDetailsAdapter(getActivity(), Collections.emptyList(), setVideoTimeInterface);
         recyclerView.setAdapter(adapter);
 
         //decide if you want to attach and detach observers in onResume and onPause or only once
@@ -478,5 +485,9 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
         } else {
             buttonView.setTextColor(Color.BLACK);
         }
+    }
+
+    interface SetVideoTime {
+        void calculateAndSetTime(List<EventVideoDetails> videoArray);
     }
 }

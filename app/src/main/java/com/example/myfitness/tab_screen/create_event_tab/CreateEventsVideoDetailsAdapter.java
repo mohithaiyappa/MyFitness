@@ -27,11 +27,13 @@ public class CreateEventsVideoDetailsAdapter extends RecyclerView.Adapter<Create
     private List<EventVideoDetails> videoDetailsList;
     private final Picasso picasso;
     private List<String> videoIdList = new ArrayList<>();
+    private ReservationFragment.SetVideoTime setVideoTimeInterface;
 
-    public CreateEventsVideoDetailsAdapter(Context ctx, List<EventVideoDetails> list) {
+    public CreateEventsVideoDetailsAdapter(Context ctx, List<EventVideoDetails> list, ReservationFragment.SetVideoTime videoTimeInterface) {
         mContext = ctx;
         videoDetailsList = list;
         picasso = Picasso.with(mContext);
+        setVideoTimeInterface = videoTimeInterface;
         //String[] idArray = EventRepo.getInstance().getCreateOrEditEventLiveData().getValue().getVideoId().split(",");
         //videoIdList = Arrays.asList(idArray);
     }
@@ -80,6 +82,7 @@ public class CreateEventsVideoDetailsAdapter extends RecyclerView.Adapter<Create
     public void removeFromList(int position) {
         videoDetailsList.remove(position);
         videoIdList.remove(position);
+        setVideoTimeInterface.calculateAndSetTime(videoDetailsList);
         updateEventItem();
     }
 
