@@ -2,7 +2,6 @@ package com.example.myfitness.utils;
 
 import com.alamkanak.weekview.WeekViewEvent;
 import com.example.myfitness.model.Event;
-import com.example.myfitness.model.EventVideoDetails;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -81,7 +80,16 @@ public class WeekEventConverter {
         //todo make for loop and build the string
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(event.getStartTime().substring(0, 5));
+        stringBuilder.append("~");
+        stringBuilder.append(event.getEndTime().substring(0, 5));
         stringBuilder.append(" ");
+        try {
+            stringBuilder.append(event.getVideoArray().get(0).getVideoTitle().substring(0, 6));
+            stringBuilder.append("...");
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        /*
         stringBuilder.append(event.getMode());
         stringBuilder.append("\n\n");
         for (EventVideoDetails videoDetails : event.getVideoArray()) {
@@ -92,7 +100,7 @@ public class WeekEventConverter {
             stringBuilder.append(videoDetails.getVideoTime());
             stringBuilder.append("\n\n");
         }
-        stringBuilder.append(event.getEndTime().substring(0, 5));
+        stringBuilder.append(event.getEndTime().substring(0, 5));*/
         return stringBuilder.toString();
 
 
