@@ -278,6 +278,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
                         textView.setText(formattedTime);
                     }
                 }, mHour, mMinute, true);
+        timePickerDialog.setButton(TimePickerDialog.BUTTON_NEGATIVE, CANCEL_TEXT, timePickerDialog);
         timePickerDialog.show();
     }
 
@@ -298,6 +299,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
                         textView.setText(formattedTime);
                     }
                 }, mHour, mMinute, true);
+        timePickerDialog.setButton(TimePickerDialog.BUTTON_NEGATIVE, CANCEL_TEXT, timePickerDialog);
         timePickerDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
