@@ -143,9 +143,15 @@ public class VideosFragment extends Fragment {
     }
 
     private void findEmptySpace() {
-        String spaceText = "空き容量 【" + getAvailableInternalMemorySize() + "】";
+        String spaceText = "空き容量 【" + getAvailableExternalMemorySize() + "】";
         emptySpaceText.setText(spaceText);
         viewModel.displayText = spaceText;
+    }
+
+
+    public boolean externalMemoryAvailable() {
+        return android.os.Environment.getExternalStorageState().equals(
+                android.os.Environment.MEDIA_MOUNTED);
     }
 
     private String getAvailableInternalMemorySize() {
@@ -154,6 +160,18 @@ public class VideosFragment extends Fragment {
         long blockSize = stat.getBlockSizeLong();
         long availableBlocks = stat.getAvailableBlocksLong();
         return formatSize(availableBlocks * blockSize);
+    }
+
+    private String getAvailableExternalMemorySize() {
+        if (externalMemoryAvailable()) {
+            File path = Environment.getExternalStorageDirectory();
+            StatFs stat = new StatFs(path.getPath());
+            long blockSize = stat.getBlockSizeLong();
+            long availableBlocks = stat.getAvailableBlocksLong();
+            return formatSize(availableBlocks * blockSize);
+        } else {
+            return getAvailableInternalMemorySize();
+        }
     }
 
     private String formatSize(long size) {
