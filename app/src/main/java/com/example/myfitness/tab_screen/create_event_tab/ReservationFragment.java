@@ -425,21 +425,25 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
             String time1 = startTimeTextView.getText().toString().trim();
             String time2 = videoTotalTime.getText().toString().trim();
 
-            SimpleDateFormat tFormat = new SimpleDateFormat("HH:mm:ss");
-            tFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-            Date date1 = tFormat.parse(time1);
-            Date date2 = tFormat.parse(time2);
-
-            long sum = date1.getTime() + date2.getTime();
-
-            String date3 = timeFormat.format(new Date(sum));
-            if (date3 != null) return date3;
+            return getEndTime(time1, time2);
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return "";
+    }
+
+    private String getEndTime(String startTime, String videoTime) throws ParseException {
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        timeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        Date date1 = timeFormat.parse(startTime);
+        Date date2 = timeFormat.parse(videoTime);
+
+        long sum;
+        sum = date1.getTime() + date2.getTime();
+
+        return timeFormat.format(new Date(sum));
     }
 
     //todo check if videos are empty
