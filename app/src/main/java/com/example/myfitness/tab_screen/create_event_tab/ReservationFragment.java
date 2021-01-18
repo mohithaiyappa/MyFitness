@@ -269,7 +269,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
-                        String formattedTime = String.format(Locale.US, "%02d:%02d", hourOfDay, minute);
+                        String formattedTime = String.format(Locale.US, "%02d:%02d:00", hourOfDay, minute);
                         textView.setText(formattedTime);
                     }
                 }, mHour, mMinute, true);
@@ -289,7 +289,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
-                        String formattedTime = String.format(Locale.US, "%02d:%02d", hourOfDay, minute);
+                        String formattedTime = String.format(Locale.US, "%02d:%02d:00", hourOfDay, minute);
                         textView.setText(formattedTime);
                     }
                 }, mHour, mMinute, true);
