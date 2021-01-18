@@ -210,12 +210,16 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
             endDateTextView.setText(dateFormat.format(calendar.getTime()));
             startTimeTextView.setText(timeFormat.format(calendar.getTime()));
             endTimeTextView.setText(timeFormat.format(calendar.getTime()));
+            endTimeTextView.setText(StringUtils.TIME_EMPTY_STRING);
             setTabName(0);
         } else {
             startDateTextView.setText(event.getEventStartDate());
             endDateTextView.setText(event.getEventEndDate());
             startTimeTextView.setText(event.getStartTime());
-            endTimeTextView.setText(event.getEndTime());
+            if (event.getEndTime() == null || event.getEndTime().trim().equals("") || event.getEndTime().equals(StringUtils.TIME_EMPTY_STRING))
+                endTimeTextView.setText(StringUtils.TIME_EMPTY_STRING);
+            else
+                endTimeTextView.setText(event.getEndTime());
             setTabName(event.getVideoArray().size());
         }
     }
@@ -294,7 +298,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
         timePickerDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                textView.setText("");
+                textView.setText(StringUtils.TIME_EMPTY_STRING);
             }
         });
         timePickerDialog.show();
@@ -415,7 +419,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
 
     private String getEndTimeString() {
         String endTimeString = endTimeTextView.getText().toString().trim();
-        if (endTimeString == null || endTimeString.isEmpty() || endTimeString.equals("")) {
+        if (endTimeString.isEmpty() || endTimeString.equals(StringUtils.TIME_EMPTY_STRING)) {
             mode = StringUtils.EVENT_MODE_SINGLE;
             endTimeString = addTotalVideoTimeToStartTimeAndReturn();
         } else {
