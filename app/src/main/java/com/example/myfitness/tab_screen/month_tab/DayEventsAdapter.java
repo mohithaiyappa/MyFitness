@@ -80,7 +80,11 @@ public class DayEventsAdapter extends RecyclerView.Adapter<DayEventsAdapter.DayE
             LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
             //layoutManager.setInitialPrefetchItemCount(event.getVideoArray().size());
             eventTimeText.setText(timeText);
-            eventModelImage.setImageResource(R.drawable.ic_repeat);
+            if (event.getMode().trim().equals(StringUtils.EVENT_MODE_REPEAT)) {
+                eventModelImage.setImageResource(R.drawable.ic_repeat);
+            } else {
+                eventModelImage.setImageResource(R.drawable.ic_repeat_one);
+            }
             recyclerView.setLayoutManager(layoutManager);
 
             View.OnClickListener clickListener = new View.OnClickListener() {
