@@ -183,4 +183,12 @@ public class VideosFragment extends Fragment {
         if (suffix != null) resultBuffer.append(suffix);
         return resultBuffer.toString();
     }
+
+    public void showBackButton() {
+        backButton.setVisibility(View.VISIBLE);
+    }
+
+    public void hideBackButton() {
+        backButton.setVisibility(View.GONE);
+    }
 }

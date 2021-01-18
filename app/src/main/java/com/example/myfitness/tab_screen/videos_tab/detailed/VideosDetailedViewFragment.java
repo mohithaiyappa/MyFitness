@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myfitness.R;
 import com.example.myfitness.tab_screen.TabScreenSharedViewModel;
+import com.example.myfitness.tab_screen.videos_tab.VideosFragment;
 import com.example.myfitness.utils.Selection;
 
 public class VideosDetailedViewFragment extends Fragment {
@@ -51,6 +52,9 @@ public class VideosDetailedViewFragment extends Fragment {
         selectedSubCategoryPosition = getArguments() != null ? getArguments().getInt("subCategoryPosition") : 0;
 
         viewType = (Selection) getArguments().get("viewType");
+
+        VideosFragment frag = ((VideosFragment) VideosDetailedViewFragment.this.getParentFragment());
+        if (frag != null) frag.showBackButton();
 
         recyclerView = view.findViewById(R.id.horizontalStaggeredVideoView);
         textView = view.findViewById(R.id.staggeredViewHeading);

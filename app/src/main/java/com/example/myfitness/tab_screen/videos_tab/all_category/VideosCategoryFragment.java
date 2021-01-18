@@ -18,6 +18,7 @@ import com.example.myfitness.model.Category;
 import com.example.myfitness.model.Subcategory;
 import com.example.myfitness.model.VideoData;
 import com.example.myfitness.tab_screen.TabScreenSharedViewModel;
+import com.example.myfitness.tab_screen.videos_tab.VideosFragment;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -47,6 +48,9 @@ public class VideosCategoryFragment extends Fragment {
         adapter = new VideosCategoryAdapter(this.getActivity(), viewModel);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
+
+        VideosFragment frag = ((VideosFragment) VideosCategoryFragment.this.getParentFragment());
+        if (frag != null) frag.hideBackButton();
 
 
         viewModel.hasLoadingFinished.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
