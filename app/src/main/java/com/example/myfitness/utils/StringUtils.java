@@ -9,4 +9,7 @@ public class StringUtils {
     //acknowledgement string literals
     public static final String MESSAGE_EVENT_DELETED = "スケジュールを削除しました";
     public static final String MESSAGE_EVENT_ADDED = "スケジュール登録を完了しました";
+
+    //time string literals
+    public static final String TIME_EMPTY_STRING = "--/--/--";
 }
