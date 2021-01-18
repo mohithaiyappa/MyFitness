@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myfitness.R;
+import com.example.myfitness.customdialog.AcknowledgementDialog;
 import com.example.myfitness.model.Event;
 import com.example.myfitness.model.EventVideoDetails;
 import com.example.myfitness.network.RetrofitEvent;
@@ -467,7 +468,9 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     clearScreen();
-                    Toast.makeText(getContext(), "uploaded", Toast.LENGTH_SHORT).show();
+                    AcknowledgementDialog acknowledgementDialog = new AcknowledgementDialog(getContext(),
+                            StringUtils.MESSAGE_EVENT_ADDED);
+                    acknowledgementDialog.show();
                 }
             }
 

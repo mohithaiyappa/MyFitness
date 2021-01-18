@@ -13,10 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myfitness.R;
+import com.example.myfitness.customdialog.AcknowledgementDialog;
 import com.example.myfitness.model.Event;
 import com.example.myfitness.repository.EventRepo;
 import com.example.myfitness.tab_screen.TabActivity;
 import com.example.myfitness.utils.CustomViewPager;
+import com.example.myfitness.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,6 +106,9 @@ public class DayEventsAdapter extends RecyclerView.Adapter<DayEventsAdapter.DayE
                     dialog.findViewById(R.id.deleteButton).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            AcknowledgementDialog acknowledgementDialog = new AcknowledgementDialog(mContext,
+                                    StringUtils.MESSAGE_EVENT_DELETED);
+                            acknowledgementDialog.show();
                             //todo add delete functionality here
                             EventRepo.getInstance().deleteEvent(event.getE_id(), event, mContext);
                             dayEvents.remove(event);
