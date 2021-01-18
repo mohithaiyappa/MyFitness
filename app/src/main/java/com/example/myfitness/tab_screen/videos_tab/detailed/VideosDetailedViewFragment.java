@@ -65,7 +65,7 @@ public class VideosDetailedViewFragment extends Fragment {
             textView.setText(viewModel.categoryList.get(selectedCategoryPosition).getCategoryName());
         }
 
-        GridLayoutManager manager = new GridLayoutManager(this.getActivity(), 5);
+        GridLayoutManager manager = new GridLayoutManager(this.getActivity(), 6);
         adapter = new VideoDetailedViewAdapter(this.getActivity(), viewModel, viewType);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
