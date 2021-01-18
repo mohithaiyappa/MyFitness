@@ -15,6 +15,6 @@
         android:layout_gravity="center"
         android:background="@color/gainsboro"
         android:gravity="center"
-        android:text="MORE"
+        android:text="@string/more"
         android:textColor="@color/redColor" />
 </androidx.cardview.widget.CardView>
