@@ -23,6 +23,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.min;
+
 public class VideosSubCategoryHorizontalAdapter extends RecyclerView.Adapter<VideosSubCategoryHorizontalAdapter.ViewHolder> {
 
     private final Picasso picasso;
@@ -85,6 +87,7 @@ public class VideosSubCategoryHorizontalAdapter extends RecyclerView.Adapter<Vid
         selectedSubCategoryIndex = p;
         list.clear();
         list.addAll(viewModel.categoryList.get(categoryPosition).getSubcategories().get(p).getVideoDataList());
+        list = list.subList(0, min(list.size(), 10));
         Log.d("RecyclerViewTest", "updatePosition: size" + list.size());
         Log.d("RecyclerViewTest", "updatePosition: pos" + p);
         notifyDataSetChanged();
