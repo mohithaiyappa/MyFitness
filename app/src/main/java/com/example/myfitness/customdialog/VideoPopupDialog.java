@@ -50,8 +50,8 @@ public class VideoPopupDialog extends Dialog {
     private VideoData videoData;
 
     static final int TIMEOUT_SECOND = 60000;
-    static final String DOWNLOAD = "DOWNLOAD";
-    static final String DELETE = "DELETE";
+    static final String DOWNLOAD = "ダウンロード";
+    static final String DELETE = "削除";
 
     private TextView titleText, videoDetails, videoExplanation, addToEvent, downloadVideo, cancelText;
     private VideoView videoView;
