@@ -3,6 +3,7 @@ package com.example.myfitness.login_screen;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myfitness.R;
 import com.example.myfitness.repository.EventRepo;
 import com.example.myfitness.tab_screen.TabActivity;
+import com.example.myfitness.utils.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -202,6 +204,13 @@ public class MainActivity extends AppCompatActivity {
                  */
                 Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
                 closeKeyboard();
+
+                Context context = MainActivity.this;
+                SharedPreferences sharedPref = context.getSharedPreferences(
+                        StringUtils.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(StringUtils.SHARED_PREFERENCE_USERNAME, etEmail.getText().toString().trim());
+                editor.apply();
 
 
                 Intent intent = new Intent(MainActivity.this, TabActivity.class);

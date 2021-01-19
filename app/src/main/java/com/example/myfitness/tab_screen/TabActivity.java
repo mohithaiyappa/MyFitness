@@ -2,7 +2,9 @@ package com.example.myfitness.tab_screen;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import com.example.myfitness.repository.EventRepo;
 import com.example.myfitness.ui.main.SectionsPagerAdapter;
 import com.example.myfitness.utils.CustomViewPager;
 import com.example.myfitness.utils.EventAlarmManager;
+import com.example.myfitness.utils.StringUtils;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -44,6 +47,7 @@ public class TabActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         //EventRepo.getInstance().loadInitialEvents();
+        super.onResume();
         EventAlarmManager.getInstance().resetAlarm(this);
         EventRepo.getInstance().loadUserDetails();
         EventRepo.getInstance().getMembershipStatusLiveData().observe(this, new Observer<Boolean>() {
@@ -59,7 +63,10 @@ public class TabActivity extends AppCompatActivity {
 
             }
         });
-        super.onResume();
+        //read username from shared pref
+        SharedPreferences sharedPref = TabActivity.this.getSharedPreferences(
+                StringUtils.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE);
+        EventRepo.userName = sharedPref.getString(StringUtils.SHARED_PREFERENCE_USERNAME, "");
     }
 
     @Override

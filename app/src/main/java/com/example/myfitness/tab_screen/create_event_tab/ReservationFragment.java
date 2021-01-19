@@ -31,6 +31,7 @@ import com.example.myfitness.network.RetrofitEvent;
 import com.example.myfitness.repository.EventRepo;
 import com.example.myfitness.tab_screen.TabActivity;
 import com.example.myfitness.utils.CustomViewPager;
+import com.example.myfitness.utils.EventAlarmManager;
 import com.example.myfitness.utils.StringUtils;
 
 import java.text.ParseException;
@@ -477,6 +478,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
+                    EventAlarmManager.getInstance().resetAlarm(getActivity());
                     clearScreen();
                     AcknowledgementDialog acknowledgementDialog = new AcknowledgementDialog(getContext(),
                             StringUtils.MESSAGE_EVENT_ADDED);

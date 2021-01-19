@@ -12,4 +12,8 @@ public class StringUtils {
 
     //time string literals
     public static final String TIME_EMPTY_STRING = "--/--/--";
+
+    //shared preference
+    public static final String SHARED_PREFERENCE_KEY = "MyFitness";
+    public static final String SHARED_PREFERENCE_USERNAME = "user_name";
 }
