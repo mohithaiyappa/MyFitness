@@ -265,6 +265,7 @@ public class EventRepo {
                 Event event = response.body().get(0);
                 event.setEventStartDate(event.getEventDate());
                 event.setEventEndDate(event.getEventDate());
+                event.setDaysOnly("月,火,水,木,金,土,日");
                 createOrEditEvent.postValue(event);
             }
 
