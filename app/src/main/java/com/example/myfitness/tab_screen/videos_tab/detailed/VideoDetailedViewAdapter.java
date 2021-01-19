@@ -19,6 +19,7 @@ import com.example.myfitness.model.VideoData;
 import com.example.myfitness.repository.EventRepo;
 import com.example.myfitness.tab_screen.TabScreenSharedViewModel;
 import com.example.myfitness.utils.Selection;
+import com.example.myfitness.utils.StringUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -97,8 +98,8 @@ public class VideoDetailedViewAdapter extends RecyclerView.Adapter<VideoDetailed
             VideoData vData = list.get(position);
             videoTitleText.setText(vData.getVideoTitle());
             videoLengthText.setText(vData.getVideoTime());
-            releaseDateText.setText(vData.getReleaseDate());
-            calBurntText.setText(vData.getCalorie() + "kCal");
+            releaseDateText.setText(StringUtils.RELEASE_DATE_PREFIX + vData.getReleaseDate());
+            calBurntText.setText(StringUtils.CALORIE_COUNT_PREFIX + vData.getCalorie() + "kCal");
             irNameText.setText(vData.getIrName());
             picasso.load(vData.getThumbnailUrl()).into(thumbnailImage);
             if (downloadedVideoIds.contains(vData.getVideoId())) {

@@ -60,6 +60,7 @@
             android:layout_marginStart="7dp"
             android:layout_marginBottom="7dp"
             android:textColor="@color/black"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -70,6 +71,7 @@
             android:layout_marginStart="7dp"
             android:layout_marginBottom="7dp"
             android:textColor="@color/black"
+            android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@id/releaseDate"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -80,6 +82,7 @@
             android:layout_marginStart="7dp"
             android:layout_marginBottom="7dp"
             android:textColor="@color/black"
+            android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@id/calBurnt"
             app:layout_constraintStart_toStartOf="parent" />
 
