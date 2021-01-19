@@ -17,6 +17,9 @@ public class StringUtils {
     public static final String RELEASE_DATE_PREFIX = "公開日 ";
     public static final String CALORIE_COUNT_PREFIX = "消費カロリー　約";
 
+    //recent added videos category name string literals
+    public static final String RECENTLY_ADDED = "新着一覧";
+
     //shared preference
     public static final String SHARED_PREFERENCE_KEY = "MyFitness";
     public static final String SHARED_PREFERENCE_USERNAME = "user_name";
