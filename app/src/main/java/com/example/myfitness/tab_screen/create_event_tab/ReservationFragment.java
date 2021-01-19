@@ -16,7 +16,6 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -203,11 +202,9 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
                 if (currentEditingEvent == null) return;
                 int eId = currentEditingEvent.getE_id();
                 if (currentEditingEvent.getE_id() == -1) {
-                    Toast.makeText(getActivity(), "upload new event", Toast.LENGTH_SHORT).show();
                     uploadEvent();
                 } else {
                     String id = Integer.toString(eId);
-                    Toast.makeText(getActivity(), "upload old event " + id, Toast.LENGTH_SHORT).show();
                     editExistingEvent(id);
                 }
 
