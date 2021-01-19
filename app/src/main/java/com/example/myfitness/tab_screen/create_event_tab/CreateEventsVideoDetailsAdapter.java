@@ -89,6 +89,7 @@ public class CreateEventsVideoDetailsAdapter extends RecyclerView.Adapter<Create
     public void updateEventItem() {
         EventRepo.getInstance().getCreateOrEditEventLiveData().getValue().setVideoArray(videoDetailsList);
         EventRepo.getInstance().getCreateOrEditEventLiveData().getValue().setVideoId(getVideoIds());
+        EventRepo.getInstance().loadSelectedVideoIds();
         notifyDataSetChanged();
     }
 
