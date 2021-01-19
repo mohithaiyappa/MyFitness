@@ -61,6 +61,7 @@ public class DayEventsAdapter extends RecyclerView.Adapter<DayEventsAdapter.DayE
         private TextView eventTimeText;
         private ImageView eventModelImage;
         private RecyclerView recyclerView;
+        DayEventsVideoDetailsAdapter adapter;
         View view;
 
         public DayEventsViewHolder(@NonNull View itemView) {
@@ -69,6 +70,11 @@ public class DayEventsAdapter extends RecyclerView.Adapter<DayEventsAdapter.DayE
             eventModelImage = (ImageView) itemView.findViewById(R.id.eventModeIv);
             recyclerView = itemView.findViewById(R.id.eventDetailsRv);
             view = itemView;
+            LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+            recyclerView.setLayoutManager(layoutManager);
+            adapter = new DayEventsVideoDetailsAdapter(mContext);
+            recyclerView.setAdapter(adapter);
+            //recyclerView.setRecycledViewPool(viewPool);
 
         }
 
@@ -77,7 +83,7 @@ public class DayEventsAdapter extends RecyclerView.Adapter<DayEventsAdapter.DayE
             String timeText = event.getStartTime().trim().substring(0, 5)
                     + "~"
                     + event.getEndTime().trim().substring(0, 5);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+
             //layoutManager.setInitialPrefetchItemCount(event.getVideoArray().size());
             eventTimeText.setText(timeText);
             if (event.getMode().trim().equals(StringUtils.EVENT_MODE_REPEAT)) {
@@ -85,7 +91,7 @@ public class DayEventsAdapter extends RecyclerView.Adapter<DayEventsAdapter.DayE
             } else {
                 eventModelImage.setImageResource(R.drawable.ic_repeat_one);
             }
-            recyclerView.setLayoutManager(layoutManager);
+
 
             View.OnClickListener clickListener = new View.OnClickListener() {
                 @Override
@@ -124,9 +130,9 @@ public class DayEventsAdapter extends RecyclerView.Adapter<DayEventsAdapter.DayE
                 }
             };
 
-            recyclerView.setAdapter(new DayEventsVideoDetailsAdapter(mContext, event.getVideoArray(), clickListener));
-            recyclerView.setRecycledViewPool(viewPool);
-
+            //recyclerView.setAdapter(new DayEventsVideoDetailsAdapter(mContext, event.getVideoArray(), clickListener));
+            //recyclerView.setRecycledViewPool(viewPool);
+            adapter.updateData(event.getVideoArray(), clickListener);
             view.setOnClickListener(clickListener);
 
         }
