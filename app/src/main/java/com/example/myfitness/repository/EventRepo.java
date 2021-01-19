@@ -262,7 +262,10 @@ public class EventRepo {
                     return;
                 }
 
-                createOrEditEvent.postValue(response.body().get(0));
+                Event event = response.body().get(0);
+                event.setEventStartDate(event.getEventDate());
+                event.setEventEndDate(event.getEventDate());
+                createOrEditEvent.postValue(event);
             }
 
             @Override
