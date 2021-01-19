@@ -62,4 +62,15 @@ public interface EventApi {
                                 @Query("video_id") String videoId,
                                 @Query("days_only") String daysOnly,
                                 @Query("mode") String mode);
+
+    @GET("schedule_update.php")
+    Call<ResponseBody> editEvent(@Query("user_id") String userId,
+                                 @Query("start_date") String startDate,
+                                 @Query("end_date") String endDate,
+                                 @Query("start_time") String startTime,
+                                 @Query("end_time") String endTime,
+                                 @Query("video_id") String videoId,
+                                 @Query("days_only") String daysOnly,
+                                 @Query("mode") String mode,
+                                 @Query("e_id") String eId);
 }

@@ -29,6 +29,7 @@ public class TabActivity extends AppCompatActivity {
     private AlarmManager alarmManager;
     private CustomViewPager viewPager;
     private TabLayout tabs;
+    TabScreenSharedViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +40,8 @@ public class TabActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        TabScreenSharedViewModel viewModel = new ViewModelProvider(this).get(TabScreenSharedViewModel.class);
-        viewModel.loadDataFromNetwork();
+        viewModel = new ViewModelProvider(this).get(TabScreenSharedViewModel.class);
+
 
     }
 
@@ -48,6 +49,12 @@ public class TabActivity extends AppCompatActivity {
     protected void onResume() {
         //EventRepo.getInstance().loadInitialEvents();
         super.onResume();
+        //read username from shared pref
+        SharedPreferences sharedPref = TabActivity.this.getSharedPreferences(
+                StringUtils.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE);
+        EventRepo.userName = sharedPref.getString(StringUtils.SHARED_PREFERENCE_USERNAME, "");
+
+        viewModel.loadDataFromNetwork();
         EventAlarmManager.getInstance().resetAlarm(this);
         EventRepo.getInstance().loadUserDetails();
         EventRepo.getInstance().getMembershipStatusLiveData().observe(this, new Observer<Boolean>() {
@@ -63,10 +70,7 @@ public class TabActivity extends AppCompatActivity {
 
             }
         });
-        //read username from shared pref
-        SharedPreferences sharedPref = TabActivity.this.getSharedPreferences(
-                StringUtils.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE);
-        EventRepo.userName = sharedPref.getString(StringUtils.SHARED_PREFERENCE_USERNAME, "");
+
     }
 
     @Override

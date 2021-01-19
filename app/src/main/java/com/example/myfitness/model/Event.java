@@ -10,7 +10,7 @@ import java.util.List;
 public class Event {
 
     @SerializedName("e_id")
-    private int e_id;
+    private int e_id = -1;
     @SerializedName("mode")
     private String mode = "";
     @SerializedName("vid_id")

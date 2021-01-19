@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -67,6 +69,8 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
     private String videoIdsInOrder = "";
     private String selectedDateString;
 
+    private Event currentEditingEvent;
+
     private SetVideoTime setVideoTimeInterface = new SetVideoTime() {
         @Override
         public void calculateAndSetTime(List<EventVideoDetails> videoArray) {
@@ -78,9 +82,11 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
         @Override
         public void onChanged(Event event) {
             if (event == null) {
+                currentEditingEvent = null;
                 adapter.submitList(Collections.emptyList());
                 return;
             }
+            currentEditingEvent = event;
             adapter.submitList(event.getVideoArray());
             calculateTotalTime(event.getVideoArray());
             initData(event);
@@ -194,7 +200,18 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
         submitEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadEvent();
+                if (currentEditingEvent == null) return;
+                int eId = currentEditingEvent.getE_id();
+                if (currentEditingEvent.getE_id() == -1) {
+                    Toast.makeText(getActivity(), "upload new event", Toast.LENGTH_SHORT).show();
+                    uploadEvent();
+                } else {
+                    String id = Integer.toString(eId);
+                    Toast.makeText(getActivity(), "upload old event " + id, Toast.LENGTH_SHORT).show();
+                    editExistingEvent(id);
+                }
+
+
             }
         });
 
@@ -220,7 +237,10 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
             startDateTextView.setText(event.getEventStartDate());
             endDateTextView.setText(event.getEventEndDate());
             startTimeTextView.setText(event.getStartTime());
-            if (event.getEndTime() == null || event.getEndTime().trim().equals("") || event.getEndTime().equals(StringUtils.TIME_EMPTY_STRING))
+            if (event.getEndTime() == null
+                    || event.getEndTime().trim().equals("")
+                    || event.getEndTime().equals(StringUtils.TIME_EMPTY_STRING)
+                    || event.getMode().equals(StringUtils.EVENT_MODE_SINGLE))
                 endTimeTextView.setText(StringUtils.TIME_EMPTY_STRING);
             else
                 endTimeTextView.setText(event.getEndTime());
@@ -475,6 +495,60 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
                 getVideoIdsInOrder(),
                 getSelectedDaysText(),
                 mode).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    EventAlarmManager.getInstance().resetAlarm(getActivity());
+                    clearScreen();
+                    AcknowledgementDialog acknowledgementDialog = new AcknowledgementDialog(getContext(),
+                            StringUtils.MESSAGE_EVENT_ADDED);
+                    OnDismissListener dismissListener = new OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            try {
+                                Date date = dateFormat.parse(selectedDateString);
+                                EventRepo.getInstance().setSelectedDate(date);
+                                ((CustomViewPager) ((TabActivity) getActivity()).findViewById(R.id.view_pager)).moveTo(0);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+                    };
+                    acknowledgementDialog.setOnDismissListener(dismissListener);
+                    acknowledgementDialog.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void editExistingEvent(String eId) {
+
+        selectedDateString = startDateTextView.getText().toString().trim();
+        Log.d("TestingUpload", "startDateTextView: " + startDateTextView.getText().toString().trim());
+        Log.d("TestingUpload", "endDateTextView: " + endDateTextView.getText().toString().trim());
+        Log.d("TestingUpload", "startTimeTextView: " + startTimeTextView.getText().toString().trim());
+        Log.d("TestingUpload", "getEndTimeString: " + getEndTimeString());
+        Log.d("TestingUpload", "getVideoIdsInOrder: " + getVideoIdsInOrder());
+        Log.d("TestingUpload", "getSelectedDaysText: " + getSelectedDaysText());
+        Log.d("TestingUpload", "mode: " + mode);
+        Log.d("TestingUpload", "eId: " + eId);
+
+        RetrofitEvent.getEventApi().editEvent(EventRepo.userName,
+                startDateTextView.getText().toString().trim(),
+                endDateTextView.getText().toString().trim(),
+                startTimeTextView.getText().toString().trim(),
+                getEndTimeString(),
+                getVideoIdsInOrder(),
+                getSelectedDaysText(),
+                mode,
+                eId).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
