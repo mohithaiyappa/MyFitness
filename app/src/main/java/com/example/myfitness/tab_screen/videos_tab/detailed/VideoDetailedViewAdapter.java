@@ -107,6 +107,11 @@ public class VideoDetailedViewAdapter extends RecyclerView.Adapter<VideoDetailed
             } else {
                 downloadStateIconImage.setImageResource(R.drawable.ic_download);
             }
+            if (EventRepo.selectedVideosIds.contains(vData.getVideoId().trim())) {
+                selectedText.setVisibility(View.VISIBLE);
+            } else {
+                selectedText.setVisibility(View.INVISIBLE);
+            }
             DialogInterface.OnDismissListener dismissListener = new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
@@ -121,7 +126,7 @@ public class VideoDetailedViewAdapter extends RecyclerView.Adapter<VideoDetailed
             View.OnClickListener clickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    VideoPopupDialog videoPopupDialog = new VideoPopupDialog(context, vData, downloadStateIconImage);
+                    VideoPopupDialog videoPopupDialog = new VideoPopupDialog(context, vData, downloadStateIconImage, selectedText);
                     videoPopupDialog.setOnDismissListener(dismissListener);
                     videoPopupDialog.show();
                 }

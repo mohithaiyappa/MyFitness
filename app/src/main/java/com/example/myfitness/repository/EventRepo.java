@@ -21,6 +21,7 @@ import com.example.myfitness.utils.WeekEventConverter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
@@ -51,6 +52,7 @@ public class EventRepo {
     private static final MutableLiveData<Event> createOrEditEvent = new MutableLiveData<>();
 
     public static List<String> downloadedVideosIds = new ArrayList<>();
+    public static List<String> selectedVideosIds = new ArrayList<>();
 
     public boolean shouldReloadWeekViewEvents = false;
     public boolean shouldReloadDayEvents = false;
@@ -363,6 +365,13 @@ public class EventRepo {
 
             }
         });
+    }
+
+    public void loadSelectedVideoIds() {
+        Event event = createOrEditEvent.getValue();
+        if (event == null) return;
+        String[] ids = event.getVideoId().trim().split(",");
+        selectedVideosIds = new ArrayList<>(Arrays.asList(ids));
     }
 
     public void deleteFile(String videoId) {

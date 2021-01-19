@@ -44,6 +44,7 @@
 
     <string name="add_to_event">選択</string>
     <string name="more">すべて見る</string>
+    <string name="selected">選択済</string>
 
 
     <string-array name="period_list">

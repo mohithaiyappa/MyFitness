@@ -62,6 +62,7 @@ public class VideoPopupDialog extends Dialog {
     private ProgressDialog progressDialog;
     private boolean downloaded = false;
     private ImageView view;
+    private TextView selectedText;
 
     private View.OnClickListener videoClickListener = new View.OnClickListener() {
         @Override
@@ -74,11 +75,12 @@ public class VideoPopupDialog extends Dialog {
         }
     };
 
-    public VideoPopupDialog(@NonNull Context context, VideoData vData, ImageView v) {
+    public VideoPopupDialog(@NonNull Context context, VideoData vData, ImageView v, TextView selectedText) {
         super(context);
         mContext = context;
         videoData = vData;
         view = v;
+        this.selectedText = selectedText;
         this.downloaded = EventRepo.downloadedVideosIds.contains(videoData.getVideoId());
     }
 
@@ -173,6 +175,10 @@ public class VideoPopupDialog extends Dialog {
 
                 event.addToVideoArray(videoDetails);
                 EventRepo.getInstance().setCreateOrEditEvent(event);
+                EventRepo.getInstance().loadSelectedVideoIds();
+                if (selectedText != null)
+                    selectedText.setVisibility(View.VISIBLE);
+
                 dismiss();
             }
         });
