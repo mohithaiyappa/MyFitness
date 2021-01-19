@@ -44,13 +44,14 @@ public class MonthFragment extends Fragment {
 
     @Override
     public void onResume() {
+        super.onResume();
         EventRepo.getInstance().getNotificationData().observe(this, new Observer<Pair<Boolean, Spannable>>() {
             @Override
             public void onChanged(Pair<Boolean, Spannable> booleanSpannablePair) {
                 setNotificationText(booleanSpannablePair);
             }
         });
-        super.onResume();
+
     }
 
     private void setNotificationText(Pair<Boolean, Spannable> booleanSpannablePair) {
