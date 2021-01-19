@@ -14,6 +14,7 @@ import com.example.myfitness.R;
 import com.example.myfitness.model.Subcategory;
 import com.example.myfitness.tab_screen.TabScreenSharedViewModel;
 import com.example.myfitness.utils.Selection;
+import com.example.myfitness.utils.StringUtils;
 
 public class VideosCategoryAdapter extends RecyclerView.Adapter<VideosCategoryAdapter.VideosViewHolder> {
 
@@ -74,6 +75,11 @@ public class VideosCategoryAdapter extends RecyclerView.Adapter<VideosCategoryAd
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(context, "header clicked", Toast.LENGTH_SHORT).show();
+                    if (viewModel.categoryList.get(position).getCategoryName().equals(StringUtils.RECENTLY_ADDED)) {
+                        viewModel.selectedCategoryIndex = position;
+                        viewModel.selectedViewTypeLiveData.setValue(Selection.CATEGORY_DETAILED);
+                        return;
+                    }
                     viewModel.selectedCategoryIndex = position;
                     viewModel.selectedViewTypeLiveData.setValue(Selection.SUBCATEGORY_STAGGERED);
                 }

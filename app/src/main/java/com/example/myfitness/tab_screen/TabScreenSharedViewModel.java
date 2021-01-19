@@ -12,6 +12,7 @@ import com.example.myfitness.model.VideoData;
 import com.example.myfitness.network.RetrofitEvent;
 import com.example.myfitness.repository.EventRepo;
 import com.example.myfitness.utils.Selection;
+import com.example.myfitness.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,14 @@ public class TabScreenSharedViewModel extends ViewModel {
                     Log.d("CatTest", "onResponse: " + response.toString());
                     return;
                 }
+                categoryList.clear();
+                Category cat = new Category();
+                cat.setCategoryName(StringUtils.RECENTLY_ADDED);
+                Subcategory s = new Subcategory();
+                s.setSubcategoryName(StringUtils.RECENTLY_ADDED);
+                cat.addToSubcategoryList(s);
+                categoryList.add(cat);
+
                 for (InterRimCategory interRimCategory : response.body()) {
                     Category category = new Category();
                     category.setCategoryName(interRimCategory.getMainCategory());
