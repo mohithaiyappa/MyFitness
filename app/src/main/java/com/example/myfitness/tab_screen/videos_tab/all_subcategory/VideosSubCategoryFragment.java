@@ -24,6 +24,7 @@ public class VideosSubCategoryFragment extends Fragment {
 
     private VideosSubCategoryAdapter adapter;
     private RecyclerView recyclerView;
+    LinearLayoutManager manager;
     private int selectedCategoryPosition = 0;
 
     @Nullable
@@ -40,14 +41,21 @@ public class VideosSubCategoryFragment extends Fragment {
         selectedCategoryPosition = getArguments() != null ? getArguments().getInt("categoryPosition") : 0;
 
         recyclerView = view.findViewById(R.id.staggeredRecyclerview);
-        LinearLayoutManager manager = new LinearLayoutManager(this.getActivity());
-        adapter = new VideosSubCategoryAdapter(this.getActivity(), viewModel, selectedCategoryPosition);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(adapter);
+        manager = new LinearLayoutManager(this.getActivity());
+
 
         VideosFragment frag = ((VideosFragment) VideosSubCategoryFragment.this.getParentFragment());
         if (frag != null) frag.showBackButton();
 
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter = new VideosSubCategoryAdapter(this.getActivity(), viewModel, selectedCategoryPosition);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(adapter);
 
         viewModel.hasLoadingFinished.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
@@ -57,6 +65,5 @@ public class VideosSubCategoryFragment extends Fragment {
                 }
             }
         });
-
     }
 }

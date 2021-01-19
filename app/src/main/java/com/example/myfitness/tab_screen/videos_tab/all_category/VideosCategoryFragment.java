@@ -14,16 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myfitness.R;
-import com.example.myfitness.model.Category;
-import com.example.myfitness.model.Subcategory;
-import com.example.myfitness.model.VideoData;
 import com.example.myfitness.tab_screen.TabScreenSharedViewModel;
 import com.example.myfitness.tab_screen.videos_tab.VideosFragment;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class VideosCategoryFragment extends Fragment {
 
@@ -31,6 +23,7 @@ public class VideosCategoryFragment extends Fragment {
 
     private VideosCategoryAdapter adapter;
     private RecyclerView recyclerView;
+    LinearLayoutManager manager;
 
     @Nullable
     @Override
@@ -44,14 +37,20 @@ public class VideosCategoryFragment extends Fragment {
         viewModel = new ViewModelProvider(getActivity()).get(TabScreenSharedViewModel.class);
 
         recyclerView = view.findViewById(R.id.staggeredRecyclerview);
-        LinearLayoutManager manager = new LinearLayoutManager(this.getActivity());
-        adapter = new VideosCategoryAdapter(this.getActivity(), viewModel);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(adapter);
+        manager = new LinearLayoutManager(this.getActivity());
 
         VideosFragment frag = ((VideosFragment) VideosCategoryFragment.this.getParentFragment());
         if (frag != null) frag.hideBackButton();
 
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter = new VideosCategoryAdapter(this.getActivity(), viewModel);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(adapter);
 
         viewModel.hasLoadingFinished.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
@@ -62,31 +61,5 @@ public class VideosCategoryFragment extends Fragment {
             }
         });
 
-    }
-
-    private void displayData() {
-        //Gson gson = new Gson();
-        String stringData = "";
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        int numberOfItems = 0;
-        List<String> strings = new ArrayList<>();
-        for (Category category : viewModel.categoryList) {
-            stringData = stringData + "\ncategory: " + category.getCategoryName();
-            for (Subcategory subCat : category.getSubcategories()) {
-                stringData = stringData + "\nsubCat: " + subCat.getSubcategoryName();
-                for (VideoData videoData : subCat.getVideoDataList()) {
-                    strings.add(videoData.getVideoId());
-                    stringData = stringData + "\nvideoData: " + gson.toJson(videoData);
-                    numberOfItems++;
-                }
-                stringData = stringData + "\n ending videoData------------- ";
-            }
-            stringData = stringData + "\n ending subCat------------- ";
-
-        }
-        stringData = stringData + "\nnumberOfItems: " + numberOfItems;
-        for (String id : strings) {
-            stringData = stringData + "\nid: " + id;
-        }
     }
 }

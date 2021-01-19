@@ -22,6 +22,7 @@ public class VideosDetailedViewFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private VideoDetailedViewAdapter adapter;
+    private GridLayoutManager manager;
     private TextView textView;
 
     private TabScreenSharedViewModel viewModel;
@@ -65,7 +66,14 @@ public class VideosDetailedViewFragment extends Fragment {
             textView.setText(viewModel.categoryList.get(selectedCategoryPosition).getCategoryName());
         }
 
-        GridLayoutManager manager = new GridLayoutManager(this.getActivity(), 6);
+        manager = new GridLayoutManager(this.getActivity(), 6);
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         adapter = new VideoDetailedViewAdapter(this.getActivity(), viewModel, viewType);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
