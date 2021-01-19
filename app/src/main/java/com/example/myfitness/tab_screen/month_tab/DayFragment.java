@@ -80,10 +80,11 @@ public class DayFragment extends Fragment {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                 SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
                 Date date = new Date();
+                Date selectedDate = EventRepo.getInstance().getSelectedDate().getValue();
                 Event e = new Event();
-                e.setEventStartDate(simpleDateFormat.format(date));
-                e.setEventDate(simpleDateFormat.format(date));
-                e.setEventEndDate(simpleDateFormat.format(date));
+                e.setEventStartDate(simpleDateFormat.format(selectedDate));
+                e.setEventDate(simpleDateFormat.format(selectedDate));
+                e.setEventEndDate(simpleDateFormat.format(selectedDate));
                 e.setStartTime(simpleTimeFormat.format(date));
                 e.setVideoId("");
                 e.setDaysOnly("月,火,水,木,金,土,日");
