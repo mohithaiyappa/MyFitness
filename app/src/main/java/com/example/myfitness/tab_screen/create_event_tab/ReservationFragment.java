@@ -416,8 +416,15 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
     }
 
     //todo clear create event and all text views and disable submit button
-    private void clearScreen() {
-
+    private void clearScreen(String selectedDateStr) {
+        enableAllCheckBoxes();
+        Event event = new Event();
+        event.setDaysOnly("月,火,水,木,金,土,日");
+        event.setEventStartDate(selectedDateStr);
+        event.setEventEndDate(selectedDateStr);
+        event.setStartTime("00:00:00");
+        event.setVideoId("");
+        EventRepo.getInstance().setCreateOrEditEvent(event);
     }
 
     //return selected days
@@ -496,7 +503,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     EventAlarmManager.getInstance().resetAlarm(getActivity());
-                    clearScreen();
+                    clearScreen(selectedDateString);
                     AcknowledgementDialog acknowledgementDialog = new AcknowledgementDialog(getContext(),
                             StringUtils.MESSAGE_EVENT_ADDED);
                     OnDismissListener dismissListener = new OnDismissListener() {
@@ -550,7 +557,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     EventAlarmManager.getInstance().resetAlarm(getActivity());
-                    clearScreen();
+                    clearScreen(selectedDateString);
                     AcknowledgementDialog acknowledgementDialog = new AcknowledgementDialog(getContext(),
                             StringUtils.MESSAGE_EVENT_ADDED);
                     OnDismissListener dismissListener = new OnDismissListener() {
