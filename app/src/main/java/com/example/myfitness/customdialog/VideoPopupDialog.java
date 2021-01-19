@@ -26,6 +26,7 @@ import com.example.myfitness.model.Event;
 import com.example.myfitness.model.EventVideoDetails;
 import com.example.myfitness.model.VideoData;
 import com.example.myfitness.repository.EventRepo;
+import com.example.myfitness.tab_screen.TabActivity;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
@@ -46,6 +47,7 @@ import java.util.Date;
 
 public class VideoPopupDialog extends Dialog {
 
+    private static final String TAB_NAME = "スケジュール作成";
     private final Context mContext;
     private VideoData videoData;
 
@@ -179,6 +181,7 @@ public class VideoPopupDialog extends Dialog {
                 if (selectedText != null)
                     selectedText.setVisibility(View.VISIBLE);
 
+                setTabName(event.getVideoArray().size());
                 dismiss();
             }
         });
@@ -235,6 +238,14 @@ public class VideoPopupDialog extends Dialog {
 
     public void setData(VideoData videoData) {
         this.videoData = videoData;
+    }
+
+    private void setTabName(int size) {
+        if (size <= 0) {
+            ((TabActivity) mContext).updateEditOrCreateTabHeading(TAB_NAME);
+        } else {
+            ((TabActivity) mContext).updateEditOrCreateTabHeading(TAB_NAME + " [" + size + "]");
+        }
     }
 
 
