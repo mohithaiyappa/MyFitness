@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myfitness.R;
 import com.example.myfitness.model.EventVideoDetails;
 import com.example.myfitness.repository.EventRepo;
+import com.example.myfitness.tab_screen.TabActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import java.util.List;
 
 public class CreateEventsVideoDetailsAdapter extends RecyclerView.Adapter<CreateEventsVideoDetailsAdapter.VideoDetailsViewHolder> {
 
+    private static final String TAB_NAME = "スケジュール作成";
     private Context mContext;
     private List<EventVideoDetails> videoDetailsList;
     private final Picasso picasso;
@@ -90,7 +92,16 @@ public class CreateEventsVideoDetailsAdapter extends RecyclerView.Adapter<Create
         EventRepo.getInstance().getCreateOrEditEventLiveData().getValue().setVideoArray(videoDetailsList);
         EventRepo.getInstance().getCreateOrEditEventLiveData().getValue().setVideoId(getVideoIds());
         EventRepo.getInstance().loadSelectedVideoIds();
+        setTabName(videoDetailsList.size());
         notifyDataSetChanged();
+    }
+
+    private void setTabName(int size) {
+        if (size <= 0) {
+            ((TabActivity) mContext).updateEditOrCreateTabHeading(TAB_NAME);
+        } else {
+            ((TabActivity) mContext).updateEditOrCreateTabHeading(TAB_NAME + " [" + size + "]");
+        }
     }
 
     //todo return video id arrayList as string with ,
