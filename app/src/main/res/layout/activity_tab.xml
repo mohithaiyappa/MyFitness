@@ -8,18 +8,18 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="25dp"
         app:elevation="0dp">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:background="@color/calypso"
             app:tabBackground="@drawable/tab_background"
             app:tabIndicatorColor="@color/white"
-            app:tabPaddingEnd="50dp"
-            app:tabPaddingStart="50dp"
+            app:tabPaddingEnd="4dp"
+            app:tabPaddingStart="4dp"
             app:tabSelectedTextColor="@color/calypso"
             app:tabTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
