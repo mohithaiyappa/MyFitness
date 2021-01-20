@@ -19,7 +19,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="7dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
             android:layout_weight="1.5"
             android:background="@drawable/rounded_border_background">
 
@@ -35,14 +37,14 @@
                     android:background="@color/whiteColor"
                     android:lineSpacingExtra="2dp"
                     android:paddingHorizontal="7dp"
-                    android:textSize="14sp" />
+                    android:textSize="10sp" />
             </ScrollView>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="7dp"
+            android:layout_margin="4dp"
             android:layout_weight="1.7"
             android:background="#EEEEEE"
             android:orientation="horizontal"
@@ -54,7 +56,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="営業時間"
-                android:textSize="16sp"
+                android:textSize="10sp"
                 android:textColor="@color/black"
                 android:textStyle="normal" />
 
@@ -62,27 +64,35 @@
                 android:id="@+id/wvStartTimeButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="7dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="7dp"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
+                android:paddingVertical="2dp"
                 android:text="09:00"
-                android:textSize="16sp"
+                android:textSize="10sp"
                 android:textStyle="bold" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/wvEndTimeButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="7dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="7dp"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="1"
+                android:paddingVertical="2dp"
                 android:text="23:00"
-                android:textSize="16sp"
+                android:textSize="10sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="7dp"
+            android:layout_margin="4dp"
             android:layout_weight="2.4"
             android:background="#EEEEEE"
             android:orientation="horizontal"
@@ -93,9 +103,10 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="3"
+                android:layout_marginStart="7dp"
                 android:gravity="center"
                 android:text="自動スクロール"
-                android:textSize="16sp"
+                android:textSize="10sp"
                 android:textColor="@color/black"
                 android:textStyle="normal" />
 
@@ -125,14 +136,14 @@
             android:gravity="center"
             android:text="2018.2"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="12sp"
             android:textStyle="normal" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/prevButton"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_toEndOf="@id/goToTodayWeek"
             android:gravity="center"
             android:insetLeft="0dp"
@@ -148,7 +159,7 @@
             android:id="@+id/nextButton"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_toEndOf="@id/titleTextWeek"
             android:gravity="center"
             android:insetLeft="0dp"
@@ -163,12 +174,15 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/goToTodayWeek"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:paddingHorizontal="0dp"
+            android:paddingVertical="2dp"
             android:layout_alignParentStart="true"
             android:enabled="true"
             android:gravity="center"
-            android:text="今日" />
+            android:text="今日"
+            android:textSize="9sp" />
     </RelativeLayout>
 
 
@@ -185,10 +199,10 @@
         app:overlappingEventGap="1dp"
         app:firstDayOfWeek="monday"
         app:headerColumnBackground="#ffffffff"
-        app:headerColumnPadding="8dp"
+        app:headerColumnPadding="2dp"
         app:headerColumnTextColor="@color/black"
         app:headerRowBackgroundColor="#ffefefef"
-        app:headerRowPadding="12dp"
+        app:headerRowPadding="2dp"
         app:horizontalFlingEnabled="true"
         app:hourHeight="240dp"
         app:hourSeparatorColor="@color/blackColor"
@@ -199,7 +213,7 @@
         app:nowLineColor="@color/colorAccent"
         app:showDistinctWeekendColor="true"
         app:showNowLine="true"
-        app:textSize="16sp"
+        app:textSize="12sp"
         app:todayBackgroundColor="#303F7388" />
 
 </LinearLayout>
