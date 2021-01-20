@@ -3,15 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/grayColor"
-    android:minHeight="20dp"
+    android:minHeight="7dp"
     android:padding="0.5dp">
 
     <TextView
         android:id="@+id/dayHeadingText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:paddingHorizontal="7dp"
         android:paddingVertical="3dp"
+        android:textSize="7sp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         android:background="@color/whiteColor"
         android:textAlignment="center" />

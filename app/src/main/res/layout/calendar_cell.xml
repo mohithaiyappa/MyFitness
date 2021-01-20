@@ -20,11 +20,12 @@
 
             <TextView
                 android:id="@+id/dateText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="7dp"
+                android:layout_height="7dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/circle_background"
                 android:gravity="center"
+                android:textSize="4sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -37,6 +38,7 @@
             android:background="@color/whiteColor"
             android:foreground="@drawable/yellow_ripple"
             android:paddingHorizontal="3dp"
-            android:textSize="11sp" />
+            android:textColor="@color/black"
+            android:textSize="4sp" />
     </LinearLayout>
 </LinearLayout>

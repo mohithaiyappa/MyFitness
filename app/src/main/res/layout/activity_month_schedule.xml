@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/whiteColor"
-        android:paddingVertical="3dp">
+        android:paddingVertical="1dp">
 
         <TextView
             android:id="@+id/titleText"
@@ -21,7 +21,7 @@
             android:layout_centerInParent="true"
             android:layout_marginHorizontal="7dp"
             android:text="2018.2"
-            android:textSize="24sp"
+            android:textSize="12sp"
             android:textColor="@color/black"
             android:textStyle="bold" />
 
@@ -29,7 +29,7 @@
             android:id="@+id/prevButton"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_toStartOf="@id/titleText"
             android:gravity="center"
             android:insetLeft="0dp"
@@ -38,6 +38,9 @@
             android:insetBottom="0dp"
             app:icon="@drawable/ic_arrow_back"
             app:iconGravity="textStart"
+            android:paddingHorizontal="0dp"
+            android:paddingVertical="2dp"
+            android:textSize="9sp"
             app:iconPadding="0dp"
             app:iconTint="@color/black" />
 
@@ -45,13 +48,16 @@
             android:id="@+id/nextButton"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_toEndOf="@id/titleText"
             android:gravity="center"
             android:insetLeft="0dp"
             android:insetTop="0dp"
             android:insetRight="0dp"
             android:insetBottom="0dp"
+            android:paddingHorizontal="0dp"
+            android:paddingVertical="2dp"
+            android:textSize="9sp"
             app:icon="@drawable/ic_arrow_forward"
             app:iconGravity="textStart"
             app:iconPadding="0dp"
@@ -60,9 +66,12 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/goToToday"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:paddingHorizontal="0dp"
             android:layout_alignParentStart="true"
+            android:paddingVertical="2dp"
+            android:textSize="9sp"
             android:enabled="false"
             android:gravity="center"
             android:text="今日" />

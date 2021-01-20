@@ -225,19 +225,19 @@ public class CalendarAdapter extends BaseAdapter {
     private void deselectView() {
         if (currentSelectedView != null) {
             int dp = (int) mContext.getResources().getDisplayMetrics().density;
-            int cdPadding = 3 * dp;
+            int cdPadding = 1 * dp;
             LinearLayout oldLinearLayout = currentSelectedView.findViewById(R.id.calendarCellLinearLayout);
             TextView cellDescTv = oldLinearLayout.findViewById(R.id.eventsText);
             oldLinearLayout.setPadding(0, 0, 0, 0);
             cellDescTv.setPadding(cdPadding, 0, cdPadding, 0);
             currentSelectedView.setBackgroundColor(Color.WHITE);
-            cellDescTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+            cellDescTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 5);
         }
     }
 
     private void selectView(View view) {
         int dp = (int) mContext.getResources().getDisplayMetrics().density;
-        int llPadding = 3 * dp;
+        int llPadding = 1 * dp;
         int cdPadding = dp;
         LinearLayout linearLayout = view.findViewById(R.id.calendarCellLinearLayout);
         TextView cellDescTv = view.findViewById(R.id.eventsText);
@@ -245,7 +245,7 @@ public class CalendarAdapter extends BaseAdapter {
         currentSelectedView.setBackgroundColor(mContext.getResources().getColor(R.color.cerise));
         linearLayout.setPadding(llPadding, llPadding, llPadding, llPadding);
         cellDescTv.setPadding(cdPadding, 0, cdPadding, 0);
-        cellDescTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+        cellDescTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 4);
     }
 
     public void reloadEvents() {
