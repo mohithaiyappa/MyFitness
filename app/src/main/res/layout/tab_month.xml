@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="7dp"
             android:layout_marginEnd="7dp"
             android:layout_marginBottom="7dp"
             android:background="@color/grayColor"
@@ -39,9 +39,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/whiteColor"
-                    android:lineSpacingExtra="2dp"
+                    android:lineSpacingExtra="1dp"
                     android:paddingHorizontal="7dp"
-                    android:textSize="13sp" />
+                    android:textSize="8sp" />
             </ScrollView>
 
         </LinearLayout>
