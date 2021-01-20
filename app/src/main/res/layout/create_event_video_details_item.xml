@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:layout_margin="7dp"
+    android:layout_height="50dp"
+    android:layout_margin="4dp"
     android:elevation="7dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,8 +20,9 @@
             android:gravity="center"
             android:paddingHorizontal="2dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            android:textColor="@color/black"
-            android:textStyle="bold"
+            android:textColor="@color/redColor"
+            android:textSize="14sp"
+            android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -41,14 +42,17 @@
         <TextView
             android:id="@+id/videoName"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|start"
+            android:layout_height="0dp"
+            android:ellipsize="end"
             android:paddingHorizontal="5dp"
             android:textColor="@color/black"
+            android:gravity="start"
+            android:maxLines="2"
+            android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/guideline_rv_divider"
             app:layout_constraintStart_toEndOf="@id/videoThumbNail"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/guideline5" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_rv_divider"
@@ -60,53 +64,57 @@
         <TextView
             android:id="@+id/rvIrName"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|start"
+            android:layout_height="0dp"
+            android:gravity="start"
             android:paddingHorizontal="3dp"
             android:textColor="@color/black"
+            android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/rvCalBurnt"
             app:layout_constraintStart_toEndOf="@id/guideline_rv_divider"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guideline5"
             tools:text="@string/instructor_name" />
 
         <TextView
             android:id="@+id/rvCalBurnt"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|start"
+            android:layout_height="0dp"
+            android:gravity="start"
             android:paddingHorizontal="3dp"
             android:textColor="@color/black"
+            android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/rvReleaseDate"
             app:layout_constraintStart_toEndOf="@id/rvIrName"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guideline5"
             tools:text="@string/cal_burnt" />
 
         <TextView
             android:id="@+id/rvReleaseDate"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|start"
+            android:layout_height="0dp"
+            android:gravity="start"
             android:paddingHorizontal="3dp"
             android:textColor="@color/black"
+            android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/rvVideoLength"
             app:layout_constraintStart_toEndOf="@id/rvCalBurnt"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guideline5"
             tools:text="@string/release_date" />
 
         <TextView
             android:id="@+id/rvVideoLength"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|start"
+            android:layout_height="0dp"
+            android:gravity="start"
             android:paddingHorizontal="3dp"
             android:textColor="@color/black"
+            android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/rvReleaseDate"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guideline5"
             tools:text="@string/video_length" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -115,6 +123,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.195" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.3" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
