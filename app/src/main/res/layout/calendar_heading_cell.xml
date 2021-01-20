@@ -12,7 +12,7 @@
         android:layout_height="20dp"
         android:paddingHorizontal="7dp"
         android:paddingVertical="3dp"
-        android:textSize="7sp"
+        android:textSize="10sp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         android:background="@color/whiteColor"
         android:textAlignment="center" />
