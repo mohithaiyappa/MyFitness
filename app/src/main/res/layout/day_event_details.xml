@@ -27,7 +27,7 @@
             android:layout_weight="1.3"
             android:gravity="start"
             android:padding="1dp"
-            android:textSize="7sp"
+            android:textSize="9sp"
             android:textColor="@color/black" />
 
         <androidx.recyclerview.widget.RecyclerView
