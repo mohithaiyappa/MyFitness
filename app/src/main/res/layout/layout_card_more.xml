@@ -4,7 +4,7 @@
     android:id="@+id/moreCard"
     android:layout_width="125dp"
     android:layout_height="157dp"
-    android:layout_margin="7dp"
+    android:layout_margin="4dp"
     android:layout_toEndOf="@id/horizontalStaggeredVideoView"
     android:visibility="visible"
     app:cardCornerRadius="7dp">
