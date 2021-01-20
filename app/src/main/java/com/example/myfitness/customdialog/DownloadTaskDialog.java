@@ -21,6 +21,7 @@ import com.example.myfitness.repository.EventRepo;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -137,6 +138,12 @@ public class DownloadTaskDialog extends ProgressDialog {
                 int fileLength = conn.getContentLength();
                 // SDカードのパスは環境によって異なるので、動的に取得する
                 String sdPath = Environment.getExternalStorageDirectory().getPath() + "/.fitness";
+                File directory = new File(sdPath);
+                if (!directory.exists()) {
+                    directory.mkdir();
+                    // If you require it to make the entire directory path including parents,
+                    // use directory.mkdirs(); here instead.
+                }
                 filePath = sdPath + "/" + params[1];
                 video_id = params[2];
 
