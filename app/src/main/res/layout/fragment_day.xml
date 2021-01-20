@@ -58,7 +58,7 @@
                 android:id="@+id/dayEventsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="7dp"
+                android:padding="2dp"
                 tools:listitem="@layout/day_event_details" />
         </androidx.core.widget.NestedScrollView>
 
