@@ -46,7 +46,7 @@ public class VideoDetailedViewAdapter extends RecyclerView.Adapter<VideoDetailed
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_video_card_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_video_card_view_detailed, parent, false);
         return new ViewHolder(view);
     }
 
