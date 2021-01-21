@@ -1,6 +1,7 @@
 package com.example.myfitness.tab_screen.week_tab;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,7 @@ public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapte
     }
 
     public void updateData(List<NewWeekEvent> newEvents) {
+        if (weekEvents.isEmpty() && newEvents.isEmpty()) return;
         weekEvents = newEvents;
         notifyDataSetChanged();
     }
@@ -225,6 +227,9 @@ public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapte
             if (event.eventString.contains(q2)) thursdayQ2.setBackgroundColor(background);
             if (event.eventString.contains(q3)) thursdayQ3.setBackgroundColor(background);
             if (event.eventString.contains(q4)) thursdayQ4.setBackgroundColor(background);
+
+            Log.d("NewTestingAdapter", "thursdayEvent: " + event.eventString.toString());
+            Log.d("NewTestingAdapter", "thursdayEvent: size" + event.eventString.size());
 
             String eventStartQuad = event.eventString.get(0);
             if (eventStartQuad != null) {

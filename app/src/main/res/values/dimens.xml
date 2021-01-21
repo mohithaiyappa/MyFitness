@@ -12,4 +12,5 @@
     <dimen name="parent_box">36dp</dimen>
     <dimen name="header_text_view_size">30dp</dimen>
     <dimen name="week_view_header_text_size">12sp</dimen>
+    <dimen name="week_view_child_text_size">6sp</dimen>
 </resources>

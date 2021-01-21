@@ -1,19 +1,17 @@
 package com.example.myfitness.model;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class NewWeekEvent {
-    public String id = "";
+    public int id = -1;
     public String eventDisplayName = "";
     public Calendar eventStartCalendar;
     public Calendar eventEndCalendar;
     public List<String> eventString = new ArrayList<>();
 
-    public NewWeekEvent(String id,
+    public NewWeekEvent(int id,
                         String eventDisplayName,
                         Calendar eventStartCalendar,
                         Calendar eventEndCalendar) {
@@ -36,7 +34,6 @@ public class NewWeekEvent {
                     calendar.get(Calendar.HOUR_OF_DAY),
                     calendar.get(Calendar.MINUTE));
             eventString.add(timeString);
-            Log.d("TestingWeek", "makingEventString: " + timeString);
             calendar.add(Calendar.MINUTE, 15);
         }
     }
@@ -50,11 +47,11 @@ public class NewWeekEvent {
 
     //getters
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
