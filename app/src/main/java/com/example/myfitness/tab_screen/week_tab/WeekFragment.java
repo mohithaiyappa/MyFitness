@@ -1,6 +1,7 @@
 package com.example.myfitness.tab_screen.week_tab;
 
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Spannable;
@@ -13,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,6 +44,8 @@ import java.util.Locale;
 
 public class WeekFragment extends Fragment {
 
+    private static final String CANCEL_TEXT = "キャンセル";
+
     private RecyclerView recyclerView;
     private WeekRecyclerAdapter adapter;
     private RecyclerView.SmoothScroller smoothScroller;
@@ -53,6 +57,7 @@ public class WeekFragment extends Fragment {
 
     private TextView titleTextView, notificationTextView;
     private TextView monday, tuesday, wednesday, thursday, friday, saturday, sunday;
+    private TextView wvStartTimeButton, wvEndTimeButton;
 
     private CheckBox checkBox;
 
@@ -124,6 +129,31 @@ public class WeekFragment extends Fragment {
         }
     };
 
+    private View.OnClickListener startTimeListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),
+                    new TimePickerDialog.OnTimeSetListener() {
+
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay,
+                                              int minute) {
+                            String formattedTime = String.format(Locale.US, "%02d:%02d", hourOfDay, minute);
+                            wvStartTimeButton.setText(formattedTime);
+                            int endHour = hourOfDay + 9;
+                            if (endHour > 23) endHour = 23;
+                            String formattedEndTime = String.format(Locale.US, "%02d:%02d", endHour, minute);
+                            wvEndTimeButton.setText(formattedEndTime);
+                            smoothScroller.setTargetPosition(hourOfDay);
+                            layoutManager.startSmoothScroll(smoothScroller);
+
+                        }
+                    }, 9, 0, true);
+            timePickerDialog.setButton(TimePickerDialog.BUTTON_NEGATIVE, CANCEL_TEXT, timePickerDialog);
+            timePickerDialog.show();
+        }
+    };
+
 
     @Nullable
     @Override
@@ -140,6 +170,8 @@ public class WeekFragment extends Fragment {
         //scrollView = view.findViewById(R.id.weekViewScroll);
         titleTextView = view.findViewById(R.id.titleTextWeek);
         notificationTextView = view.findViewById(R.id.notificationTextView);
+        wvStartTimeButton = view.findViewById(R.id.wvStartTimeButton);
+        wvEndTimeButton = view.findViewById(R.id.wvEndTimeButton);
         checkBox = view.findViewById(R.id.checkbox);
 
         monday = view.findViewById(R.id.mondayLayout);
@@ -177,6 +209,8 @@ public class WeekFragment extends Fragment {
                         return LinearSmoothScroller.SNAP_TO_START;
                     }
                 };
+
+        wvStartTimeButton.setOnClickListener(startTimeListener);
 
 
         eventsLiveData.observe(getViewLifecycleOwner(), new Observer<List<NewWeekEvent>>() {
