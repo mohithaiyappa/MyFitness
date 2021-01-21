@@ -43,6 +43,11 @@ public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapte
         return 24;
     }
 
+    public void updateData(List<NewWeekEvent> newEvents) {
+        weekEvents = newEvents;
+        notifyDataSetChanged();
+    }
+
     class WeekViewHolder extends RecyclerView.ViewHolder {
         TextView hourText;
         TextView mondayQ1, mondayQ2, mondayQ3, mondayQ4;
