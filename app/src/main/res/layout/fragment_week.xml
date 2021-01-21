@@ -192,6 +192,8 @@
             android:textSize="9sp" />
     </RelativeLayout>
 
+    <include layout="@layout/layout_week_view_header" />
+
     <include layout="@layout/week_view_layout" />
 
 
