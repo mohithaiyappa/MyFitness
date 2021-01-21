@@ -124,7 +124,7 @@ public class WeekFragment extends Fragment {
             if (isChecked) {
                 globalCounter = 0;
                 handler.postDelayed(runnable, 1000);
-            }
+            } else handler.removeCallbacks(runnable);
 
         }
     };
@@ -132,6 +132,7 @@ public class WeekFragment extends Fragment {
     private View.OnClickListener startTimeListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            handler.removeCallbacks(runnable);
             TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),
                     new TimePickerDialog.OnTimeSetListener() {
 
@@ -250,8 +251,8 @@ public class WeekFragment extends Fragment {
 
 //        smoothScroller.setTargetPosition(9);
 //        layoutManager.startSmoothScroll(smoothScroller);
-        smoothScroller.setTargetPosition(9);
-        layoutManager.startSmoothScroll(smoothScroller);
+        //smoothScroller.setTargetPosition(9);
+        //layoutManager.startSmoothScroll(smoothScroller);
     }
 
     public void clearAndLoadData() {

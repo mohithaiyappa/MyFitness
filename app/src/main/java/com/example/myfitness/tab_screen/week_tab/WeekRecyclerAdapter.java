@@ -104,6 +104,7 @@ public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapte
         public void bindData(int position) {
             String hrText = String.format("%02d:00", position);
             hourText.setText(hrText);
+            clearViews();
 
             for (NewWeekEvent event : weekEvents) {
 
@@ -140,6 +141,72 @@ public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapte
             fridayQ3.setBackgroundColor(background);
             saturdayQ2.setBackgroundColor(background);
             sundayQ1.setBackgroundColor(background);*/
+        }
+
+        public void clearViews() {
+            mondayQ1.setBackgroundColor(Color.WHITE);
+            mondayQ1.setText("");
+            mondayQ2.setBackgroundColor(Color.WHITE);
+            mondayQ2.setText("");
+            mondayQ3.setBackgroundColor(Color.WHITE);
+            mondayQ3.setText("");
+            mondayQ4.setBackgroundColor(Color.WHITE);
+            mondayQ4.setText("");
+
+            tuesdayQ1.setBackgroundColor(Color.WHITE);
+            tuesdayQ1.setText("");
+            tuesdayQ2.setBackgroundColor(Color.WHITE);
+            tuesdayQ2.setText("");
+            tuesdayQ3.setBackgroundColor(Color.WHITE);
+            tuesdayQ3.setText("");
+            tuesdayQ4.setBackgroundColor(Color.WHITE);
+            tuesdayQ4.setText("");
+
+            wednesdayQ1.setBackgroundColor(Color.WHITE);
+            wednesdayQ1.setText("");
+            wednesdayQ2.setBackgroundColor(Color.WHITE);
+            wednesdayQ2.setText("");
+            wednesdayQ3.setBackgroundColor(Color.WHITE);
+            wednesdayQ3.setText("");
+            wednesdayQ4.setBackgroundColor(Color.WHITE);
+            wednesdayQ4.setText("");
+
+            thursdayQ1.setBackgroundColor(Color.WHITE);
+            thursdayQ1.setText("");
+            thursdayQ2.setBackgroundColor(Color.WHITE);
+            thursdayQ2.setText("");
+            thursdayQ3.setBackgroundColor(Color.WHITE);
+            thursdayQ3.setText("");
+            thursdayQ4.setBackgroundColor(Color.WHITE);
+            thursdayQ4.setText("");
+
+            fridayQ1.setBackgroundColor(Color.WHITE);
+            fridayQ1.setText("");
+            fridayQ2.setBackgroundColor(Color.WHITE);
+            fridayQ2.setText("");
+            fridayQ3.setBackgroundColor(Color.WHITE);
+            fridayQ3.setText("");
+            fridayQ4.setBackgroundColor(Color.WHITE);
+            fridayQ4.setText("");
+
+            saturdayQ1.setBackgroundColor(Color.WHITE);
+            saturdayQ1.setText("");
+            saturdayQ2.setBackgroundColor(Color.WHITE);
+            saturdayQ2.setText("");
+            saturdayQ3.setBackgroundColor(Color.WHITE);
+            saturdayQ3.setText("");
+            saturdayQ4.setBackgroundColor(Color.WHITE);
+            saturdayQ4.setText("");
+
+            sundayQ1.setBackgroundColor(Color.WHITE);
+            sundayQ1.setText("");
+            sundayQ2.setBackgroundColor(Color.WHITE);
+            sundayQ2.setText("");
+            sundayQ3.setBackgroundColor(Color.WHITE);
+            sundayQ3.setText("");
+            sundayQ4.setBackgroundColor(Color.WHITE);
+            sundayQ4.setText("");
+
         }
 
         public void sundayEvent(NewWeekEvent event, int position) {
