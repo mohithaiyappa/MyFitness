@@ -2,6 +2,7 @@ package com.example.myfitness.tab_screen.week_tab;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Spannable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +17,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -45,7 +45,7 @@ public class WeekFragment extends Fragment {
     private RecyclerView recyclerView;
     private WeekRecyclerAdapter adapter;
     private RecyclerView.SmoothScroller smoothScroller;
-    private NestedScrollView scrollView;
+    //private NestedScrollView scrollView;
     private LayoutManager layoutManager;
     private Calendar mCalendar = Calendar.getInstance();
 
@@ -66,6 +66,9 @@ public class WeekFragment extends Fragment {
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
     private SimpleDateFormat headingFormat = new SimpleDateFormat("yyyy年MM月", Locale.getDefault());
     private SimpleDateFormat dayHeadingFormat = new SimpleDateFormat("MM/dd", Locale.getDefault());
+
+    private int globalCounter = 0;
+    private Handler handler = new Handler();
 
     private View.OnClickListener prevClickListener = new View.OnClickListener() {
         @Override
@@ -95,13 +98,27 @@ public class WeekFragment extends Fragment {
         }
     };
 
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            if (!checkBox.isChecked()) handler.removeCallbacks(this);
+            smoothScroller.setTargetPosition(globalCounter);
+            layoutManager.startSmoothScroll(smoothScroller);
+            globalCounter++;
+            if (globalCounter > 20) {
+                checkBox.setChecked(false);
+                return;
+            }
+            handler.postDelayed(this, 1000);
+        }
+    };
+
     private OnCheckedChangeListener checkedChangeListener = new OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
-                //scrollView.smoothScrollTo(0, scrollView.getChildAt(0).getHeight());
-                smoothScroller.setTargetPosition(23);
-                layoutManager.startSmoothScroll(smoothScroller);
+                globalCounter = 0;
+                handler.postDelayed(runnable, 1000);
             }
 
         }
@@ -120,7 +137,7 @@ public class WeekFragment extends Fragment {
 
 
         recyclerView = view.findViewById(R.id.recyclerView);
-        scrollView = view.findViewById(R.id.weekViewScroll);
+        //scrollView = view.findViewById(R.id.weekViewScroll);
         titleTextView = view.findViewById(R.id.titleTextWeek);
         notificationTextView = view.findViewById(R.id.notificationTextView);
         checkBox = view.findViewById(R.id.checkbox);
@@ -199,6 +216,8 @@ public class WeekFragment extends Fragment {
 
 //        smoothScroller.setTargetPosition(9);
 //        layoutManager.startSmoothScroll(smoothScroller);
+        smoothScroller.setTargetPosition(9);
+        layoutManager.startSmoothScroll(smoothScroller);
     }
 
     public void clearAndLoadData() {
