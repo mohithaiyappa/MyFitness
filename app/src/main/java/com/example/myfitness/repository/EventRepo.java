@@ -269,6 +269,7 @@ public class EventRepo {
                 event.setEventEndDate(event.getEventDate());
                 event.setDaysOnly("月,火,水,木,金,土,日");
                 createOrEditEvent.postValue(event);
+                loadSelectedVideoIds();
             }
 
             @Override

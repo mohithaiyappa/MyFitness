@@ -89,6 +89,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
             adapter.submitList(event.getVideoArray());
             calculateTotalTime(event.getVideoArray());
             initData(event);
+            EventRepo.getInstance().loadSelectedVideoIds();
             String[] days = event.getDaysOnly().split(",");
             initCheckBox(days);
         }
@@ -424,6 +425,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
         event.setEventEndDate(selectedDateStr);
         event.setStartTime("00:00:00");
         event.setVideoId("");
+        EventRepo.selectedVideosIds.clear();
         EventRepo.getInstance().setCreateOrEditEvent(event);
     }
 

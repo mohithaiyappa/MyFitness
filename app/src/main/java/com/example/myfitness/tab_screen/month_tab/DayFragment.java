@@ -88,6 +88,7 @@ public class DayFragment extends Fragment {
                 e.setStartTime(simpleTimeFormat.format(date));
                 e.setVideoId("");
                 e.setDaysOnly("月,火,水,木,金,土,日");
+                EventRepo.selectedVideosIds.clear();
                 EventRepo.getInstance().setCreateOrEditEvent(e);
                 ((CustomViewPager) ((TabActivity) getActivity()).findViewById(R.id.view_pager)).moveTo(2);
             }
