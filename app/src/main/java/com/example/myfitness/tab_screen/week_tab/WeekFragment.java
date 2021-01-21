@@ -251,8 +251,8 @@ public class WeekFragment extends Fragment {
 
 //        smoothScroller.setTargetPosition(9);
 //        layoutManager.startSmoothScroll(smoothScroller);
-        //smoothScroller.setTargetPosition(9);
-        //layoutManager.startSmoothScroll(smoothScroller);
+        smoothScroller.setTargetPosition(9);
+        layoutManager.startSmoothScroll(smoothScroller);
     }
 
     public void clearAndLoadData() {
