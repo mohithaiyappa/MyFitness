@@ -7,4 +7,7 @@
     <dimen name="appbar_padding_top">0dp</dimen>
     <item name="dialog_min_width_major" type="dimen">100%</item>
     <item name="dialog_min_width_minor" type="dimen">100%</item>
+
+    <dimen name="child_box">9dp</dimen>
+    <dimen name="parent_box">36dp</dimen>
 </resources>

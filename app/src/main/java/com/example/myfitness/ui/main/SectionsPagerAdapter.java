@@ -12,7 +12,7 @@ import com.example.myfitness.R;
 import com.example.myfitness.tab_screen.create_event_tab.ReservationFragment;
 import com.example.myfitness.tab_screen.month_tab.MonthFragment;
 import com.example.myfitness.tab_screen.videos_tab.VideosFragment;
-import com.example.myfitness.tab_screen.week_tab.WeekSchedule;
+import com.example.myfitness.tab_screen.week_tab.WeekFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -40,7 +40,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 fragment = new MonthFragment();
                 break;
             case 1:
-                fragment = new WeekSchedule();
+                fragment = /*new WeekSchedule();*/ new WeekFragment();
                 break;
             case 2:
                 fragment = /*new download();*/ new VideosFragment();

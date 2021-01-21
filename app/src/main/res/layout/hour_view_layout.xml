@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/hourText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:gravity="end|top"
+        android:paddingHorizontal="4dp"
+        android:textColor="@color/black" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/parent_box"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="0.5dp"
+        android:layout_marginEnd="0.5dp"
+        android:layout_marginBottom="0.5dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/mondayQ1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/mondayQ2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/mondayQ3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/mondayQ4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/parent_box"
+        android:layout_margin="0.5dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tuesdayQ1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tuesdayQ2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tuesdayQ3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tuesdayQ4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/parent_box"
+        android:layout_margin="0.5dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/wednesdayQ1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/wednesdayQ2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/wednesdayQ3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/wednesdayQ4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/parent_box"
+        android:layout_margin="0.5dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/thursdayQ1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/thursdayQ2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/thursdayQ3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/thursdayQ4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/parent_box"
+        android:layout_margin="0.5dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/fridayQ1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/fridayQ2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/fridayQ3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/fridayQ4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/parent_box"
+        android:layout_margin="0.5dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/saturdayQ1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/saturdayQ2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/saturdayQ3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/saturdayQ4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/parent_box"
+        android:layout_margin="0.5dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/sundayQ1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/sundayQ2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/sundayQ3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/sundayQ4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/child_box"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>
