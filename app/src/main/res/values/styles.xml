@@ -26,6 +26,7 @@
     <style name="WeekChildTextStyle" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">@dimen/week_view_child_text_size</item>
         <item name="android:ellipsize">end</item>
+        <item name="maxLines">1</item>
     </style>
 
 </resources>

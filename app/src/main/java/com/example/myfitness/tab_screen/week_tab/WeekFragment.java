@@ -275,7 +275,7 @@ public class WeekFragment extends Fragment {
                         .append(event.getEndTime().substring(0, 5))
                         .append(" ");
                 try {
-                    stringBuilder.append(event.getVideoArray().get(0).getVideoTitle().substring(0, 10))
+                    stringBuilder.append(event.getVideoArray().get(0).getVideoTitle().substring(0, 7))
                             .append("...");
                 } catch (NullPointerException | IndexOutOfBoundsException e) {
                     e.printStackTrace();
