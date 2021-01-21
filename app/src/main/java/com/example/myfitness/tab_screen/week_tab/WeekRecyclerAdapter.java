@@ -19,6 +19,7 @@ import java.util.List;
 public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapter.WeekViewHolder> {
 
     private List<NewWeekEvent> weekEvents = new ArrayList<>();
+    private int background = Color.parseColor("#3F7388");
 
     public WeekRecyclerAdapter(List<NewWeekEvent> events) {
         weekEvents = events;
@@ -125,13 +126,13 @@ public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapte
             }
 
             /*
-            mondayQ1.setBackgroundColor(Color.BLUE);
-            tuesdayQ2.setBackgroundColor(Color.BLUE);
-            wednesdayQ3.setBackgroundColor(Color.BLUE);
-            thursdayQ4.setBackgroundColor(Color.BLUE);
-            fridayQ3.setBackgroundColor(Color.BLUE);
-            saturdayQ2.setBackgroundColor(Color.BLUE);
-            sundayQ1.setBackgroundColor(Color.BLUE);*/
+            mondayQ1.setBackgroundColor(background);
+            tuesdayQ2.setBackgroundColor(background);
+            wednesdayQ3.setBackgroundColor(background);
+            thursdayQ4.setBackgroundColor(background);
+            fridayQ3.setBackgroundColor(background);
+            saturdayQ2.setBackgroundColor(background);
+            sundayQ1.setBackgroundColor(background);*/
         }
 
         public void sundayEvent(NewWeekEvent event, int position) {
@@ -139,10 +140,10 @@ public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapte
             String q2 = String.format("%02d:15", position);
             String q3 = String.format("%02d:30", position);
             String q4 = String.format("%02d:45", position);
-            if (event.eventString.contains(q1)) sundayQ1.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q2)) sundayQ2.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q3)) sundayQ3.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q4)) sundayQ4.setBackgroundColor(Color.BLUE);
+            if (event.eventString.contains(q1)) sundayQ1.setBackgroundColor(background);
+            if (event.eventString.contains(q2)) sundayQ2.setBackgroundColor(background);
+            if (event.eventString.contains(q3)) sundayQ3.setBackgroundColor(background);
+            if (event.eventString.contains(q4)) sundayQ4.setBackgroundColor(background);
 
             String eventStartQuad = event.eventString.get(0);
             if (eventStartQuad != null) {
@@ -158,10 +159,10 @@ public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapte
             String q2 = String.format("%02d:15", position);
             String q3 = String.format("%02d:30", position);
             String q4 = String.format("%02d:45", position);
-            if (event.eventString.contains(q1)) mondayQ1.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q2)) mondayQ2.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q3)) mondayQ3.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q4)) mondayQ4.setBackgroundColor(Color.BLUE);
+            if (event.eventString.contains(q1)) mondayQ1.setBackgroundColor(background);
+            if (event.eventString.contains(q2)) mondayQ2.setBackgroundColor(background);
+            if (event.eventString.contains(q3)) mondayQ3.setBackgroundColor(background);
+            if (event.eventString.contains(q4)) mondayQ4.setBackgroundColor(background);
 
             String eventStartQuad = event.eventString.get(0);
             if (eventStartQuad != null) {
@@ -177,10 +178,10 @@ public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapte
             String q2 = String.format("%02d:15", position);
             String q3 = String.format("%02d:30", position);
             String q4 = String.format("%02d:45", position);
-            if (event.eventString.contains(q1)) tuesdayQ1.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q2)) tuesdayQ2.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q3)) tuesdayQ3.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q4)) tuesdayQ4.setBackgroundColor(Color.BLUE);
+            if (event.eventString.contains(q1)) tuesdayQ1.setBackgroundColor(background);
+            if (event.eventString.contains(q2)) tuesdayQ2.setBackgroundColor(background);
+            if (event.eventString.contains(q3)) tuesdayQ3.setBackgroundColor(background);
+            if (event.eventString.contains(q4)) tuesdayQ4.setBackgroundColor(background);
 
             String eventStartQuad = event.eventString.get(0);
             if (eventStartQuad != null) {
@@ -196,10 +197,10 @@ public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapte
             String q2 = String.format("%02d:15", position);
             String q3 = String.format("%02d:30", position);
             String q4 = String.format("%02d:45", position);
-            if (event.eventString.contains(q1)) wednesdayQ1.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q2)) wednesdayQ2.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q3)) wednesdayQ3.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q4)) wednesdayQ4.setBackgroundColor(Color.BLUE);
+            if (event.eventString.contains(q1)) wednesdayQ1.setBackgroundColor(background);
+            if (event.eventString.contains(q2)) wednesdayQ2.setBackgroundColor(background);
+            if (event.eventString.contains(q3)) wednesdayQ3.setBackgroundColor(background);
+            if (event.eventString.contains(q4)) wednesdayQ4.setBackgroundColor(background);
 
             String eventStartQuad = event.eventString.get(0);
             if (eventStartQuad != null) {
@@ -215,10 +216,10 @@ public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapte
             String q2 = String.format("%02d:15", position);
             String q3 = String.format("%02d:30", position);
             String q4 = String.format("%02d:45", position);
-            if (event.eventString.contains(q1)) thursdayQ1.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q2)) thursdayQ2.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q3)) thursdayQ3.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q4)) thursdayQ4.setBackgroundColor(Color.BLUE);
+            if (event.eventString.contains(q1)) thursdayQ1.setBackgroundColor(background);
+            if (event.eventString.contains(q2)) thursdayQ2.setBackgroundColor(background);
+            if (event.eventString.contains(q3)) thursdayQ3.setBackgroundColor(background);
+            if (event.eventString.contains(q4)) thursdayQ4.setBackgroundColor(background);
 
             String eventStartQuad = event.eventString.get(0);
             if (eventStartQuad != null) {
@@ -234,10 +235,10 @@ public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapte
             String q2 = String.format("%02d:15", position);
             String q3 = String.format("%02d:30", position);
             String q4 = String.format("%02d:45", position);
-            if (event.eventString.contains(q1)) fridayQ1.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q2)) fridayQ2.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q3)) fridayQ3.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q4)) fridayQ4.setBackgroundColor(Color.BLUE);
+            if (event.eventString.contains(q1)) fridayQ1.setBackgroundColor(background);
+            if (event.eventString.contains(q2)) fridayQ2.setBackgroundColor(background);
+            if (event.eventString.contains(q3)) fridayQ3.setBackgroundColor(background);
+            if (event.eventString.contains(q4)) fridayQ4.setBackgroundColor(background);
 
             String eventStartQuad = event.eventString.get(0);
             if (eventStartQuad != null) {
@@ -253,10 +254,10 @@ public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapte
             String q2 = String.format("%02d:15", position);
             String q3 = String.format("%02d:30", position);
             String q4 = String.format("%02d:45", position);
-            if (event.eventString.contains(q1)) saturdayQ1.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q2)) saturdayQ2.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q3)) saturdayQ3.setBackgroundColor(Color.BLUE);
-            if (event.eventString.contains(q4)) saturdayQ4.setBackgroundColor(Color.BLUE);
+            if (event.eventString.contains(q1)) saturdayQ1.setBackgroundColor(background);
+            if (event.eventString.contains(q2)) saturdayQ2.setBackgroundColor(background);
+            if (event.eventString.contains(q3)) saturdayQ3.setBackgroundColor(background);
+            if (event.eventString.contains(q4)) saturdayQ4.setBackgroundColor(background);
 
             String eventStartQuad = event.eventString.get(0);
             if (eventStartQuad != null) {
