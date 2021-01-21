@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myfitness.R;
+import com.example.myfitness.customdialog.DownloadTaskDialog;
 import com.example.myfitness.customdialog.VideoPopupDialog;
 import com.example.myfitness.model.Subcategory;
 import com.example.myfitness.model.VideoData;
@@ -131,6 +132,19 @@ public class VideoDetailedViewAdapter extends RecyclerView.Adapter<VideoDetailed
                     videoPopupDialog.show();
                 }
             };
+
+            View.OnClickListener downloadClickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (EventRepo.downloadedVideosIds.contains(vData.getVideoId().trim())) {
+                        return;
+                    }
+                    DownloadTaskDialog downloadTaskDialog = new DownloadTaskDialog(context, vData, downloadStateIconImage);
+                    //downloadTaskDialog.setOnDismissListener(dismissListener);
+                    downloadTaskDialog.show();
+                }
+            };
+            downloadStateIconImage.setOnClickListener(downloadClickListener);
 
             view.setOnClickListener(clickListener);
         }
