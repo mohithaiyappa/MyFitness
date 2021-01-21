@@ -329,6 +329,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
     }
 
     private void showDatePickerDialog(TextView textView) {
+        Locale.setDefault(Locale.JAPAN);
         Calendar cal = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
