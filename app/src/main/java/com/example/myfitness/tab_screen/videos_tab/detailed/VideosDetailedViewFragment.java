@@ -66,7 +66,7 @@ public class VideosDetailedViewFragment extends Fragment {
             textView.setText(viewModel.categoryList.get(selectedCategoryPosition).getCategoryName());
         }
 
-        manager = new GridLayoutManager(this.getActivity(), 6);
+        manager = new GridLayoutManager(this.getActivity(), 7);
 
 
     }
