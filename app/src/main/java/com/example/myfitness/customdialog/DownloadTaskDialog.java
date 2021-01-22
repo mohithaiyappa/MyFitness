@@ -275,6 +275,7 @@ public class DownloadTaskDialog extends ProgressDialog {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             EventRepo.getInstance().loadDownloadedVideoIds();
+            EventRepo.getInstance().reCalculateSpace.setValue(true);
             //DownloadTaskDialog.this.dismiss();
             DownloadTaskDialog.this.dismiss();
             if (result != null) {

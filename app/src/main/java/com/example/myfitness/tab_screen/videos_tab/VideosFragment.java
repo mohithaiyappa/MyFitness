@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myfitness.R;
+import com.example.myfitness.repository.EventRepo;
 import com.example.myfitness.tab_screen.TabScreenSharedViewModel;
 import com.example.myfitness.tab_screen.videos_tab.all_category.VideosCategoryFragment;
 import com.example.myfitness.tab_screen.videos_tab.all_subcategory.VideosSubCategoryFragment;
@@ -188,6 +189,15 @@ public class VideosFragment extends Fragment {
             @Override
             public void onChanged(Selection viewType) {
                 attachFragment(getRightFragment(viewType));
+            }
+        });
+
+        EventRepo.getInstance().reCalculateSpace.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    showExternalStorageSpace();
+                }
             }
         });
 

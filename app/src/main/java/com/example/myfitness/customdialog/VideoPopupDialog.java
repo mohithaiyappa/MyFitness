@@ -433,6 +433,7 @@ public class VideoPopupDialog extends Dialog {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             EventRepo.getInstance().loadDownloadedVideoIds();
+            EventRepo.getInstance().reCalculateSpace.setValue(true);
             if (result != null) {
                 System.out.println(result);
 //                finish();

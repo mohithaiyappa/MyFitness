@@ -49,6 +49,8 @@ public class EventRepo {
     public List<WeekViewEvent> allWeekViewEvents = new ArrayList<>();
     public MutableLiveData<List<WeekViewEvent>> allWeekViewEventsLiveData = new MutableLiveData<>();
 
+    public MutableLiveData<Boolean> reCalculateSpace = new MutableLiveData<>(true);
+
     private static final MutableLiveData<Event> createOrEditEvent = new MutableLiveData<>();
 
     public static List<String> downloadedVideosIds = new ArrayList<>();
