@@ -15,6 +15,7 @@ import com.example.myfitness.model.NewWeekEvent;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapter.WeekViewHolder> {
@@ -105,31 +106,35 @@ public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapte
             hourText.setText(hrText);
             clearViews();
 
-            for (NewWeekEvent event : weekEvents) {
+            try {
+                for (NewWeekEvent event : weekEvents) {
 
-                switch (event.getDayOfWeek()) {
-                    case Calendar.SUNDAY:
-                        sundayEvent(event, position);
-                        break;
-                    case Calendar.MONDAY:
-                        mondayEvent(event, position);
-                        break;
-                    case Calendar.TUESDAY:
-                        tuesdayEvent(event, position);
-                        break;
-                    case Calendar.WEDNESDAY:
-                        wednesdayEvent(event, position);
-                        break;
-                    case Calendar.THURSDAY:
-                        thursdayEvent(event, position);
-                        break;
-                    case Calendar.FRIDAY:
-                        fridayEvent(event, position);
-                        break;
-                    case Calendar.SATURDAY:
-                        saturdayEvent(event, position);
-                        break;
+                    switch (event.getDayOfWeek()) {
+                        case Calendar.SUNDAY:
+                            sundayEvent(event, position);
+                            break;
+                        case Calendar.MONDAY:
+                            mondayEvent(event, position);
+                            break;
+                        case Calendar.TUESDAY:
+                            tuesdayEvent(event, position);
+                            break;
+                        case Calendar.WEDNESDAY:
+                            wednesdayEvent(event, position);
+                            break;
+                        case Calendar.THURSDAY:
+                            thursdayEvent(event, position);
+                            break;
+                        case Calendar.FRIDAY:
+                            fridayEvent(event, position);
+                            break;
+                        case Calendar.SATURDAY:
+                            saturdayEvent(event, position);
+                            break;
+                    }
                 }
+            } catch (ConcurrentModificationException e) {
+                e.printStackTrace();
             }
 
             /*

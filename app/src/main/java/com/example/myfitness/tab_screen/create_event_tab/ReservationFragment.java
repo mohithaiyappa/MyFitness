@@ -325,6 +325,15 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
                     }
                 }, mHour, mMinute, true);
         timePickerDialog.setButton(TimePickerDialog.BUTTON_NEGATIVE, CANCEL_TEXT, timePickerDialog);
+        DialogInterface.OnShowListener showListener = new DialogInterface.OnShowListener() {
+
+            @Override
+            public void onShow(DialogInterface dialog) {
+                timePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.LTGRAY);
+                timePickerDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.java));
+            }
+        };
+        timePickerDialog.setOnShowListener(showListener);
         timePickerDialog.show();
     }
 
@@ -346,12 +355,22 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
                     }
                 }, mHour, mMinute, true);
         timePickerDialog.setButton(TimePickerDialog.BUTTON_NEGATIVE, CANCEL_TEXT, timePickerDialog);
+
         timePickerDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
                 textView.setText(StringUtils.TIME_EMPTY_STRING);
             }
         });
+        DialogInterface.OnShowListener showListener = new DialogInterface.OnShowListener() {
+
+            @Override
+            public void onShow(DialogInterface dialog) {
+                timePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.LTGRAY);
+                timePickerDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.java));
+            }
+        };
+        timePickerDialog.setOnShowListener(showListener);
         timePickerDialog.show();
     }
 

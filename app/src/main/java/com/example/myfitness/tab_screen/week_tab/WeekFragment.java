@@ -2,6 +2,8 @@ package com.example.myfitness.tab_screen.week_tab;
 
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Spannable;
@@ -151,6 +153,15 @@ public class WeekFragment extends Fragment {
                         }
                     }, 9, 0, true);
             timePickerDialog.setButton(TimePickerDialog.BUTTON_NEGATIVE, CANCEL_TEXT, timePickerDialog);
+            DialogInterface.OnShowListener showListener = new DialogInterface.OnShowListener() {
+
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    timePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.LTGRAY);
+                    timePickerDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.java));
+                }
+            };
+            timePickerDialog.setOnShowListener(showListener);
             timePickerDialog.show();
         }
     };
