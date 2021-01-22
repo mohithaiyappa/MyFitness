@@ -245,6 +245,7 @@ public class VideoPopupDialog extends Dialog {
         addToEvent.setEnabled(false);
         if (view != null)
             view.setImageResource(R.drawable.ic_download);
+        EventRepo.getInstance().reCalculateSpace.setValue(true);
 
     }
 
