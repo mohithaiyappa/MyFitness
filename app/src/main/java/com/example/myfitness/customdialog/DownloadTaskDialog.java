@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import com.example.myfitness.R;
 import com.example.myfitness.model.VideoData;
 import com.example.myfitness.repository.EventRepo;
+import com.example.myfitness.utils.StringUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
@@ -81,6 +82,16 @@ public class DownloadTaskDialog extends ProgressDialog {
     }
 
     private void startDownload() {
+        File[] storageDir = mContext.getExternalFilesDirs(null);
+        if (storageDir.length == 1) {
+
+            //return for now show dialog in download task
+            AcknowledgementDialog noUsbAcknowledgementDialog = new AcknowledgementDialog(mContext,
+                    StringUtils.CONNECT_USB_STORAGE);
+            noUsbAcknowledgementDialog.show();
+            this.dismiss();
+            return;
+        }
         String DOWNLOAD_URL = videoData.getVideoUrl();
         DownLoadTask task = new DownLoadTask();
         String file_name = DOWNLOAD_URL.replace("/", "a").replace(":", "a");

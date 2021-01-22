@@ -20,6 +20,9 @@ public class StringUtils {
     //recent added videos category name string literals
     public static final String RECENTLY_ADDED = "新着一覧";
 
+
+    public static final String CONNECT_USB_STORAGE = "usbメモリを接続してください";
+
     //shared preference
     public static final String SHARED_PREFERENCE_KEY = "MyFitness";
     public static final String SHARED_PREFERENCE_USERNAME = "user_name";

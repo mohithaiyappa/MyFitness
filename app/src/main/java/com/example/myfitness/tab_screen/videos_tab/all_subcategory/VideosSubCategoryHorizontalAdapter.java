@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myfitness.R;
+import com.example.myfitness.customdialog.AcknowledgementDialog;
 import com.example.myfitness.customdialog.DownloadTaskDialog;
 import com.example.myfitness.customdialog.VideoPopupDialog;
 import com.example.myfitness.model.VideoData;
@@ -22,6 +23,7 @@ import com.example.myfitness.utils.Selection;
 import com.example.myfitness.utils.StringUtils;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -168,6 +170,15 @@ public class VideosSubCategoryHorizontalAdapter extends RecyclerView.Adapter<Vid
                 @Override
                 public void onClick(View v) {
                     if (EventRepo.downloadedVideosIds.contains(vData.getVideoId().trim())) {
+                        return;
+                    }
+                    File[] storageDir = context.getExternalFilesDirs(null);
+                    if (storageDir.length == 1) {
+
+                        //return for now show dialog in download task
+                        AcknowledgementDialog noUsbAcknowledgementDialog = new AcknowledgementDialog(context,
+                                StringUtils.CONNECT_USB_STORAGE);
+                        noUsbAcknowledgementDialog.show();
                         return;
                     }
                     DownloadTaskDialog downloadTaskDialog = new DownloadTaskDialog(context, vData, downloadStateIconImage);

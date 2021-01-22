@@ -1,7 +1,6 @@
 package com.example.myfitness.tab_screen.videos_tab;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.StatFs;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +24,7 @@ import com.example.myfitness.tab_screen.videos_tab.detailed.VideosDetailedViewFr
 import com.example.myfitness.utils.Selection;
 
 import java.io.File;
+import java.text.DecimalFormat;
 
 public class VideosFragment extends Fragment {
 
@@ -34,6 +34,8 @@ public class VideosFragment extends Fragment {
     private FragmentManager childFragmentManager;
 
     private TabScreenSharedViewModel viewModel;
+    private String externalMemPath = "";
+    private DecimalFormat df = new DecimalFormat("#,###.#");
 
 
     @Nullable
@@ -43,24 +45,19 @@ public class VideosFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_videos, container, false);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    // 空き容量(利用可能)を取得する
+    public static double getAvailableSize(String path) {
+        long size = -1;
 
-        bindViews(view);
+        if (path != null) {
+            StatFs fs = new StatFs(path);
 
-        viewModel = new ViewModelProvider(getActivity()).get(TabScreenSharedViewModel.class);
+            long blockSize = fs.getBlockSize();
+            long availableBlockSize = fs.getAvailableBlocks();
 
-        findEmptySpace();
-
-
-        viewModel.selectedViewTypeLiveData.observe(getViewLifecycleOwner(), new Observer<Selection>() {
-            @Override
-            public void onChanged(Selection viewType) {
-                attachFragment(getRightFragment(viewType));
-            }
-        });
-
+            size = blockSize * availableBlockSize;
+        }
+        return (double) size;
     }
 
     @Override
@@ -142,36 +139,10 @@ public class VideosFragment extends Fragment {
         });
     }
 
-    private void findEmptySpace() {
-        String spaceText = "空き容量 【" + getAvailableExternalMemorySize() + "】";
-        emptySpaceText.setText(spaceText);
-        viewModel.displayText = spaceText;
-    }
-
 
     public boolean externalMemoryAvailable() {
         return android.os.Environment.getExternalStorageState().equals(
                 android.os.Environment.MEDIA_MOUNTED);
-    }
-
-    private String getAvailableInternalMemorySize() {
-        File path = Environment.getDataDirectory();
-        StatFs stat = new StatFs(path.getPath());
-        long blockSize = stat.getBlockSizeLong();
-        long availableBlocks = stat.getAvailableBlocksLong();
-        return formatSize(availableBlocks * blockSize);
-    }
-
-    private String getAvailableExternalMemorySize() {
-        if (externalMemoryAvailable()) {
-            File path = Environment.getExternalStorageDirectory();
-            StatFs stat = new StatFs(path.getPath());
-            long blockSize = stat.getBlockSizeLong();
-            long availableBlocks = stat.getAvailableBlocksLong();
-            return formatSize(availableBlocks * blockSize);
-        } else {
-            return getAvailableInternalMemorySize();
-        }
     }
 
     private String formatSize(long size) {
@@ -200,6 +171,54 @@ public class VideosFragment extends Fragment {
 
         if (suffix != null) resultBuffer.append(suffix);
         return resultBuffer.toString();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        bindViews(view);
+
+        viewModel = new ViewModelProvider(getActivity()).get(TabScreenSharedViewModel.class);
+
+        showExternalStorageSpace();
+
+
+        viewModel.selectedViewTypeLiveData.observe(getViewLifecycleOwner(), new Observer<Selection>() {
+            @Override
+            public void onChanged(Selection viewType) {
+                attachFragment(getRightFragment(viewType));
+            }
+        });
+
+    }
+
+    public void showExternalStorageSpace() {
+        File[] storageDir = this.getActivity().getExternalFilesDirs(null);
+        if (storageDir.length == 1) {
+
+            //return for now show dialog in download task
+            return;
+            //usbメモリを要求するメッセージ
+            /*
+            storage_textview.setText("none");
+            new AlertDialog.Builder(this.getActivity())
+                    .setTitle("")
+                    .setMessage("usbメモリを接続してください")
+                    .setPositiveButton("戻る", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .show();
+            save_video_list.setVisibility(View.INVISIBLE);*/
+        } else {
+            externalMemPath = storageDir[1].getPath();
+            //GBに変換
+            String free_storage = df.format(getAvailableSize(externalMemPath) / 1024 / 1024 / 1024);
+            emptySpaceText.setText("空き容量【" + free_storage + "GB】");
+        }
     }
 
     public void showBackButton() {

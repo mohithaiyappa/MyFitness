@@ -27,6 +27,7 @@ import com.example.myfitness.model.EventVideoDetails;
 import com.example.myfitness.model.VideoData;
 import com.example.myfitness.repository.EventRepo;
 import com.example.myfitness.tab_screen.TabActivity;
+import com.example.myfitness.utils.StringUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
@@ -129,6 +130,17 @@ public class VideoPopupDialog extends Dialog {
         downloadVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                File[] storageDir = mContext.getExternalFilesDirs(null);
+                if (storageDir.length == 1) {
+
+                    //return for now show dialog in download task
+                    AcknowledgementDialog noUsbAcknowledgementDialog = new AcknowledgementDialog(mContext,
+                            StringUtils.CONNECT_USB_STORAGE);
+                    noUsbAcknowledgementDialog.show();
+                    VideoPopupDialog.this.dismiss();
+                    return;
+                }
+
                 if (!downloaded)
                     startDownload();
                 else deleteFile();
