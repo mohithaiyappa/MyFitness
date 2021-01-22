@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -236,7 +235,9 @@ public class VideoPopupDialog extends Dialog {
 
         String DOWNLOAD_URL = videoData.getVideoUrl();
         String file_name = DOWNLOAD_URL.replace("/", "a").replace(":", "a");
-        String sdPath = Environment.getExternalStorageDirectory().getPath() + "/.fitness";
+        //String sdPath = Environment.getExternalStorageDirectory().getPath() + "/.fitness";
+        File[] storageDir = mContext.getExternalFilesDirs(null);
+        String sdPath = storageDir[1].getPath() + "/.fitness";
         filePath = sdPath + "/" + file_name;
         File file = new File(filePath);
         file.delete();
@@ -312,7 +313,15 @@ public class VideoPopupDialog extends Dialog {
                 // ファイルサイズの取得（％表示するため）
                 int fileLength = conn.getContentLength();
                 // SDカードのパスは環境によって異なるので、動的に取得する
-                String sdPath = Environment.getExternalStorageDirectory().getPath() + "/.fitness";
+                //String sdPath = Environment.getExternalStorageDirectory().getPath() + "/.fitness";
+                File[] storageDir = mContext.getExternalFilesDirs(null);
+                String sdPath = storageDir[1].getPath() + "/.fitness";
+                File directory = new File(sdPath);
+                if (!directory.exists()) {
+                    directory.mkdir();
+                    // If you require it to make the entire directory path including parents,
+                    // use directory.mkdirs(); here instead.
+                }
                 filePath = sdPath + "/" + params[1];
                 video_id = params[2];
 

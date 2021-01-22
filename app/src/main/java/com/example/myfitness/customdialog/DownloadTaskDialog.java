@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Message;
 import android.util.Log;
 import android.widget.ImageView;
@@ -148,7 +147,9 @@ public class DownloadTaskDialog extends ProgressDialog {
                 // ファイルサイズの取得（％表示するため）
                 int fileLength = conn.getContentLength();
                 // SDカードのパスは環境によって異なるので、動的に取得する
-                String sdPath = Environment.getExternalStorageDirectory().getPath() + "/.fitness";
+                //String sdPath = Environment.getExternalStorageDirectory().getPath() + "/.fitness";
+                File[] storageDir = mContext.getExternalFilesDirs(null);
+                String sdPath = storageDir[1].getPath() + "/.fitness";
                 File directory = new File(sdPath);
                 if (!directory.exists()) {
                     directory.mkdir();
