@@ -203,6 +203,32 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
             public void onClick(View v) {
                 if (currentEditingEvent == null) return;
                 int eId = currentEditingEvent.getE_id();
+                if (currentEditingEvent.getVideoId() == null ||
+                        currentEditingEvent.getVideoId().trim().isEmpty()) {
+                    AcknowledgementDialog dialog = new AcknowledgementDialog(getContext(),
+                            StringUtils.DID_NOT_SELECT_VIDEO);
+                    dialog.show();
+                    return;
+                }
+                if (getSelectedDaysText().trim().isEmpty()) {
+                    AcknowledgementDialog dialog = new AcknowledgementDialog(getContext(),
+                            StringUtils.DID_NOT_SELECT_DAYS);
+                    dialog.show();
+                    return;
+                }
+                if (checkIfEndDayIsBeforeStartDay()) {
+                    AcknowledgementDialog dialog = new AcknowledgementDialog(getContext(),
+                            StringUtils.DID_NOT_SELECT_DATE);
+                    dialog.show();
+                    return;
+                }
+                if (startTimeTextView.getText().toString().trim().isEmpty()) {
+                    AcknowledgementDialog dialog = new AcknowledgementDialog(getContext(),
+                            StringUtils.DID_NOT_SELECT_TIME);
+                    dialog.show();
+                    return;
+                }
+
                 if (currentEditingEvent.getE_id() == -1) {
                     uploadEvent();
                 } else {
@@ -444,6 +470,15 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
         dayText = dayText.trim();
         dayText = dayText.replace(" ", ",");
         return dayText;
+    }
+
+    private boolean checkIfEndDayIsBeforeStartDay() {
+        if (startDateTextView.getText().toString().trim().isEmpty()) return true;
+        if (endDateTextView.getText().toString().trim().isEmpty()) return true;
+
+
+        return false;
+
     }
 
     //todo return video ids in selected Order - DONE

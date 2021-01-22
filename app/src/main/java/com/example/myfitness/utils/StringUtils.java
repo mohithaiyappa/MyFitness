@@ -26,4 +26,11 @@ public class StringUtils {
     //shared preference
     public static final String SHARED_PREFERENCE_KEY = "MyFitness";
     public static final String SHARED_PREFERENCE_USERNAME = "user_name";
+
+
+    //dialog messages
+    public static final String DID_NOT_SELECT_VIDEO = "動画を選択してください";
+    public static final String DID_NOT_SELECT_DATE = "日付を選択してください";
+    public static final String DID_NOT_SELECT_TIME = "時間を選択してください";
+    public static final String DID_NOT_SELECT_DAYS = "曜日を選択してください";
 }
