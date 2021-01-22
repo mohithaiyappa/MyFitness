@@ -45,7 +45,6 @@ public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapte
     }
 
     public void updateData(List<NewWeekEvent> newEvents) {
-        if (weekEvents.isEmpty() && newEvents.isEmpty()) return;
         weekEvents = newEvents;
         notifyDataSetChanged();
     }
