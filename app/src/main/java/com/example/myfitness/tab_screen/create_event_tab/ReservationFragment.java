@@ -35,6 +35,7 @@ import com.example.myfitness.utils.CustomViewPager;
 import com.example.myfitness.utils.EventAlarmManager;
 import com.example.myfitness.utils.StringUtils;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -505,10 +506,20 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
+                    String displayMessage = StringUtils.MESSAGE_EVENT_ADDED;
+                    try {
+
+                        String message = response.body().string();
+                        if (message.trim().equals("すでにスケジュールが登録されています"))
+                            displayMessage = "すでにスケジュールが登録されています";
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     EventAlarmManager.getInstance().resetAlarm(getActivity());
                     clearScreen(selectedDateString);
                     AcknowledgementDialog acknowledgementDialog = new AcknowledgementDialog(getContext(),
-                            StringUtils.MESSAGE_EVENT_ADDED);
+                            displayMessage);
                     OnDismissListener dismissListener = new OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
