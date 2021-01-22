@@ -184,7 +184,6 @@ public class VideoPopupDialog extends Dialog {
                 } else {
                     event.setVideoId(event.getVideoId() + "," + id);
                 }
-                Toast.makeText(mContext, event.getVideoId(), Toast.LENGTH_SHORT).show();
 
                 event.addToVideoArray(videoDetails);
                 EventRepo.getInstance().setCreateOrEditEvent(event);
@@ -212,7 +211,6 @@ public class VideoPopupDialog extends Dialog {
                 mediaPlayer = mp;
                 mediaController.show(1000);
                 videoView.seekTo(1);
-                Toast.makeText(mContext, "video ready", Toast.LENGTH_SHORT).show();
             }
         });
         //videoView.start();
