@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +56,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
     private static final String CANCEL_TEXT = "キャンセル";
     private static final String TAB_NAME = "スケジュール作成";
 
+
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.US);
     private final Calendar calendar = Calendar.getInstance();
@@ -70,6 +72,31 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
     private String selectedDateString;
 
     private Event currentEditingEvent;
+
+    private final Handler mHandler = new Handler();
+
+    private Runnable updateEventRunnable = new Runnable() {
+        @Override
+        public void run() {
+            int eId = currentEditingEvent.getE_id();
+            if (currentEditingEvent.getE_id() == -1) {
+                uploadEvent();
+            } else {
+                String id = Integer.toString(eId);
+                editExistingEvent(id);
+            }
+        }
+    };
+
+    private Runnable showEventExistsRunnable = new Runnable() {
+        @Override
+        public void run() {
+            AcknowledgementDialog dialog = new AcknowledgementDialog(getActivity(),
+                    "すでにスケジュールが登録されています");
+            dialog.show();
+
+        }
+    };
 
     private SetVideoTime setVideoTimeInterface = new SetVideoTime() {
         @Override
@@ -229,12 +256,15 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
                     return;
                 }
 
+                checkForExistingEventsAndUpload();
+
+                /*
                 if (currentEditingEvent.getE_id() == -1) {
                     uploadEvent();
                 } else {
                     String id = Integer.toString(eId);
                     editExistingEvent(id);
-                }
+                }*/
 
 
             }
@@ -543,6 +573,74 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
 
         return timeFormat.format(new Date(sum));
     }
+
+    private void checkForExistingEventsAndUpload() {
+        new Thread() {
+            @Override
+            public void run() {
+                String startDateString = startDateTextView.getText().toString().trim();
+                String endDateString = endDateTextView.getText().toString().trim();
+                String startTimeString = startTimeTextView.getText().toString().trim();
+                String endTimeString = getEndTimeString();
+
+                if (startDateString.equals(endDateString)) {
+                    SimpleDateFormat dateAndTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+
+
+                    Calendar startCalendar = Calendar.getInstance();
+                    Calendar endCalendar = Calendar.getInstance();
+
+                    try {
+                        Date startTime = dateAndTimeFormat.parse(startDateString + " " + startTimeString);
+                        Date endTime = dateAndTimeFormat.parse(startDateString + " " + endTimeString);
+                        if (startTime != null && endTime != null) {
+                            startCalendar.setTime(startTime);
+                            endCalendar.setTime(endTime);
+
+                            List<Event> events = RetrofitEvent.getEventApi().getDayEvents(startCalendar.get(Calendar.YEAR),
+                                    startCalendar.get(Calendar.MONTH) + 1,
+                                    EventRepo.userName,
+                                    startCalendar.get(Calendar.DAY_OF_MONTH)).execute().body();
+                            Date eventStartTime;
+                            Date eventEndTime;
+                            if (events == null) {
+                                mHandler.post(updateEventRunnable);
+                                return;
+                            }
+
+                            for (Event event : events) {
+                                eventStartTime = dateAndTimeFormat.parse(event.getEventDate().trim()
+                                        + " " + event.getStartTime().trim());
+                                eventEndTime = dateAndTimeFormat.parse(event.getEventDate().trim()
+                                        + " " + event.getEndTime().trim());
+                                if ((eventStartTime.before(startTime) && eventEndTime.after(startTime)) ||
+                                        eventStartTime.before(endTime) && eventEndTime.after(endTime)) {
+                                    mHandler.post(showEventExistsRunnable);
+                                    return;
+                                }
+                            }
+
+                            //upload event
+                            mHandler.post(updateEventRunnable);
+
+
+                        } else {
+                            mHandler.post(updateEventRunnable);
+                            return;
+                        }
+                    } catch (ParseException | IOException e) {
+                        e.printStackTrace();
+                        mHandler.post(updateEventRunnable);
+                        return;
+                    }
+                } else {
+                    mHandler.post(updateEventRunnable);
+                }
+
+            }
+        }.start();
+    }
+
 
     //todo check if videos are empty
     private void uploadEvent() {
