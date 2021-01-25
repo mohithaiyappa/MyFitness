@@ -57,7 +57,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
 
 
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-    private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.US);
+    private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
     private final Calendar calendar = Calendar.getInstance();
     private TextView startDateTextView, endDateTextView, startTimeTextView, endTimeTextView, videoTotalTime, submitEvent;
     private CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
@@ -249,6 +249,13 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
                     return;
                 }
                 if (startTimeTextView.getText().toString().trim().isEmpty()) {
+                    AcknowledgementDialog dialog = new AcknowledgementDialog(getContext(),
+                            StringUtils.DID_NOT_SELECT_TIME);
+                    dialog.show();
+                    return;
+                }
+
+                if (checkIfEndTimeIsBeforeStartTime()) {
                     AcknowledgementDialog dialog = new AcknowledgementDialog(getContext(),
                             StringUtils.DID_NOT_SELECT_TIME);
                     dialog.show();
@@ -524,9 +531,31 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
         if (startDateTextView.getText().toString().trim().isEmpty()) return true;
         if (endDateTextView.getText().toString().trim().isEmpty()) return true;
 
+        try {
+            Date sDate = dateFormat.parse(startDateTextView.getText().toString().trim());
+            Date eDate = dateFormat.parse(endDateTextView.getText().toString().trim());
+
+            if (eDate != null && eDate.before(sDate)) return true;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
 
         return false;
 
+    }
+
+    private boolean checkIfEndTimeIsBeforeStartTime() {
+        try {
+            Date sTime = timeFormat.parse(startTimeTextView.getText().toString().trim());
+            Date eTime = timeFormat.parse(getEndTimeString());
+
+            if (eTime != null && eTime.before(sTime)) return true;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     //todo return video ids in selected Order - DONE
