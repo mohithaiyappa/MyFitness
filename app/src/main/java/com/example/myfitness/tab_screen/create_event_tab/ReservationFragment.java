@@ -8,7 +8,6 @@ import android.content.DialogInterface.OnDismissListener;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -609,6 +608,10 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
                             }
 
                             for (Event event : events) {
+                                if (currentEditingEvent.getE_id() == event.getE_id()) {
+                                    continue;
+                                }
+
                                 eventStartTime = dateAndTimeFormat.parse(event.getEventDate().trim()
                                         + " " + event.getStartTime().trim());
                                 eventEndTime = dateAndTimeFormat.parse(event.getEventDate().trim()
@@ -701,14 +704,6 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
     private void editExistingEvent(String eId) {
 
         selectedDateString = startDateTextView.getText().toString().trim();
-        Log.d("TestingUpload", "startDateTextView: " + startDateTextView.getText().toString().trim());
-        Log.d("TestingUpload", "endDateTextView: " + endDateTextView.getText().toString().trim());
-        Log.d("TestingUpload", "startTimeTextView: " + startTimeTextView.getText().toString().trim());
-        Log.d("TestingUpload", "getEndTimeString: " + getEndTimeString());
-        Log.d("TestingUpload", "getVideoIdsInOrder: " + getVideoIdsInOrder());
-        Log.d("TestingUpload", "getSelectedDaysText: " + getSelectedDaysText());
-        Log.d("TestingUpload", "mode: " + mode);
-        Log.d("TestingUpload", "eId: " + eId);
 
         RetrofitEvent.getEventApi().editEvent(EventRepo.userName,
                 startDateTextView.getText().toString().trim(),
@@ -722,10 +717,20 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
+                    String displayMessage = StringUtils.MESSAGE_EVENT_ADDED;
+                    try {
+
+                        String message = response.body().string();
+                        if (message.trim().equals("すでにスケジュールが登録されています"))
+                            displayMessage = "すでにスケジュールが登録されています";
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     EventAlarmManager.getInstance().resetAlarm(getActivity());
                     clearScreen(selectedDateString);
                     AcknowledgementDialog acknowledgementDialog = new AcknowledgementDialog(getContext(),
-                            StringUtils.MESSAGE_EVENT_ADDED);
+                            displayMessage);
                     OnDismissListener dismissListener = new OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
