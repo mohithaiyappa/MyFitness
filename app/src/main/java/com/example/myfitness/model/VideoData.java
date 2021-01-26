@@ -24,6 +24,8 @@ public class VideoData {
     private String videoUrl = "";
     @SerializedName("video_explanation")
     private String videoExplanation = "";
+    @SerializedName("user_only")
+    private String usersOnly = "";
 
     //getters
 
@@ -65,6 +67,10 @@ public class VideoData {
 
     public void setCalorie(String calorie) {
         this.calorie = calorie;
+    }
+
+    public String getUsersOnly() {
+        return usersOnly;
     }
 
     //setters
@@ -109,5 +115,7 @@ public class VideoData {
         this.videoExplanation = videoExplanation;
     }
 
-
+    public void setUsersOnly(String usersOnly) {
+        this.usersOnly = usersOnly;
+    }
 }

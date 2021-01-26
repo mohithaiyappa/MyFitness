@@ -15,6 +15,7 @@ import com.example.myfitness.utils.Selection;
 import com.example.myfitness.utils.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -96,7 +97,11 @@ public class TabScreenSharedViewModel extends ViewModel {
                     Log.d("CatTest", "onResponse: " + response.toString());
                     return;
                 }
+                List<String> usersOnlyList;
                 for (VideoData videoData : response.body()) {
+                    String[] users = videoData.getUsersOnly().split(",");
+                    usersOnlyList = new ArrayList<>(Arrays.asList(users));
+                    if (!usersOnlyList.contains(EventRepo.userName)) continue;
                     String[] subCategoryNames = videoData.getCategoryString().split(",");
                     Log.d("CatTest", "onResponse: " + subCategoryNames.toString());
                     for (Category cat : categoryList) {
