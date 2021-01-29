@@ -4,7 +4,9 @@
     <item android:drawable="@drawable/accent_background" android:state_hovered="true" />
     <item android:drawable="@drawable/accent_background" android:state_focused="true" />
     <item android:drawable="@drawable/accent_background" android:state_pressed="true" />
+    <item android:drawable="@drawable/accent_background" android:state_selected="true" />
     <item android:drawable="@drawable/white_background_stroke" android:state_hovered="false" />
     <item android:drawable="@drawable/white_background_stroke" android:state_focused="false" />
     <item android:drawable="@drawable/white_background_stroke" android:state_pressed="false" />
+    <item android:drawable="@drawable/white_background_stroke" android:state_selected="false" />
 </selector>
