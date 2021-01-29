@@ -9,10 +9,11 @@
     <TextView
         android:id="@+id/dayHeadingText"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="25dp"
         android:paddingHorizontal="7dp"
         android:paddingVertical="3dp"
         android:textSize="10sp"
+        android:gravity="center"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         android:background="@color/whiteColor"
         android:textAlignment="center" />
