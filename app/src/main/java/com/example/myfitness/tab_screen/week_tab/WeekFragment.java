@@ -270,6 +270,13 @@ public class WeekFragment extends Fragment {
         layoutManager.startSmoothScroll(smoothScroller);
     }
 
+    @Override
+    public void onPause() {
+        checkBox.setChecked(false);
+        handler.removeCallbacks(runnable);
+        super.onPause();
+    }
+
     public void clearAndLoadData() {
         events.clear();
         mCalendar.set(Calendar.HOUR_OF_DAY, 0); // ! clear would not reset the hour of day !
