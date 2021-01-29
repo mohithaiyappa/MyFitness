@@ -16,12 +16,12 @@
         <LinearLayout
             android:id="@+id/noticeLinearLayout"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:layout_marginStart="7dp"
             android:layout_marginTop="7dp"
             android:layout_marginEnd="7dp"
             android:layout_marginBottom="7dp"
-            android:background="@color/grayColor"
+            android:background="@drawable/rounded_border_background"
             android:orientation="vertical"
             android:padding="1dp"
             app:layout_constraintEnd_toStartOf="@id/guideline3"
@@ -31,14 +31,12 @@
             <ScrollView
                 android:id="@+id/notificationScrollView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/whiteColor">
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/notificationTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/whiteColor"
                     android:lineSpacingExtra="1dp"
                     android:paddingHorizontal="7dp"
                     android:textSize="8sp" />

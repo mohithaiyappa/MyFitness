@@ -5,8 +5,6 @@ import android.text.Spannable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -55,31 +53,9 @@ public class MonthFragment extends Fragment {
     }
 
     private void setNotificationText(Pair<Boolean, Spannable> booleanSpannablePair) {
+
         notificationTextView.setText("");
-        try {
-            boolean shouldWrap = booleanSpannablePair.first;
-            Spannable notificationText = booleanSpannablePair.second;
-
-            if (!shouldWrap) {
-                float dp = getResources().getDisplayMetrics().density;
-                LayoutParams lp = new LinearLayout.LayoutParams(
-                        LayoutParams.MATCH_PARENT,
-                        (int) (35 * dp));
-
-                notificationScrollView.setLayoutParams(lp);
-
-
-            } else {
-                LayoutParams lp = new LinearLayout.LayoutParams(
-                        LayoutParams.MATCH_PARENT,
-                        LayoutParams.WRAP_CONTENT);
-
-                notificationScrollView.setLayoutParams(lp);
-            }
-
-            notificationTextView.setText(notificationText);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+        Spannable notificationText = booleanSpannablePair.second;
+        notificationTextView.setText(notificationText);
     }
 }
