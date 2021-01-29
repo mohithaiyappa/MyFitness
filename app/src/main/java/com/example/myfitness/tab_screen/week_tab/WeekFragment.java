@@ -61,6 +61,8 @@ public class WeekFragment extends Fragment {
     private TextView monday, tuesday, wednesday, thursday, friday, saturday, sunday;
     private TextView wvStartTimeButton, wvEndTimeButton;
 
+    private int selectedHour = 9;
+
     private CheckBox checkBox;
 
     private ProgressDialog progressDialog;
@@ -112,9 +114,10 @@ public class WeekFragment extends Fragment {
             smoothScroller.setTargetPosition(globalCounter);
             layoutManager.startSmoothScroll(smoothScroller);
             globalCounter++;
-            if (globalCounter > 20) {
-                checkBox.setChecked(false);
-                return;
+            if (globalCounter > 14) {
+                //checkBox.setChecked(false);
+                globalCounter = 0;
+                //return;
             }
             handler.postDelayed(this, 1000);
         }
@@ -124,7 +127,7 @@ public class WeekFragment extends Fragment {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
-                globalCounter = 0;
+                globalCounter = selectedHour;
                 handler.postDelayed(runnable, 1000);
             } else handler.removeCallbacks(runnable);
 
@@ -141,6 +144,7 @@ public class WeekFragment extends Fragment {
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay,
                                               int minute) {
+                            selectedHour = hourOfDay;
                             String formattedTime = String.format(Locale.US, "%02d:%02d", hourOfDay, minute);
                             wvStartTimeButton.setText(formattedTime);
                             int endHour = hourOfDay + 9;
@@ -151,7 +155,7 @@ public class WeekFragment extends Fragment {
                             layoutManager.startSmoothScroll(smoothScroller);
 
                         }
-                    }, 9, 0, true);
+                    }, selectedHour, 0, true);
             timePickerDialog.setButton(TimePickerDialog.BUTTON_NEGATIVE, CANCEL_TEXT, timePickerDialog);
             DialogInterface.OnShowListener showListener = new DialogInterface.OnShowListener() {
 
@@ -262,7 +266,7 @@ public class WeekFragment extends Fragment {
 
 //        smoothScroller.setTargetPosition(9);
 //        layoutManager.startSmoothScroll(smoothScroller);
-        smoothScroller.setTargetPosition(9);
+        smoothScroller.setTargetPosition(selectedHour);
         layoutManager.startSmoothScroll(smoothScroller);
     }
 
