@@ -16,12 +16,26 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <VideoView
-        android:id="@+id/videoView"
+    <RelativeLayout
+        android:id="@+id/videoParent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="16:9"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView" />
+        app:layout_constraintTop_toBottomOf="@id/titleTextView">
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <FrameLayout
+            android:id="@+id/videoViewWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"></FrameLayout>
+
+    </RelativeLayout>
 
 
     <TextView
@@ -32,7 +46,7 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="11sp"
-        app:layout_constraintTop_toBottomOf="@id/videoView" />
+        app:layout_constraintTop_toBottomOf="@id/videoParent" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/videoExplanationNestedScroll"

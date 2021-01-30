@@ -4,14 +4,18 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
@@ -66,14 +70,29 @@ public class VideoPopupDialog extends Dialog {
     private ImageView view;
     private TextView selectedText;
 
+    private final Handler mHandler = new Handler();
+
+    private Runnable hideMediaControllerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (mediaController != null) mediaController.setVisibility(View.INVISIBLE);
+        }
+    };
+
     private View.OnClickListener videoClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            mHandler.removeCallbacks(hideMediaControllerRunnable);
+            if (mediaController != null) {
+                mediaController.setVisibility(View.VISIBLE);
+                mHandler.postDelayed(hideMediaControllerRunnable, 4000);
+            }
 
-            mediaController.show();
+
+            /*mediaController.show();
 
             if (videoView.isPlaying()) videoView.pause();
-            else videoView.start();
+            else videoView.start();*/
         }
     };
 
@@ -198,22 +217,57 @@ public class VideoPopupDialog extends Dialog {
     }
 
     private void startVideo() {
-        mediaController = new MediaController(videoView.getContext());
-        videoView.setMediaController(mediaController);
-        mediaController.setAnchorView(videoView);
-        videoView.requestFocus();
+        //mediaController = new MediaController(mContext);
+        //mediaController.setMediaPlayer(videoView);
+        //videoView.setMediaController(mediaController);
+        //mediaController.setAnchorView(videoView);
+        //videoView.requestFocus();
         videoView.setVideoURI(Uri.parse(videoData.getVideoUrl()));
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+        //mediaController.show();
+        /*videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
 
                 //mediaController.show();
                 mediaPlayer = mp;
-                mediaController.show(1000);
+                mediaController.show();
                 videoView.seekTo(1);
             }
-        });
+        });*/
         //videoView.start();
+
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
+                    @Override
+                    public void onVideoSizeChanged(MediaPlayer mp,
+                                                   int width, int height) {
+                        /*
+                         * add media controller
+                         */
+                        mediaController = new MediaController(mContext);
+                        videoView.setMediaController(mediaController);
+                        /*
+                         * and set its position on screen
+                         */
+                        mediaController.setAnchorView(videoView);
+
+                        ((ViewGroup) mediaController.getParent()).removeView(mediaController);
+
+                        ((FrameLayout) findViewById(R.id.videoViewWrapper))
+                                .addView(mediaController);
+                        videoView.pause();
+                        mediaController.setBackgroundColor(Color.parseColor("#10000000"));
+                        mediaController.setVisibility(View.VISIBLE);
+                        mHandler.postDelayed(hideMediaControllerRunnable, 4000);
+                        //mediaController.show(500);
+                    }
+                });
+                videoView.start();
+            }
+        });
         videoView.setOnClickListener(videoClickListener);
 
 
