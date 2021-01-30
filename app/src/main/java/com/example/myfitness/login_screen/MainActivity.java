@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        etEmail.requestFocus();
+
 
     }
 
