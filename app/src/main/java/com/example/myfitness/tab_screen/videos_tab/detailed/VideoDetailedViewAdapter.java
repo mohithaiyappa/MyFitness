@@ -101,7 +101,7 @@ public class VideoDetailedViewAdapter extends RecyclerView.Adapter<VideoDetailed
             VideoData vData = list.get(position);
             videoTitleText.setText(vData.getVideoTitle());
             videoLengthText.setText(vData.getVideoTime());
-            releaseDateText.setText(StringUtils.RELEASE_DATE_PREFIX + vData.getReleaseDate());
+            releaseDateText.setText(StringUtils.RELEASE_DATE_PREFIX + vData.getReleaseDate().replace("-", "/"));
             calBurntText.setText(StringUtils.CALORIE_COUNT_PREFIX + vData.getCalorie() + "kCal");
             irNameText.setText(vData.getIrName());
             picasso.load(vData.getThumbnailUrl()).into(thumbnailImage);
