@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyFitness</string>
+    <string name="app_name">HomeFitness24</string>
     <string name="title_activity_tab">TabActivity</string>
     <string name="tab_text_1">月表示</string>
     <string name="tab_text_2">週表示</string>
