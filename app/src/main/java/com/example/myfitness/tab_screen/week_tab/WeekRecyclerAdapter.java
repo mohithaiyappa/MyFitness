@@ -22,8 +22,14 @@ public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapte
 
     private List<NewWeekEvent> weekEvents = new ArrayList<>();
     private int background = Color.parseColor("#3F7388");
+    private int todayBackground = Color.parseColor("#303F7388");
+    private Calendar todayCal = Calendar.getInstance();
+
+    private int weekOfYear = -1;
+
 
     public WeekRecyclerAdapter(List<NewWeekEvent> events) {
+        todayCal.setFirstDayOfWeek(Calendar.MONDAY);
         weekEvents = events;
     }
 
@@ -45,7 +51,8 @@ public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapte
         return 24;
     }
 
-    public void updateData(List<NewWeekEvent> newEvents) {
+    public void updateData(List<NewWeekEvent> newEvents, int weekOfYear) {
+        this.weekOfYear = weekOfYear;
         weekEvents = newEvents;
         notifyDataSetChanged();
     }
@@ -105,6 +112,7 @@ public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapte
             String hrText = String.format("%02d:00", position);
             hourText.setText(hrText);
             clearViews();
+            setTodayBackground();
 
             try {
                 for (NewWeekEvent event : weekEvents) {
@@ -210,6 +218,81 @@ public class WeekRecyclerAdapter extends RecyclerView.Adapter<WeekRecyclerAdapte
             sundayQ3.setText("");
             sundayQ4.setBackgroundColor(Color.WHITE);
             sundayQ4.setText("");
+
+        }
+
+        public void setTodayBackground() {
+            if (weekOfYear != todayCal.get(Calendar.WEEK_OF_YEAR)) return;
+
+            if (todayCal.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
+                mondayQ1.setBackgroundColor(todayBackground);
+
+                mondayQ2.setBackgroundColor(todayBackground);
+
+                mondayQ3.setBackgroundColor(todayBackground);
+
+                mondayQ4.setBackgroundColor(todayBackground);
+            }
+
+            if (todayCal.get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY) {
+                tuesdayQ1.setBackgroundColor(todayBackground);
+
+                tuesdayQ2.setBackgroundColor(todayBackground);
+
+                tuesdayQ3.setBackgroundColor(todayBackground);
+
+                tuesdayQ4.setBackgroundColor(todayBackground);
+            }
+
+            if (todayCal.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY) {
+                wednesdayQ1.setBackgroundColor(todayBackground);
+
+                wednesdayQ2.setBackgroundColor(todayBackground);
+
+                wednesdayQ3.setBackgroundColor(todayBackground);
+
+                wednesdayQ4.setBackgroundColor(todayBackground);
+            }
+
+            if (todayCal.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY) {
+                thursdayQ1.setBackgroundColor(todayBackground);
+
+                thursdayQ2.setBackgroundColor(todayBackground);
+
+                thursdayQ3.setBackgroundColor(todayBackground);
+
+                thursdayQ4.setBackgroundColor(todayBackground);
+            }
+
+            if (todayCal.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
+                fridayQ1.setBackgroundColor(todayBackground);
+
+                fridayQ2.setBackgroundColor(todayBackground);
+
+                fridayQ3.setBackgroundColor(todayBackground);
+
+                fridayQ4.setBackgroundColor(todayBackground);
+            }
+
+            if (todayCal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
+                saturdayQ1.setBackgroundColor(todayBackground);
+
+                saturdayQ2.setBackgroundColor(todayBackground);
+
+                saturdayQ3.setBackgroundColor(todayBackground);
+
+                saturdayQ4.setBackgroundColor(todayBackground);
+            }
+
+            if (todayCal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+                sundayQ1.setBackgroundColor(todayBackground);
+
+                sundayQ2.setBackgroundColor(todayBackground);
+
+                sundayQ3.setBackgroundColor(todayBackground);
+
+                sundayQ4.setBackgroundColor(todayBackground);
+            }
 
         }
 

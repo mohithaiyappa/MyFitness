@@ -233,7 +233,7 @@ public class WeekFragment extends Fragment {
             @Override
             public void onChanged(List<NewWeekEvent> newWeekEvents) {
                 if (adapter != null)
-                    adapter.updateData(newWeekEvents);
+                    adapter.updateData(newWeekEvents, mCalendar.get(Calendar.WEEK_OF_YEAR));
                 if (progressDialog != null && progressDialog.isShowing())
                     progressDialog.dismiss();
 
@@ -260,7 +260,9 @@ public class WeekFragment extends Fragment {
         super.onResume();
 
         mCalendar = Calendar.getInstance();
-        clearAndLoadData();
+        if (mCalendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+            clearAndLoadData();
+        else loadPrevWeek();
 
 //        scrollView.smoothScrollTo(0,scrollView.getChildAt(0).getHeight());
 
@@ -275,6 +277,13 @@ public class WeekFragment extends Fragment {
         checkBox.setChecked(false);
         handler.removeCallbacks(runnable);
         super.onPause();
+    }
+
+    public void loadPrevWeek() {
+        Calendar todayCalendar = Calendar.getInstance();
+        if (todayCalendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) return;
+        mCalendar.add(Calendar.WEEK_OF_YEAR, -1);
+        clearAndLoadData();
     }
 
     public void clearAndLoadData() {
