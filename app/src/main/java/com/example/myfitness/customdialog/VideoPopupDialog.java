@@ -211,6 +211,8 @@ public class VideoPopupDialog extends Dialog {
                     selectedText.setVisibility(View.VISIBLE);
 
                 setTabName(event.getVideoArray().size());
+                EventAddedResponseDialog responseDialog = new EventAddedResponseDialog(mContext);
+                responseDialog.show();
                 dismiss();
             }
         });
