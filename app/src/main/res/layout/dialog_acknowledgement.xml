@@ -19,13 +19,13 @@
         android:id="@+id/okText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorAccent"
+        android:background="@drawable/selector_dialog_background"
         android:gravity="center"
         android:minHeight="30dp"
         android:minEms="15"
         android:text="OK"
         android:textAllCaps="true"
-        android:textColor="@color/white"
+        android:textColor="@color/selector_dialog_foreground_color"
         android:textSize="12sp"
         android:textStyle="bold" />
 

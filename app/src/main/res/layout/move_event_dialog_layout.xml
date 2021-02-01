@@ -11,12 +11,13 @@
         style="@style/Widget.MaterialComponents.TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorAccent"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/selector_dialog_background"
         android:gravity="center"
         android:minEms="20"
         android:padding="10dp"
         android:text="@string/move_up"
-        android:textColor="@color/white"
+        android:textColor="@color/selector_dialog_foreground_color"
         android:textSize="20sp" />
 
     <TextView
@@ -25,12 +26,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
-        android:background="@color/white"
+        android:background="@drawable/selector_dialog_background"
         android:gravity="center"
         android:minEms="20"
         android:padding="10dp"
         android:text="@string/move_down"
-        android:textColor="@color/black"
+        android:textColor="@color/selector_dialog_foreground_color"
         android:textSize="20sp" />
 
     <TextView
@@ -39,12 +40,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
-        android:background="@color/white"
+        android:background="@drawable/selector_dialog_background"
         android:gravity="center"
         android:minEms="20"
         android:padding="10dp"
         android:text="@string/delete"
-        android:textColor="@color/black"
+        android:textColor="@color/selector_dialog_foreground_color"
         android:textSize="20sp" />
 
     <TextView
@@ -52,12 +53,12 @@
         style="@style/Widget.MaterialComponents.TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/selector_dialog_background"
         android:gravity="center"
         android:minEms="20"
         android:padding="10dp"
         android:text="@string/cancel"
-        android:textColor="@color/black"
+        android:textColor="@color/selector_dialog_foreground_color"
         android:textSize="20sp" />
 
 </LinearLayout>
