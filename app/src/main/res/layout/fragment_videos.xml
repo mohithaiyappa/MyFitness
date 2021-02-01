@@ -12,10 +12,11 @@
         android:layout_marginLeft="7dp"
         android:gravity="center_vertical"
         android:text="戻る"
-        android:textColor="?attr/colorAccent"
-        app:iconTint="?attr/colorAccent"
+        android:background="@drawable/selector_button_background"
+        android:textColor="@color/selector_button_foreground_color"
         app:rippleColor="?attr/colorAccent"
         app:icon="@drawable/ic_arrow_back"
+        app:iconTint="@color/selector_button_foreground_color"
         app:layout_constraintBottom_toTopOf="@id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
