@@ -71,6 +71,10 @@ public class VideoViewActivity extends AppCompatActivity {
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                if (urlArray.size() == 1) {
+                    playVideoInLoop(urlArray.get(0));
+                    return;
+                }
                 playVideoInLoop(urlArray.get(counter++));
                 if (counter > urlArray.size() - 1) counter = 0;
             }
