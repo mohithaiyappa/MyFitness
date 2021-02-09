@@ -12,12 +12,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -61,6 +65,7 @@ public class VideoPopupDialog extends Dialog {
 
     private TextView titleText, videoDetails, videoExplanation, addToEvent, downloadVideo, cancelText;
     private VideoView videoView;
+    private ImageButton fullScreenButton;
 
     private MediaPlayer mediaPlayer;
     private MediaController mediaController;
@@ -127,6 +132,7 @@ public class VideoPopupDialog extends Dialog {
         downloadVideo = findViewById(R.id.downloadOrDelete);
         cancelText = findViewById(R.id.cancelButton);
         videoView = findViewById(R.id.videoView);
+        fullScreenButton = findViewById(R.id.fullscreenButton);
     }
 
     private void bindData() {
@@ -164,6 +170,73 @@ public class VideoPopupDialog extends Dialog {
                 else deleteFile();
             }
         });
+
+        fullScreenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onPopupWindowClick();
+            }
+        });
+    }
+
+    private void onPopupWindowClick() {
+        PopupWindow mPopupWindow;
+        VideoView popupVideoView;
+        View popupView;
+        ImageButton popupDismissButton;
+
+        mPopupWindow = new PopupWindow(mContext);
+        popupView = getLayoutInflater().inflate(R.layout.popup_window_video_view, null);
+
+        popupVideoView = popupView.findViewById(R.id.popupVideoView);
+        popupDismissButton = popupView.findViewById(R.id.popupDismissButton);
+
+        popupVideoView.setVideoPath(videoData.getVideoUrl());
+        //popupVideoView.start();
+        popupVideoView.setMediaController(new MediaController(mContext));
+        mPopupWindow.setContentView(popupView);
+
+
+        mPopupWindow.setOutsideTouchable(false);
+        mPopupWindow.setFocusable(true);
+
+        mPopupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        mPopupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+
+
+        popupDismissButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPopupWindow.isShowing()) {
+                    videoView.seekTo(popupVideoView.getCurrentPosition());
+                    mPopupWindow.dismiss();
+                }
+            }
+        });
+        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                VideoPopupDialog.this.show();
+            }
+        });
+        popupVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                popupVideoView.seekTo(0);
+            }
+        });
+        videoView.pause();
+        popupVideoView.seekTo(videoView.getCurrentPosition());
+
+        mHandler.removeCallbacks(hideMediaControllerRunnable);
+
+        if (mediaController != null)
+            mediaController.setVisibility(View.GONE);
+
+        VideoPopupDialog.this.hide();
+        mPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+
     }
 
     private void setupProgressDialog() {
@@ -268,6 +341,12 @@ public class VideoPopupDialog extends Dialog {
                     }
                 });
                 videoView.start();
+            }
+        });
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                videoView.seekTo(0);
             }
         });
         videoView.setOnClickListener(videoClickListener);

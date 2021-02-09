@@ -10,10 +10,23 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:padding="7dp"
-        android:textSize="12sp"
         android:textAppearance="?attr/textAppearanceHeadline6"
         android:textColor="@color/white"
+        android:textSize="12sp"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/fullscreenButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/ic_fullscreen"
+        android:backgroundTint="@color/java"
+        android:elevation="7dp"
+        android:scaleType="fitXY"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline6"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView" />
 
 
     <RelativeLayout
@@ -44,8 +57,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textStyle="bold"
         android:textSize="11sp"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/videoParent" />
 
     <androidx.core.widget.NestedScrollView
@@ -80,8 +93,8 @@
             android:layout_weight="1"
             android:background="@drawable/selector_dialog_background"
             android:gravity="center"
-            android:text="@string/add_to_event"
             android:paddingVertical="4dp"
+            android:text="@string/add_to_event"
             android:textColor="@color/selector_dialog_foreground_color"
             android:textSize="12sp" />
 
@@ -90,10 +103,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="Download"
-            android:paddingVertical="4dp"
             android:background="@drawable/selector_dialog_background"
+            android:gravity="center"
+            android:paddingVertical="4dp"
+            android:text="Download"
             android:textColor="@color/selector_dialog_foreground_color"
             android:textSize="12sp" />
 
@@ -102,12 +115,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/cancel"
-            android:paddingVertical="4dp"
             android:background="@drawable/selector_dialog_background"
+            android:gravity="center"
+            android:paddingVertical="4dp"
+            android:text="@string/cancel"
             android:textColor="@color/selector_dialog_foreground_color"
             android:textSize="12sp" />
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.90" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
