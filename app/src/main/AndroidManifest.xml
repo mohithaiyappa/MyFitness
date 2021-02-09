@@ -17,18 +17,6 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".video_screen.VideoViewActivity"
-            android:screenOrientation="landscape"></activity>
-        <activity
-            android:name=".Reservation"
-            android:screenOrientation="landscape"></activity>
-        <activity
-            android:name=".edit_reservation"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".CreateEventActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".search_result"
             android:screenOrientation="landscape" />
         <activity
             android:name=".tab_screen.TabActivity"
