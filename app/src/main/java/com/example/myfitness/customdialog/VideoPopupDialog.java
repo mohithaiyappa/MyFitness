@@ -333,10 +333,11 @@ public class VideoPopupDialog extends Dialog {
 
                         ((FrameLayout) findViewById(R.id.videoViewWrapper))
                                 .addView(mediaController);
-                        videoView.pause();
+                        videoView.start();
                         mediaController.setBackgroundColor(Color.parseColor("#10000000"));
-                        mediaController.setVisibility(View.VISIBLE);
-                        mHandler.postDelayed(hideMediaControllerRunnable, 4000);
+                        mediaController.setVisibility(View.INVISIBLE);
+                        //mHandler.postDelayed(hideMediaControllerRunnable, 4000);
+
                         //mediaController.show(500);
                     }
                 });
