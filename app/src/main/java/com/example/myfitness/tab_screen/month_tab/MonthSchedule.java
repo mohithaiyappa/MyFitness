@@ -26,7 +26,8 @@ import java.util.List;
 public class MonthSchedule extends Fragment {
 
     private TextView titleText;
-    private Button prevButton, nextButton, todayButton;
+    private Button prevButton, nextButton;
+    private TextView todayButton;
     private CalendarAdapter mCalendarAdapter;
     private DayHeadingTextAdapter dayHeadingTextAdapter;
     private GridView calendarGridView, headingGridView;

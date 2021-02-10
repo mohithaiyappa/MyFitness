@@ -5,7 +5,6 @@ import android.os.StatFs;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,7 +29,7 @@ import java.text.DecimalFormat;
 public class VideosFragment extends Fragment {
 
     private TextView emptySpaceText;
-    private Button backButton;
+    private TextView backButton;
 
     private FragmentManager childFragmentManager;
 

@@ -63,13 +63,16 @@
             app:iconPadding="0dp"
             app:iconTint="@color/black" />
 
-        <com.google.android.material.button.MaterialButton
+        <TextView
             android:id="@+id/goToToday"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="40dp"
             android:layout_height="30dp"
             android:paddingHorizontal="0dp"
+
             android:layout_alignParentStart="true"
+            android:layout_alignTop="@id/prevButton"
+            android:layout_alignBottom="@id/prevButton"
+            android:layout_marginVertical="4dp"
             android:paddingVertical="2dp"
             android:textSize="9sp"
             android:background="@drawable/selector_button_background"

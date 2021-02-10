@@ -55,7 +55,8 @@ public class WeekFragment extends Fragment {
     private LayoutManager layoutManager;
     private Calendar mCalendar = Calendar.getInstance();
 
-    private Button prevButton, nextButton, todayButton;
+    private Button prevButton, nextButton;
+    private TextView todayButton;
 
     private TextView titleTextView, notificationTextView;
     private TextView monday, tuesday, wednesday, thursday, friday, saturday, sunday;

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.button.MaterialButton
+    <TextView
         android:id="@+id/backButton"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
@@ -15,7 +15,8 @@
         android:background="@drawable/selector_button_background"
         android:textColor="@color/selector_button_foreground_color"
         app:rippleColor="?attr/colorAccent"
-        app:icon="@drawable/ic_arrow_back"
+        android:drawableStart="@drawable/ic_arrow_back"
+        android:drawableTint="@color/selector_button_foreground_color"
         android:textSize="20sp"
         app:iconSize="20sp"
         app:iconTint="@color/selector_button_foreground_color"
