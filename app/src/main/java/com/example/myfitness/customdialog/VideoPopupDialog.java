@@ -138,8 +138,8 @@ public class VideoPopupDialog extends Dialog {
     private void bindData() {
         titleText.setText(videoData.getVideoTitle());
         String detailsText = videoData.getIrName()
-                + "  ·  " + videoData.getCalorie()
-                + "  ·  " + videoData.getReleaseDate();
+                + "  ·  " + videoData.getCalorie() + "kcal "
+                + "  ·  " + videoData.getReleaseDate().replace("-", "/");
         videoDetails.setText(detailsText);
         String explanationText = videoData.getVideoExplanation();
 
