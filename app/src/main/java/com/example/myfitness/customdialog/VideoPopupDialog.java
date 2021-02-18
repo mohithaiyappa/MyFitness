@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -188,8 +189,10 @@ public class VideoPopupDialog extends Dialog {
         View popupView;
         ImageButton popupDismissButton;
 
-        mPopupWindow = new PopupWindow(mContext);
         popupView = getLayoutInflater().inflate(R.layout.popup_window_video_view, null);
+        mPopupWindow = new PopupWindow(popupView,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
 
         popupVideoView = popupView.findViewById(R.id.popupVideoView);
         popupDismissButton = popupView.findViewById(R.id.popupDismissButton);
@@ -237,7 +240,7 @@ public class VideoPopupDialog extends Dialog {
             mediaController.setVisibility(View.GONE);
 
         VideoPopupDialog.this.hide();
-        mPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+        mPopupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
 
 
     }
