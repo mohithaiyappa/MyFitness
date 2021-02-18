@@ -377,6 +377,21 @@
             app:layout_constraintStart_toEndOf="@id/guideline_right_display_divider"
             app:layout_constraintTop_toBottomOf="@id/saturdayCheckBox" />
 
+        <TextView
+            android:id="@+id/clearVideosBtn"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginVertical="2dp"
+            android:background="?attr/colorAccent"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/cancel"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toTopOf="@id/submitEvent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/submitEvent"

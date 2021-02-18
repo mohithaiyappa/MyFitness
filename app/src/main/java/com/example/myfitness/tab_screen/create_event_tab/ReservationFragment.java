@@ -61,7 +61,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
     private final Calendar calendar = Calendar.getInstance();
-    private TextView startDateTextView, endDateTextView, startTimeTextView, endTimeTextView, videoTotalTime, submitEvent;
+    private TextView startDateTextView, endDateTextView, startTimeTextView, endTimeTextView, videoTotalTime, submitEvent, clearVideos;
     private CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
     private final EventRepo eventRepo = EventRepo.getInstance();
     private RecyclerView recyclerView;
@@ -167,6 +167,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
         videoTotalTime = view.findViewById(R.id.videoTotalTime);
         recyclerView = view.findViewById(R.id.videoItems);
         submitEvent = view.findViewById(R.id.submitEvent);
+        clearVideos = view.findViewById(R.id.clearVideosBtn);
 
         //checkBox views
         monday = view.findViewById(R.id.mondayCheckBox);
@@ -275,6 +276,13 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
                 }*/
 
 
+            }
+        });
+
+        clearVideos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.removeAll();
             }
         });
 
