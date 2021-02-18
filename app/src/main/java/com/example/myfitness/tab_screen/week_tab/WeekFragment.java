@@ -228,6 +228,7 @@ public class WeekFragment extends Fragment {
                 };
 
         wvStartTimeButton.setOnClickListener(startTimeListener);
+        wvEndTimeButton.setOnClickListener(startTimeListener);
 
 
         eventsLiveData.observe(getViewLifecycleOwner(), new Observer<List<NewWeekEvent>>() {
