@@ -54,6 +54,8 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
 
     private static final String CANCEL_TEXT = "キャンセル";
     private static final String TAB_NAME = "スケジュール作成";
+    private static final String RESERVATION_TEXT = "登録";
+    private static final String EDIT_RESERVATION_TEXT = "更新";
 
 
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
@@ -294,6 +296,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
             endTimeTextView.setText(timeFormat.format(calendar.getTime()));
             endTimeTextView.setText(StringUtils.TIME_EMPTY_STRING);
             setTabName(0);
+            submitEvent.setText(RESERVATION_TEXT);
         } else {
             startDateTextView.setText(event.getEventStartDate());
             endDateTextView.setText(event.getEventEndDate());
@@ -306,6 +309,11 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
             else
                 endTimeTextView.setText(event.getEndTime());
             setTabName(event.getVideoArray().size());
+            if (event.getE_id() == -1) {
+                submitEvent.setText(RESERVATION_TEXT);
+            } else {
+                submitEvent.setText(EDIT_RESERVATION_TEXT);
+            }
         }
     }
 
