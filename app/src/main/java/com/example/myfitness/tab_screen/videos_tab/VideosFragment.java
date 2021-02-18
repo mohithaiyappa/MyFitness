@@ -64,6 +64,9 @@ public class VideosFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        while (childFragmentManager.getBackStackEntryCount() > 1) {
+            childFragmentManager.popBackStackImmediate();
+        }
         //viewModel.loadDataFromNetwork();
         //loadVideoData();
     }
