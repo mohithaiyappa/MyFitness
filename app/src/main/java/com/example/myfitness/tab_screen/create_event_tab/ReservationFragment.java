@@ -106,6 +106,65 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
         }
     };
 
+    private View.OnClickListener editEventStartDateClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Locale.setDefault(Locale.JAPAN);
+            Calendar cal = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int date = calendar.get(Calendar.DAY_OF_MONTH);
+
+            //return if getActivity returns null
+            Context context = getActivity();
+            if (context == null) return;
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(year, month, dayOfMonth);
+
+                    startDateTextView.setText(dateFormat.format(calendar.getTime()));
+                    endDateTextView.setText(dateFormat.format(calendar.getTime()));
+                }
+            }, year, month, date);
+
+            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+            datePickerDialog.setButton(DatePickerDialog.BUTTON_NEGATIVE, CANCEL_TEXT, datePickerDialog);
+            datePickerDialog.show();
+        }
+    };
+
+    private View.OnClickListener newEventStartDateClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Locale.setDefault(Locale.JAPAN);
+            Calendar cal = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int date = calendar.get(Calendar.DAY_OF_MONTH);
+
+            //return if getActivity returns null
+            Context context = getActivity();
+            if (context == null) return;
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(year, month, dayOfMonth);
+
+                    startDateTextView.setText(dateFormat.format(calendar.getTime()));
+                }
+            }, year, month, date);
+
+            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+            datePickerDialog.setButton(DatePickerDialog.BUTTON_NEGATIVE, CANCEL_TEXT, datePickerDialog);
+            datePickerDialog.show();
+        }
+    };
+
     private final Observer<Event> editEventObserver = new Observer<Event>() {
         @Override
         public void onChanged(Event event) {
@@ -199,12 +258,12 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
         sunday.setOnCheckedChangeListener(this);
 
         //datePickers
-        startDateTextView.setOnClickListener(new View.OnClickListener() {
+        /*startDateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog((TextView) v);
             }
-        });
+        });*/
         endDateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -304,6 +363,8 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
             endTimeTextView.setText(timeFormat.format(calendar.getTime()));
             endTimeTextView.setText(StringUtils.TIME_EMPTY_STRING);
             setTabName(0);
+            endDateTextView.setClickable(true);
+            startDateTextView.setOnClickListener(newEventStartDateClickListener);
             submitEvent.setText(RESERVATION_TEXT);
         } else {
             startDateTextView.setText(event.getEventStartDate());
@@ -318,8 +379,12 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
                 endTimeTextView.setText(event.getEndTime());
             setTabName(event.getVideoArray().size());
             if (event.getE_id() == -1) {
+                endDateTextView.setClickable(true);
+                startDateTextView.setOnClickListener(newEventStartDateClickListener);
                 submitEvent.setText(RESERVATION_TEXT);
             } else {
+                endDateTextView.setClickable(false);
+                startDateTextView.setOnClickListener(editEventStartDateClickListener);
                 submitEvent.setText(EDIT_RESERVATION_TEXT);
             }
         }
