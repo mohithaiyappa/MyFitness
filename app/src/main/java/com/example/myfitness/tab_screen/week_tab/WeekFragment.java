@@ -64,6 +64,8 @@ public class WeekFragment extends Fragment {
 
     private int selectedHour = 9;
 
+    private int startHour = 9, startMin = 0, endHour = 18, endMin = 0;
+
     private CheckBox checkBox;
 
     private ProgressDialog progressDialog;
@@ -146,23 +148,55 @@ public class WeekFragment extends Fragment {
                         public void onTimeSet(TimePicker view, int hourOfDay,
                                               int minute) {
                             selectedHour = hourOfDay;
+                            startHour = hourOfDay;
+                            startMin = minute;
                             String formattedTime = String.format(Locale.US, "%02d:%02d", hourOfDay, minute);
                             wvStartTimeButton.setText(formattedTime);
-                            int endHour = hourOfDay + 9;
+                            /*int endHour = hourOfDay + 9;
                             if (endHour > 23) endHour = 23;
                             String formattedEndTime = String.format(Locale.US, "%02d:%02d", endHour, minute);
-                            wvEndTimeButton.setText(formattedEndTime);
+                            wvEndTimeButton.setText(formattedEndTime);*/
                             smoothScroller.setTargetPosition(hourOfDay);
                             layoutManager.startSmoothScroll(smoothScroller);
 
                         }
-                    }, selectedHour, 0, true);
+                    }, startHour, startMin, true);
             timePickerDialog.setButton(TimePickerDialog.BUTTON_NEGATIVE, CANCEL_TEXT, timePickerDialog);
             DialogInterface.OnShowListener showListener = new DialogInterface.OnShowListener() {
 
                 @Override
                 public void onShow(DialogInterface dialog) {
-                    timePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.LTGRAY);
+                    timePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.GRAY);
+                    timePickerDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.java));
+                }
+            };
+            timePickerDialog.setOnShowListener(showListener);
+            timePickerDialog.show();
+        }
+    };
+
+    private View.OnClickListener endTimeListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            handler.removeCallbacks(runnable);
+            TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),
+                    new TimePickerDialog.OnTimeSetListener() {
+
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay,
+                                              int minute) {
+                            endHour = hourOfDay;
+                            endMin = minute;
+                            String formattedTime = String.format(Locale.US, "%02d:%02d", hourOfDay, minute);
+                            wvEndTimeButton.setText(formattedTime);
+                        }
+                    }, endHour, endMin, true);
+            timePickerDialog.setButton(TimePickerDialog.BUTTON_NEGATIVE, CANCEL_TEXT, timePickerDialog);
+            DialogInterface.OnShowListener showListener = new DialogInterface.OnShowListener() {
+
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    timePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.GRAY);
                     timePickerDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.java));
                 }
             };
@@ -228,7 +262,7 @@ public class WeekFragment extends Fragment {
                 };
 
         wvStartTimeButton.setOnClickListener(startTimeListener);
-        wvEndTimeButton.setOnClickListener(startTimeListener);
+        wvEndTimeButton.setOnClickListener(endTimeListener);
 
 
         eventsLiveData.observe(getViewLifecycleOwner(), new Observer<List<NewWeekEvent>>() {
@@ -272,6 +306,11 @@ public class WeekFragment extends Fragment {
 //        layoutManager.startSmoothScroll(smoothScroller);
         smoothScroller.setTargetPosition(selectedHour);
         layoutManager.startSmoothScroll(smoothScroller);
+
+        String formattedTime = String.format(Locale.US, "%02d:%02d", startHour, startMin);
+        wvStartTimeButton.setText(formattedTime);
+        formattedTime = String.format(Locale.US, "%02d:%02d", endHour, endMin);
+        wvEndTimeButton.setText(formattedTime);
     }
 
     @Override
