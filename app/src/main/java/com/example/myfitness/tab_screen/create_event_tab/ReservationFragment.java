@@ -66,6 +66,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
     private final EventRepo eventRepo = EventRepo.getInstance();
     private RecyclerView recyclerView;
     private CreateEventsVideoDetailsAdapter adapter;
+    private TextView addMoreVideos;
 
     private String mode = StringUtils.EVENT_MODE_SINGLE;
 
@@ -227,6 +228,7 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
         recyclerView = view.findViewById(R.id.videoItems);
         submitEvent = view.findViewById(R.id.submitEvent);
         clearVideos = view.findViewById(R.id.clearVideosBtn);
+        addMoreVideos = view.findViewById(R.id.addVideosBtn);
 
         //checkBox views
         monday = view.findViewById(R.id.mondayCheckBox);
@@ -342,6 +344,13 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
             @Override
             public void onClick(View v) {
                 adapter.removeAll();
+            }
+        });
+
+        addMoreVideos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((CustomViewPager) ((TabActivity) getContext()).findViewById(R.id.view_pager)).moveTo(2);
             }
         });
 
