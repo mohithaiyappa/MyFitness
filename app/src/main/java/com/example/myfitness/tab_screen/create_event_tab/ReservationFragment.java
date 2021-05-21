@@ -810,12 +810,14 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
                     };
                     acknowledgementDialog.setOnDismissListener(dismissListener);
                     acknowledgementDialog.show();
+                }else{
+                    showCouldNotAddEventDialog();
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                showCouldNotAddEventDialog();
             }
         });
     }
@@ -866,14 +868,21 @@ public class ReservationFragment extends Fragment implements CompoundButton.OnCh
                     };
                     acknowledgementDialog.setOnDismissListener(dismissListener);
                     acknowledgementDialog.show();
-                }
+                } else showCouldNotAddEventDialog();
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                showCouldNotAddEventDialog();
             }
         });
+    }
+
+    private void showCouldNotAddEventDialog(){
+        String displayMessage = "error message";
+        AcknowledgementDialog acknowledgementDialog = new AcknowledgementDialog(getContext(),
+                displayMessage);
+        acknowledgementDialog.show();
     }
 
     @Override
