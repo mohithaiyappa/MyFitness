@@ -1,5 +1,6 @@
 package com.example.myfitness.tab_screen.month_tab;
 
+import com.example.myfitness.repository.EventRepo;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,6 +14,14 @@ public class DateManager {
 
     public DateManager() {
         mCalendar = Calendar.getInstance();
+
+        Date selectedDate = EventRepo.getInstance().getSelectedDate().getValue();
+
+        if(selectedDate == null)
+            selectedDate = new Date();
+
+        mCalendar.setTime(selectedDate);
+
     }
 
     //当月の要素を取得
