@@ -16,6 +16,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
 
 import com.example.myfitness.R;
 import com.example.myfitness.login_screen.MainActivity;
@@ -23,6 +25,7 @@ import com.example.myfitness.repository.EventRepo;
 import com.example.myfitness.ui.main.SectionsPagerAdapter;
 import com.example.myfitness.utils.CustomViewPager;
 import com.example.myfitness.utils.EventAlarmManager;
+import com.example.myfitness.utils.ResetEventAlarmWorker;
 import com.example.myfitness.utils.StringUtils;
 import com.google.android.material.tabs.TabLayout;
 
@@ -51,6 +54,7 @@ public class TabActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
         viewModel = new ViewModelProvider(this).get(TabScreenSharedViewModel.class);
         checkIfPermissionIsNeeded();
+        setupAutoAlarmWorker();
 
 
     }
@@ -99,6 +103,11 @@ public class TabActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+
+        //cancel all work when app closes
+        WorkManager workManager = WorkManager.getInstance(this);
+        workManager.cancelAllWorkByTag(ResetEventAlarmWorker.TAG_RESET_EVENT_ALARM);
+
         EventAlarmManager.getInstance().removeAlarm(this);
         super.onDestroy();
     }
@@ -127,6 +136,16 @@ public class TabActivity extends AppCompatActivity {
         } else {
             ActivityCompat.requestPermissions(TabActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
         }
+    }
+
+    private void setupAutoAlarmWorker(){
+
+        //build work request
+        WorkRequest workRequest = ResetEventAlarmWorker.getNewResetEventAlarmWorkRequest();
+
+        //enqueue work
+        WorkManager workManager = WorkManager.getInstance(this);
+        workManager.enqueue(workRequest);
     }
 
     public void disableTabScrolling() {
